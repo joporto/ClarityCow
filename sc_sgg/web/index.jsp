@@ -15,9 +15,9 @@
      Listado de Razas
      <br>
         <%
-            dao.RazaDAO rdao = new dao.RazaDAO();
+            cl.sgg.dao.RazaDAO rdao = new cl.sgg.dao.RazaDAO();
             
-            for(edm.Raza arg : rdao.getList())
+            for(cl.sgg.edm.Raza arg : rdao.getList())
             {
                 out.print(arg.getRazaNombre());
         %>

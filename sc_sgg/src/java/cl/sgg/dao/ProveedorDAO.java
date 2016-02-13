@@ -30,7 +30,8 @@ public class ProveedorDAO {
             sessionA.getTransaction().rollback();
             sessionA.close();
             System.err.println(e.getMessage());
-            throw e;            
+            
+            throw new Exception("error en ProveedorDAO "+e.getMessage());            
         }      
     }
     

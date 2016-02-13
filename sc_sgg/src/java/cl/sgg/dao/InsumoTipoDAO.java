@@ -97,7 +97,7 @@ public class InsumoTipoDAO {
         try {
             session.beginTransaction();
 
-            cl.sgg.edm.InsumoTipo tmp = (cl.sgg.edm.InsumoTipo) session.createCriteria(cl.sgg.edm.InsumoTipo.class)
+              cl.sgg.edm.InsumoTipo tmp = (cl.sgg.edm.InsumoTipo) session.createCriteria(cl.sgg.edm.InsumoTipo.class)
                     .add(Restrictions.eq("insumotipoId", id))
                     .uniqueResult();
             
@@ -119,7 +119,7 @@ public class InsumoTipoDAO {
         try {
             session.beginTransaction();
 
-            cl.sgg.edm.InsumoTipo tmp = (cl.sgg.edm.InsumoTipo) session.createCriteria(cl.sgg.edm.InsumoTipo.class)
+              cl.sgg.edm.InsumoTipo tmp = (cl.sgg.edm.InsumoTipo) session.createCriteria(cl.sgg.edm.InsumoTipo.class)
                     .add(Restrictions.eq("insumotipoDs", nombre))
                     .uniqueResult();
             
