@@ -1,15 +1,14 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-Document   : home
-    Created on : 29-ene-2016, 15:39:55
+<%-- 
+    Document   : login
+    Created on : 13-feb-2016, 3:40:03
     Author     : javierOporto
--->
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
     <head>
-        <title>Login SGG - SmartClarity</title>
+        <title>Login SGG</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,26 +29,36 @@ Document   : home
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
- 
     </head>
     <body>
+        <%
+            if(request.getParameter("cmd") != null)
+            {     
+                if(request.getParameter("cmd").equals("close"))
+                request.getSession().setAttribute("userSession",null);
+            }
+        %>
+        
+        
     <div class="container">
         <form class="form-signin" action="LoginServlet" method="post">
-        <h2>SGG - SmartClarity</h2>
-        <h3 class="form-signin-heading">Iniciar Sesión</h3>
-        <label for="inputUsuario" class="sr-only">Usuario</label>
-        <input type="text" id="inputEmail" class="form-control" placeholder="Usuario" required autofocus name="Usuario">
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="password" required name="password">
+        
+            <h2>SGG SmartClarity</h2>
+            <h3 class="form-signin-heading">Iniciar Sesión</h3>
+        
+            <label for="inputUsuario" class="sr-only">Usuario</label>
+            <input type="text" id="inputEmail" class="form-control" placeholder="Usuario" required autofocus name="Usuario">
+        
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required name="password">
+        
         <div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me"> Recordar contraseña
           </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-      </form>
-
-    </div> <!-- /container -->
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+        </form>
+    </div> 
     </body>
 </html>
-

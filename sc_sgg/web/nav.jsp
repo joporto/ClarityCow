@@ -1,74 +1,128 @@
 <%-- 
     Document   : nav
     Created on : 11-feb-2016, 12:12:25
-    Author     : Murciegalo
+    Author     : Murciegalo - Joporto
 --%>
-
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Las Vaquitas</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="/index.jsp">Inicio</a></li>
-      <li><a href="#">Histórico Animal</a></li>
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Manejos
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">  
-          <li><a href="#">Parto</a></li> 
-          <li><a href="#">Inseminación</a></li> 
-          <li><a href="#">Palpación</a></li> 
-          <li><a href="#">Manejo de Enfermedades</a></li> 
-          <li><a href="#">Medición de Pelvis</a></li> 
-          <li><a href="pages/manejos/bajaAnimales.jsp">Baja de animales</li> 
-          <li><a href="#">Cargar DIIO</li> 
-          <li><a href="#">Cambio DIIO</li> 
-          <li><a href="#">Compra Animal</li> 
-          <li><a href="#">Verificación Animal</li>  
-        </ul>
-        </li>
-      <li><a href="#">Traslados</a></li> 
-      <li><a href="#">Feedlot</a></li> 
-       <li><a href="#">Ventas</a></li> 
-       <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Maestros
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li class="dropdown-submenu"><a tabindex="0">Maestro Animal</a>
-            <ul class="dropdown-menu">    
-               <li><a  href="pages/maestros/gestionRaza.jsp" tabindex="0">Gestión de Raza</a></li>             
-               <li><a tabindex="0">Gestión de Estado Animal</a></li>
-               <li><a tabindex="0">Gestión de Categorias</a></li>
-               <li><a tabindex="0">Gestión de Sexo</a></li>
-               <li><a tabindex="0">Gestión de Grupos de Peso</a></li>
-            </ul>
-          </li> 
-         <li class="dropdown-submenu"><a tabindex="0">Maestro Generales</a>
-            <ul class="dropdown-menu">
-               <li><a tabindex="0">Proveedores</a></li>
-               <li><a tabindex="0">Clientes</a></li>
-               <li><a tabindex="0">Tipo evento</a></li>        
-            </ul>
-        </li> 
-            <li class="dropdown-submenu"><a tabindex="0">Maestros RUP</a>
-            <ul class="dropdown-menu">
-               <li><a tabindex="0">Tipo de RUP</a></li>
-               <li><a tabindex="0">Establecimiento Agricola</a></li>
-               <li><a tabindex="0">Corrales</a></li>        
-            </ul>
-        </li> 
-          <li><a href="#">Maestros Insumos</a></li> 
-          <li><a href="#">Maestros Transporte</a></li> 
-          <li><a href="#">Maestros Usuarios</a></li> 
-          <li><a href="#">Alimentación</a></li> 
-        </ul>
-      </li>
-         <li><a href="#">Reportes</a></li> 
-    </ul>
-       <ul class="nav navbar-nav navbar-right">
-       <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Iniciar Sesión</a></li>
+<!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Menú</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                 <a class="navbar-brand" href="index.jsp">SC - SGG</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">Histórico Animal</a>
+                    </li>
+                    <li class="dropdown">
+                    <a href="#" 
+                       class="dropdown-toggle" 
+                       data-toggle="dropdown" 
+                       role="button" 
+                       aria-haspopup="true" 
+                       aria-expanded="false">Manejos 
+                     <span class="caret"></span>
+                    </a>
+                            <ul class="dropdown-menu">
+                              <li><a href="#">Parto</a></li>
+                              <li><a href="#">Inseminación</a></li>
+                              <li><a href="#">Palpación</a></li>
+                              <li><a href="#">Manejo de enfermedades</a></li>
+                              <li><a href="#">Medición de pelvis</a></li>
+                              <li><a href="#">Baja de animales</a></li>
+                              <li><a href="#">Cargar DIIO</a></li>
+                              <li><a href="#">Cambio DIIO</a></li>
+                              <li><a href="#">Compra Animal</a></li>
+                              <li><a href="#">Verificación Animal</a></li>
+                            </ul>
+                    </li>
+                    <li class="dropdown">
+                    <a href="#" 
+                       class="dropdown-toggle" 
+                       data-toggle="dropdown" 
+                       role="button" 
+                       aria-haspopup="true" 
+                       aria-expanded="false">Traslados 
+                     <span class="caret"></span>
+                    </a>
+                            <ul class="dropdown-menu">
+                              <li><a href="#">Traslado</a></li>
+                              <li><a href="#">Cambios de corral</a></li>
+                            </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="#">Pesaje</a>
+                    </li>
+                    <li class="dropdown">
+                    <a href="#" 
+                       class="dropdown-toggle" 
+                       data-toggle="dropdown" 
+                       role="button" 
+                       aria-haspopup="true" 
+                       aria-expanded="false">Feedlot 
+                     <span class="caret"></span>
+                    </a>
+                            <ul class="dropdown-menu">
+                              <li><a href="#">Traslado de destete</a></li>
+                              <li><a href="#">Manejo de destete</a></li>
+                              <li><a href="#">Separación Feedlot</a></li>
+                              <li><a href="#">Pesaje Feedlot</a></li>
+                            </ul>
+                    </li>
+                    <li>
+                        <a href="#">Ventas</a>
+                    </li>
+                    <li class="dropdown">
+                    <a href="#" 
+                       class="dropdown-toggle" 
+                       data-toggle="dropdown" 
+                       role="button" 
+                       aria-haspopup="true" 
+                       aria-expanded="false">Maestros 
+                     <span class="caret"></span>
+                    </a>
+                            <ul class="dropdown-menu">
+                              <li><a href="#">Animal</a></li>
+                              <li><a href="#">Generales</a></li>
+                              <li><a href="#">RUP</a></li>
+                              <li><a href="#">Insumos</a></li>
+                              <li><a href="#">Transporte</a></li>
+                              <li><a href="#">Usuarios</a></li>
+                              <li><a href="#">Alimentación</a></li>
+                            </ul>
+                    </li>
+                    <li>
+                        <a href="#">Reportes</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+        <li><a href="login.jsp?cmd=close"><span class="glyphicon glyphicon-log-in"></span> Cerrar Sesión</a></li>
       </ul>
-  </div>
-</nav>
+                
+        </div>
+            <!-- /.navbar-collapse --> 
+           
+            <!-- /. User identificación y logout-->
+            <%
+            if(request.getSession().getAttribute("userSession") != null)       
+            {
+                cl.sgg.utils.UserSession usr = (cl.sgg.utils.UserSession) request.getSession().getAttribute("userSession");
+             
+            %>
+           <a>Usuario: <%= usr.getUserName() %> </a>
+           <br>
+           <%
+            }
+           %>
+        </div>
+    <!-- /.container -->
+    </nav>
