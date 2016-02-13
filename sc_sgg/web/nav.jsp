@@ -14,7 +14,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                 <a class="navbar-brand" href="index.jsp">SC - SGG</a>
+                 <a class="navbar-brand" href="/index.jsp">SC - SGG</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -37,7 +37,7 @@
                               <li><a href="#">Palpación</a></li>
                               <li><a href="#">Manejo de enfermedades</a></li>
                               <li><a href="#">Medición de pelvis</a></li>
-                              <li><a href="#">Baja de animales</a></li>
+                              <li><a href="pages/manejos/bajaAnimales2.jsp">Baja de animales</a></li>
                               <li><a href="#">Cargar DIIO</a></li>
                               <li><a href="#">Cambio DIIO</a></li>
                               <li><a href="#">Compra Animal</a></li>
