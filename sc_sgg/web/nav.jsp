@@ -30,15 +30,13 @@
       <li><a href="#">Traslados</a></li> 
       <li><a href="#">Feedlot</a></li> 
        <li><a href="#">Ventas</a></li> 
-
        <li class="dropdown">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Maestros
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li class="dropdown-submenu"><a tabindex="0">Maestro Animal</a>
             <ul class="dropdown-menu">    
-               <li><a  href="pages/maestros/gestionRaza.jsp" tabindex="0">Gestión de Raza</a></li>
-             
+               <li><a  href="pages/maestros/gestionRaza.jsp" tabindex="0">Gestión de Raza</a></li>             
                <li><a tabindex="0">Gestión de Estado Animal</a></li>
                <li><a tabindex="0">Gestión de Categorias</a></li>
                <li><a tabindex="0">Gestión de Sexo</a></li>

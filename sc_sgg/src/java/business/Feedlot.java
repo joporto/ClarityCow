@@ -3,11 +3,12 @@ package business;
 import java.util.Date;
 import java.util.List;
 import utils.Respuesta;
-import edm.Animal;
+import cl.sgg.edm.*;
+import cl.sgg.dao.*;
 
 public class Feedlot
 {
-    List<edm.Animal> listAnimal;
+    List<Animal> listAnimal;
 
     public List<Animal> getListAnimal() {
         return listAnimal;
@@ -27,7 +28,7 @@ public class Feedlot
     {
         try 
         {
-            dao.AnimalDAO adao = new dao.AnimalDAO();
+            AnimalDAO adao = new AnimalDAO();
             listAnimal = adao.getList();
         } 
         catch (Exception e) 

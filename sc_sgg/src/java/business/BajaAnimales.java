@@ -3,7 +3,8 @@ package business;
 import java.util.Date;
 import java.util.List;
 import utils.Respuesta;
-import edm.Animal;
+import cl.sgg.edm.*;
+import cl.sgg.dao.*;
 
 public class BajaAnimales
 {
@@ -15,7 +16,7 @@ public class BajaAnimales
     private String MotivoAparente;
     private List<String> listaCb;
     private int idAnimal;
-    private edm.Animal animal;
+    private Animal animal;
 
     public Animal getAnimal() {
         return animal;
@@ -101,8 +102,8 @@ public class BajaAnimales
             Respuesta r = new Respuesta();
             if ("Muerto".equals(motivo))
             {
-                dao.EstadoAnimalDAO eDao = new dao.EstadoAnimalDAO();
-                for (edm.EstadoAnimal arg : eDao.getListByTipoEstado(2)) //Tipo estado Muerto
+                EstadoAnimalDAO eDao = new EstadoAnimalDAO();
+                for (EstadoAnimal arg : eDao.getListByTipoEstado(2)) //Tipo estado Muerto
                 {   
                     list.add(arg.getEstadoanimalDs());
                 }
@@ -112,8 +113,8 @@ public class BajaAnimales
             }
             else if ("Robado".equals(motivo))
             {
-                dao.EstadoAnimalDAO eDao = new dao.EstadoAnimalDAO();
-                for (edm.EstadoAnimal arg : eDao.getListByTipoEstado(4)) //Tipo estado Robado
+                EstadoAnimalDAO eDao = new EstadoAnimalDAO();
+                for (EstadoAnimal arg : eDao.getListByTipoEstado(4)) //Tipo estado Robado
                 {   
                     list.add(arg.getEstadoanimalDs());
                 }
@@ -139,7 +140,7 @@ public class BajaAnimales
         try 
         {
             Respuesta r = new Respuesta();
-            dao.AnimalDAO adao = new dao.AnimalDAO();
+            AnimalDAO adao = new AnimalDAO();
             animal = adao.getAnimalByDiioActual(DIIO);
             if(animal != null)
             {
@@ -168,7 +169,7 @@ public class BajaAnimales
         {
             Respuesta r = new Respuesta();
             Date d = new Date();
-            edm.Evento ev = new edm.Evento();
+            Evento ev = new Evento();
             ev.setAnimalId(animal.getAnimalId());
             ev.setCategoriaId(animal.getAnimalCategoriaActual());
             ev.setEstadoanimalId(estadoAnimal);
@@ -179,10 +180,10 @@ public class BajaAnimales
             ev.setEventotipoId(7); //Tipo evento "baja no productiva"
 
 
-            dao.EventoDAO edao = new dao.EventoDAO();
+            EventoDAO edao = new EventoDAO();
             if (edao.add(ev)) //agrega evento a la db
             {
-                dao.AnimalDAO adao = new dao.AnimalDAO();
+                AnimalDAO adao = new AnimalDAO();
                 animal.setAnimalEstadoActual(estadoAnimal);
                 if(adao.update(animal))
                 {
@@ -214,8 +215,8 @@ public class BajaAnimales
     {
         try 
         {
-            dao.EstadoAnimalDAO edao = new dao.EstadoAnimalDAO();
-            dao.AnimalDAO rdao = new dao.AnimalDAO();
+            EstadoAnimalDAO edao = new EstadoAnimalDAO();
+            AnimalDAO rdao = new AnimalDAO();
             if ("Muerto".equals(motivo))
             {
                 this.cambioEstado =  edao.getEstadoAnimalById(
