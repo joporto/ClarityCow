@@ -1,4 +1,4 @@
-package business;
+package cl.sgg.business;
 
 import java.util.Date;
 import java.util.List;
@@ -107,6 +107,7 @@ public class BajaAnimales
                 {   
                     list.add(arg.getEstadoanimalDs());
                 }
+                listaCb = list;
                 r.setStatus(true);
                 r.setMensaje("OK");
                 return r;
@@ -118,6 +119,7 @@ public class BajaAnimales
                 {   
                     list.add(arg.getEstadoanimalDs());
                 }
+                listaCb = list;
                 r.setStatus(true);
                 r.setMensaje("OK");
                 return r;

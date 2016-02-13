@@ -59,7 +59,7 @@ public class testQueryItem {
             
             //////Prueba Class BajaAnimales
             cl.sgg.utils.Respuesta r = new cl.sgg.utils.Respuesta();
-            business.BajaAnimales ba = new business.BajaAnimales();
+            cl.sgg.business.BajaAnimales ba = new cl.sgg.business.BajaAnimales();
             r = ba.BuscarDIIO(111111);
             System.out.println(r.getMensaje());
             Date d = new Date();
@@ -68,7 +68,7 @@ public class testQueryItem {
             
             
             //Prueba Class Feedlot
-            business.Feedlot fl = new business.Feedlot();
+            cl.sgg.business.Feedlot fl = new cl.sgg.business.Feedlot();
             fl.CargarGrilla();
             
            

@@ -21,18 +21,13 @@
 <%@include file="header.jsp" %>
 <!-- Menu Principal -->
      
+<%
+            if(session.getAttribute("userSession") == null)
+            {
+                response.sendRedirect("index.html");
+            }
+%>
 
-<!--
-<div class="container-fluid">
-  <h1></h1>
-  <p></p> 
-</div>
-
-holi
-
-dos
--->
- 
 <div class="container">
   <h2>Las Vaquitas</h2>
   <div class="panel panel-default">

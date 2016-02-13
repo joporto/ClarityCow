@@ -1,4 +1,4 @@
-package business;
+package cl.sgg.business;
 
 import java.util.Date;
 import java.util.List;
