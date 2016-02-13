@@ -50,15 +50,19 @@
            <div class="contenedor">
                <ul>
                    <li><label>DIIO ANIMAL*</label>  <input type="text" class="form-control" id="usr"></li>
-                   <li><label>Fecha Baja*</label> <input type="text" class="form-control" id="usr"></li>
-                   <li><label>Fecha Registro</label> <input type="text" class="form-control" id="usr"></li>
+                   <li><label>Fecha Baja*</label> <input type="text" class="form-control" id="usr">  <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span></li>
+                   <li><label>Fecha Registro</label> <input type="text" class="form-control" id="usr">  <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span></li>
                    <li><label>Cambio estado Animal</label>   </li>
-                    <div class="checkbox">
-                         <label><input type="checkbox" value="">Robo</label>
-                       </div>
-                       <div class="checkbox">
-                         <label><input type="checkbox" value="">Muerte</label>
-                       </div>  
+                   <div class="radio">
+                    <label><input type="radio" name="optradio">Option 1</label>
+                  </div>
+                  <div class="radio">
+                    <label><input type="radio" name="optradio">Option 2</label>
+                  </div>
                    <li><label>Motivo aparente</label><div class="form-group">
   <label for="sel1">Select list:</label>
   <select class="form-control " id="sel1">
