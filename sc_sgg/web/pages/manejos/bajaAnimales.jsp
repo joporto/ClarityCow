@@ -8,8 +8,8 @@
 <%@page import="cl.sgg.utils.Respuesta"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="business.*"%>
-<%@page import="business.BajaAnimales.*"%>
+<%@page import="cl.sgg.business.*"%>
+<%@page import="cl.sgg.business.BajaAnimales.*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,7 +28,14 @@
 <!-- Menu Header -->
 <%@include file="../../header.jsp" %>
 <!-- Menu Principal -->
-     
+     <script type="text/javascript">
+function validar(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+    if (tecla==8) return true;
+    patron =/\d/;
+    te = String.fromCharCode(tecla);
+    return patron.test(te);} 
+</script>
 <%
     BajaAnimales anim = new BajaAnimales();
     Respuesta resp = new Respuesta();
@@ -40,19 +47,27 @@
    // System.out.println(resp.getMensaje());
     //System.out.println(resp.getMensaje());
     
-   
+    
+   /*
+    <script>
+        function valor(){
+      document.getElementById("userName").innerHTML = "New text!";*/
+       
     if(request.getParameter("uno") != null){
     resp =  anim.BuscarDIIO(Integer.parseInt(request.getParameter("uno")));
+    //request.setAttribute("userName", "userName" );
     System.out.println(resp.getMensaje());
     }
-    
-
-
-
-    
-    
+    /*
+    <style>
+        .contenedor_dos{
+            display: block;
+        }
+    </style>-->*/        
     %>
-
+        <!--}
+        
+</script>-->
  
 <div class="container">
   <h2>Las Vaquitas</h2>
@@ -65,13 +80,14 @@
         
         
         <div class="contenedor">
-            <form class="formulario_uno"   >
+            <form class="formulario_uno">
                 <label >DIIO</label>
-                <input type="text" id="uno" name="uno" class="form-control" id="usr">
-                <button type="button" class="btn btn-default" onclick="">Default</button>
+                <input type="text" id="uno" name="uno" class="form-control" id="usr" title="Solo Números"  >
+                <button type="button" id="boton_1" class="btn btn-default" onclick="valor();">Default</button>
             </form>
         </div>
         
+        <label id="userName" name="username"></label>
         
         
         
@@ -95,13 +111,16 @@
                     </span></li>
                    <li><label>Cambio estado Animal</label>   </li>
                    <div class="radio">
-                    <label><input type="radio" name="optradio">Option 1</label>
+                    <label><input type="radio" name="optradio" value="Robo">Robo</label>
                   </div>
                   <div class="radio">
-                    <label><input type="radio" name="optradio">Option 2</label>
+                    <label><input type="radio" name="optradio"value="Muerte">Muerte</label>
                   </div>
                    <li><label>Motivo aparente</label><div class="form-group">
-  <label for="sel1">Select list:</label>
+                  <label for="sel1">Select list:</label>
+  
+  
+
   <select class="form-control " id="sel1">
     <option></option>
     
