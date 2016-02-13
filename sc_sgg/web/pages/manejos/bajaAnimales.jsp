@@ -4,6 +4,8 @@
     Author     : Murciegalo
 --%>
 
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,14 +14,14 @@
 <link rel="stylesheet" href="/Style/style.css" >
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"  type="text/javascript"></script>
-<script src="/js/bootstrap.min.js"  type="text/javascript"></script>
-<script src="js/bootstrap-submenu.js" type="text/javascript"></script>
+<script src="../js/bootstrap.min.js"  type="text/javascript"></script>
+<script src="../js/bootstrap-submenu.js" type="text/javascript"></script>
 <title>Inicio</title>
     </head>
 <body>
 
 <!-- Menu Header -->
-<%@include file="header.jsp" %>
+<%@include file="../../header.jsp" %>
 <!-- Menu Principal -->
      
 
@@ -29,14 +31,35 @@
   <h2>Las Vaquitas</h2>
   <div class="panel panel-default">
       <!-- Inicio Head -->
-    <div class="panel-heading"><%@include file="nav.jsp" %></div>
+    <div class="panel-heading"><%@include file="../../nav.jsp" %></div>
     
     <!-- Inicio Contenido -->
-    <div class="panel-body"></div>
+    <div class="panel-body">
+        
+        
+        <div class="contenedor">
+            <form>
+                <label>DIIO</label>
+                <textarea></textarea>
+                <button>Buscar</button>
+            </form>
+        </div>
+        
+        
+           <div class="contenedor">
+               <ul>
+                   <li><label>DIIO ANIMAL*</label> <textarea></textarea></li>
+                   <li><label>Fecha Baja*</label> <textarea></textarea></li>
+               
+               </ul>
+        </div>
+        
+        
+    </div>
     
     <!-- Inicio Footer -->
     <div class="panel-footer">
-        <%@include file="footer.jsp" %></div>
+        <%@include file="../../footer.jsp" %></div>
   </div>
 </div>
         

@@ -12,8 +12,7 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="index.jsp">Inicio</a></li>
       <li><a href="#">Histórico Animal</a></li>
-        <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Manejos
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Manejos
         <span class="caret"></span></a>
         <ul class="dropdown-menu">  
           <li><a href="#">Parto</a></li> 
