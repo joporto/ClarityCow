@@ -94,7 +94,7 @@ public class BajaAnimales
     {
     }
     
-    public Respuesta CargarCbMotivoAparente(String motivo) throws Exception
+    public  Respuesta CargarCbMotivoAparente(String motivo) throws Exception
     {
         try 
         {

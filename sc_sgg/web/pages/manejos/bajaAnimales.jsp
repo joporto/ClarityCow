@@ -4,8 +4,12 @@
     Author     : Murciegalo
 --%>
 
+<%@page import="cl.sgg.edm.Diio"%>
+<%@page import="cl.sgg.utils.Respuesta"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="business.*"%>
+<%@page import="business.BajaAnimales.*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,8 +19,8 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"  type="text/javascript"></script>
-<script src="../js/bootstrap.min.js"  type="text/javascript"></script>
-<script src="../js/bootstrap-submenu.js" type="text/javascript"></script>
+<script src="../../js/bootstrap.min.js"  type="text/javascript"></script>
+<script src="../../js/bootstrap-submenu.js" type="text/javascript"></script>
 <title>Inicio</title>
     </head>
 <body>
@@ -25,7 +29,29 @@
 <%@include file="../../header.jsp" %>
 <!-- Menu Principal -->
      
+<%
+    BajaAnimales anim = new BajaAnimales();
+    Respuesta resp = new Respuesta();
+   // resp =  anim.BuscarDIIO(1);
+   // System.out.println(resp.isStatus());
+  //  System.out.println(resp.getMensaje());
+    //anim.CargarCbMotivoAparente("Muerto");
+   
+   // System.out.println(resp.getMensaje());
+    //System.out.println(resp.getMensaje());
+    
+   
+    if(request.getParameter("uno") != null){
+    resp =  anim.BuscarDIIO(Integer.parseInt(request.getParameter("uno")));
+    System.out.println(resp.getMensaje());
+    }
+    
 
+
+
+    
+    
+    %>
 
  
 <div class="container">
@@ -39,20 +65,31 @@
         
         
         <div class="contenedor">
-            <form class="formulario_uno">
+            <form class="formulario_uno"   >
                 <label >DIIO</label>
-                <input type="text" class="form-control" id="usr">
-                <button type="button" class="btn btn-default">Default</button>
+                <input type="text" id="uno" name="uno" class="form-control" id="usr">
+                <button type="button" class="btn btn-default" onclick="">Default</button>
             </form>
         </div>
         
         
-           <div class="contenedor">
+        
+        
+           <div class="contenedor_dos" style="display:none">
                <ul>
                    <li><label>DIIO ANIMAL*</label>  <input type="text" class="form-control" id="usr"></li>
-                   <li><label>Fecha Baja*</label> <input type="text" class="form-control" id="usr">  <span class="input-group-addon">
+                   <li><label>Fecha Baja*</label> <input type="text" class="form-control" id="fechaBaja">  <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span></li>
+                    
+                       <div class='input-group date' id='datetimepicker5'>
+                    <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                    
+                    
                    <li><label>Fecha Registro</label> <input type="text" class="form-control" id="usr">  <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span></li>
@@ -81,6 +118,17 @@
         <%@include file="../../footer.jsp" %></div>
   </div>
 </div>
-        
+           <script type="text/javascript">
+            $(function () {
+                $('#fechaBaja').datetimepicker({
+                    defaultDate: "11/1/2013",
+                    disabledDates: [
+                        moment("12/25/2013"),
+                        new Date(2013, 11 - 1, 21),
+                        "11/22/2013 00:53"
+                    ]
+                });
+            });
+        </script>
     </body>
 </html>
