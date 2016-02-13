@@ -2,7 +2,7 @@ package business;
 
 import java.util.Date;
 import java.util.List;
-import utils.Respuesta;
+import cl.sgg.utils.Respuesta;
 import cl.sgg.edm.*;
 import cl.sgg.dao.*;
 

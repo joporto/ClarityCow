@@ -58,7 +58,7 @@ public class testQueryItem {
             */
             
             //////Prueba Class BajaAnimales
-            utils.Respuesta r = new utils.Respuesta();
+            cl.sgg.utils.Respuesta r = new cl.sgg.utils.Respuesta();
             business.BajaAnimales ba = new business.BajaAnimales();
             r = ba.BuscarDIIO(111111);
             System.out.println(r.getMensaje());
