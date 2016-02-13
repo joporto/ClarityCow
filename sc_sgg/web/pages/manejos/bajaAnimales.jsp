@@ -39,29 +39,35 @@
         
         
         <div class="contenedor">
-            <form>
-                <label>DIIO</label>
-                <textarea></textarea>
-                <button>Buscar</button>
+            <form class="formulario_uno">
+                <label >DIIO</label>
+                <input type="text" class="form-control" id="usr">
+                <button type="button" class="btn btn-default">Default</button>
             </form>
         </div>
         
         
            <div class="contenedor">
                <ul>
-                   <li><label>DIIO ANIMAL*</label> <textarea></textarea></li>
-                   <li><label>Fecha Baja*</label> <textarea></textarea></li>
-                   <li><label>Fecha Registro</label> <textarea></textarea></li>
+                   <li><label>DIIO ANIMAL*</label>  <input type="text" class="form-control" id="usr"></li>
+                   <li><label>Fecha Baja*</label> <input type="text" class="form-control" id="usr"></li>
+                   <li><label>Fecha Registro</label> <input type="text" class="form-control" id="usr"></li>
                    <li><label>Cambio estado Animal</label>   </li>
-                   <div class="checkbox">
-                        <label><input type="checkbox" value="">Option 1</label>
-                      </div>
-                      <div class="checkbox">
-                        <label><input type="checkbox" value="">Option 2</label>
-                      </div>
-                   
-                                     </ul>
-                     </div>
+                    <div class="checkbox">
+                         <label><input type="checkbox" value="">Robo</label>
+                       </div>
+                       <div class="checkbox">
+                         <label><input type="checkbox" value="">Muerte</label>
+                       </div>  
+                   <li><label>Motivo aparente</label><div class="form-group">
+  <label for="sel1">Select list:</label>
+  <select class="form-control " id="sel1">
+    <option></option>
+    
+  </select>
+</div></li>
+                </ul>
+            </div>
         
         
     </div>
