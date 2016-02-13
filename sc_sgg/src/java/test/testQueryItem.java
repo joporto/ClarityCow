@@ -5,12 +5,8 @@
  */
 package test;
 
-<<<<<<< Updated upstream
 import cl.sgg.dao.*;
-=======
 import java.util.Date;
-
->>>>>>> Stashed changes
 /**
  *
  * @author javierOporto
@@ -47,9 +43,7 @@ public class testQueryItem {
             }
                     */
             
-<<<<<<< Updated upstream
-            EstadoAnimalDAO eDao = new EstadoAnimalDAO();
-=======
+
             
             /*
          
@@ -63,7 +57,7 @@ public class testQueryItem {
 
             */
             
-            /* //////Prueba Class BajaAnimales
+            //////Prueba Class BajaAnimales
             utils.Respuesta r = new utils.Respuesta();
             business.BajaAnimales ba = new business.BajaAnimales();
             r = ba.BuscarDIIO(111111);
@@ -71,11 +65,13 @@ public class testQueryItem {
             Date d = new Date();
             r = ba.GuardarBajaAnimales(5, d, 111111, "Muerto");
             System.out.println(r.getMensaje());
-            */
+            
             
             //Prueba Class Feedlot
             business.Feedlot fl = new business.Feedlot();
             fl.CargarGrilla();
+            
+           
  
         } catch (Exception e) {
             
