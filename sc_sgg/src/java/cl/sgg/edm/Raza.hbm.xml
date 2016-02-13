@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-feb-2016 0:18:44 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="CLARITYCOW" name="cl.sgg.edm.Raza" optimistic-lock="version" table="RAZA">
+    <id name="razaId" type="int">
+      <column name="RAZA_ID"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="razaNombre" type="string">
+      <column length="25" name="RAZA_NOMBRE"/>
+    </property>
+    <property name="razaAbrev" type="string">
+      <column length="2" name="RAZA_ABREV"/>
+    </property>
+    <property name="razaStatus" type="java.lang.Integer">
+      <column name="RAZA_STATUS"/>
+    </property>
+  </class>
+</hibernate-mapping>

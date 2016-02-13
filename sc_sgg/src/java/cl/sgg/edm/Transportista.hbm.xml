@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-feb-2016 0:18:44 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="CLARITYCOW" name="cl.sgg.edm.Transportista" optimistic-lock="version" table="TRANSPORTISTA">
+    <id name="transportistaId" type="int">
+      <column name="TRANSPORTISTA_ID"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="transportistaNrut" type="int">
+      <column name="TRANSPORTISTA_NRUT" not-null="true"/>
+    </property>
+    <property name="transportistaDrut" type="string">
+      <column length="1" name="TRANSPORTISTA_DRUT"/>
+    </property>
+    <property name="transportistaNombre" type="string">
+      <column length="50" name="TRANSPORTISTA_NOMBRE"/>
+    </property>
+    <property name="transportistaStatus" type="java.lang.Integer">
+      <column name="TRANSPORTISTA_STATUS"/>
+    </property>
+  </class>
+</hibernate-mapping>

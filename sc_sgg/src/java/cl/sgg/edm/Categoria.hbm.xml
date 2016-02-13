@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-feb-2016 0:18:44 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="CLARITYCOW" name="cl.sgg.edm.Categoria" optimistic-lock="version" table="CATEGORIA">
+    <id name="categoriaId" type="int">
+      <column name="CATEGORIA_ID"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="categoriavalorId" type="java.lang.Integer">
+      <column name="CATEGORIAVALOR_ID"/>
+    </property>
+    <property name="categoriaDs" type="string">
+      <column length="50" name="CATEGORIA_DS"/>
+    </property>
+    <property name="categoriaKgs" type="java.lang.Integer">
+      <column name="CATEGORIA_KGS"/>
+    </property>
+    <property name="categoriaStatus" type="java.lang.Integer">
+      <column name="CATEGORIA_STATUS"/>
+    </property>
+  </class>
+</hibernate-mapping>
