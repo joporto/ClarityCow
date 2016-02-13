@@ -1,3 +1,9 @@
+<%-- 
+    Document   : bajaAnimales
+    Created on : 12-feb-2016, 23:10:45
+    Author     : Murciegalo
+--%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,25 +16,6 @@
 <script src="js/bootstrap-submenu.js" type="text/javascript"></script>
 <title>Inicio</title>
     </head>
-<<<<<<< HEAD
-    <body>
-     Listado de Razas
-     <br>
-        <%
-            cl.sgg.dao.RazaDAO rdao = new cl.sgg.dao.RazaDAO();
-            
-            for(cl.sgg.edm.Raza arg : rdao.getList())
-            {
-                out.print(arg.getRazaNombre());
-        %>
-        
-        <br>
-        
-        <%
-            }
-            
-        %>
-=======
 <body>
 
 <!-- Menu Header -->
@@ -36,16 +23,7 @@
 <!-- Menu Principal -->
      
 
-<!--
-<div class="container-fluid">
-  <h1></h1>
-  <p></p> 
-</div>
 
-holi
-
-dos
--->
  
 <div class="container">
   <h2>Las Vaquitas</h2>
@@ -61,7 +39,6 @@ dos
         <%@include file="footer.jsp" %></div>
   </div>
 </div>
->>>>>>> origin/master
         
     </body>
 </html>

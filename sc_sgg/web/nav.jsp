@@ -12,7 +12,22 @@
     <ul class="nav navbar-nav">
       <li class="active"><a href="index.jsp">Inicio</a></li>
       <li><a href="#">Histórico Animal</a></li>
-      <li><a href="#">Manejos</a></li> 
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Manejos
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">  
+          <li><a href="#">Parto</a></li> 
+          <li><a href="#">Inseminación</a></li> 
+          <li><a href="#">Palpación</a></li> 
+          <li><a href="#">Manejo de Enfermedades</a></li> 
+          <li><a href="#">Medición de Pelvis</a></li> 
+          <li><a href="pages/manejos/bajaAnimales.jsp">Baja de animales</li> 
+          <li><a href="#">Cargar DIIO</li> 
+          <li><a href="#">Cambio DIIO</li> 
+          <li><a href="#">Compra Animal</li> 
+          <li><a href="#">Verificación Animal</li>  
+        </ul>
+        </li>
       <li><a href="#">Traslados</a></li> 
       <li><a href="#">Feedlot</a></li> 
        <li><a href="#">Ventas</a></li> 
