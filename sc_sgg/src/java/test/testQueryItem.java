@@ -5,6 +5,7 @@
  */
 package test;
 
+import cl.sgg.dao.*;
 /**
  *
  * @author javierOporto
@@ -41,9 +42,9 @@ public class testQueryItem {
             }
                     */
             
-             dao.EstadoAnimalDAO eDao = new dao.EstadoAnimalDAO();
+            EstadoAnimalDAO eDao = new EstadoAnimalDAO();
             
-            for (edm.EstadoAnimal arg : eDao.getListByTipoEstado(2)) {
+            for (cl.sgg.edm.EstadoAnimal arg : eDao.getListByTipoEstado(2)) {
                 
                 System.out.println(arg.getEstadoanimalDs());
             }

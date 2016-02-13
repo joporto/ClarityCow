@@ -20,7 +20,7 @@ public class testConnection {
         
         try {
              
-            Connection conn = dal.Conexion.get();
+            Connection conn = cl.sgg.dal.Conexion.get();
             
             System.out.println("Conectado a la base de datos, las tablas encontradas son:");
             DatabaseMetaData dbm = conn.getMetaData();
