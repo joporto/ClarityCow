@@ -165,16 +165,26 @@ public class BajaAnimales
         }
     }
     
-    public Respuesta GuardarBajaAnimales(int estadoAnimal, Date fechaBaja, int DIIO, String motivo) throws Exception
+    public Respuesta GuardarBajaAnimales(String estadoAnimal, Date fechaBaja, int DIIO, String motivo) throws Exception
     {
         try 
-        {
+        {  
+            int estadoAnimalId = 0;
+            cl.sgg.dao.EstadoAnimalDAO ea = new EstadoAnimalDAO();
+            estadoAnimalId = ea.getEstadoAnimalByNombre(estadoAnimal).getEstadoanimalId();
             Respuesta r = new Respuesta();
+            if (estadoAnimalId == 0)
+            {
+                r.setStatus(false);
+                r.setMensaje("Error en el guardado, estado animal no encontrado");
+                return r;
+            }
+            
             Date d = new Date();
             Evento ev = new Evento();
             ev.setAnimalId(animal.getAnimalId());
             ev.setCategoriaId(animal.getAnimalCategoriaActual());
-            ev.setEstadoanimalId(estadoAnimal);
+            ev.setEstadoanimalId(estadoAnimalId);
             ev.setEventoDs("");
             ev.setEventoFechaEvento(d);
             ev.setEventoFechaReg(fechaBaja);
@@ -186,10 +196,10 @@ public class BajaAnimales
             if (edao.add(ev)) //agrega evento a la db
             {
                 AnimalDAO adao = new AnimalDAO();
-                animal.setAnimalEstadoActual(estadoAnimal);
+                animal.setAnimalEstadoActual(estadoAnimalId);
                 if(adao.update(animal))
                 {
-                   r.setStatus(true);
+                    r.setStatus(true);
                     r.setMensaje("Registro actualizado");
                     return r; 
                 }

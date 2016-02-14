@@ -63,7 +63,7 @@ public class testQueryItem {
             r = ba.BuscarDIIO(111111);
             System.out.println(r.getMensaje());
             Date d = new Date();
-            r = ba.GuardarBajaAnimales(5, d, 111111, "Muerto");
+            r = ba.GuardarBajaAnimales("Sin Motivo Aparente", d, 111111, "Muerto");
             System.out.println(r.getMensaje());
             
             
