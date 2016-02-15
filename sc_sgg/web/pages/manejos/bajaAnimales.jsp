@@ -28,6 +28,7 @@
 <!-- Menu Header -->
 <%@include file="../../header.jsp" %>
 <!-- Menu Principal -->
+
      <script type="text/javascript">
 function validar(e) {
     tecla = (document.all) ? e.keyCode : e.which;
@@ -36,6 +37,7 @@ function validar(e) {
     te = String.fromCharCode(tecla);
     return patron.test(te);} 
 </script>
+
 <%
     BajaAnimales anim = new BajaAnimales();
     Respuesta resp = new Respuesta();
@@ -80,10 +82,11 @@ function validar(e) {
         
         
         <div class="contenedor">
-            <form class="formulario_uno">
+            <form  action="bajaAnimales" method="post">
                 <label >DIIO</label>
                 <input type="text" id="uno" name="uno" class="form-control" id="usr" title="Solo Números"  >
-                <button type="button" id="boton_1" class="btn btn-default" onclick="valor();">Default</button>
+                <!--<button type="button" id="boton_1" class="btn btn-default" >Default</button>-->
+                <input type="submit" />
             </form>
         </div>
         
