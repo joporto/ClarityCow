@@ -2,7 +2,7 @@ package cl.sgg.business;
 
 import java.util.Date;
 import java.util.List;
-import cl.sgg.utils.Respuesta;
+import cl.sgg.utils.*;
 import cl.sgg.edm.*;
 import cl.sgg.dao.*;
 
@@ -150,9 +150,10 @@ public class BajaAnimales
         try 
         {
             Respuesta r = new Respuesta();
-            AnimalDAO adao = new AnimalDAO();
-            animal = adao.getAnimalByDiioActual(DIIO);
-            if(animal != null)
+            BusquedaDIIO buscaDiio = new BusquedaDIIO();
+            
+            animal = buscaDiio.BuscarDIIO(DIIO);
+            if(animal.getAnimalId() != 0)
             {
                 this.DIIO = DIIO;
                 CambioEstado("Muerto");
@@ -236,8 +237,8 @@ public class BajaAnimales
         }
     }
     
-    // Método privado que actualiza el cambio estado animal a mostrar en pantalla
-    // ENTRADA: Se ingrsa motivo ("Muerto", "Robo")
+    // Método público que actualiza el cambio estado animal a mostrar en pantalla
+    // ENTRADA: Se ingresa motivo ("Muerto", "Robo")
     // SALIDA: carga en el atributo de la clase "String cambioEstado" el cambio de estado una vez se guarde el registro
     public Respuesta CambioEstado(String motivo) throws Exception
     {

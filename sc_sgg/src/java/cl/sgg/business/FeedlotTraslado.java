@@ -358,14 +358,65 @@ public class FeedlotTraslado
         }
     }
     
+    // Método público que invoca la carga de DIIO ingresado a trasladar
+    // ENTRADA: Se ingresa valor de DIIO a trasladar
+    // SALIDA: carga en el atributo de la clase "List<GrillaFeedlotTraslado> listFeedlotTraslado" con el resultado
+    public Respuesta CargarDIIOATrasladar(int DIIO) throws Exception
+    {
+        try 
+        {
+            Respuesta r = new Respuesta();
+            r = CargarDIIO(DIIO, 1); //a trasladar
+            return r;
+        } 
+        catch (Exception e) 
+        {
+            throw e;
+        }
+    }
     
-    public void CargarExcel()
+    // Método público que invoca la carga de DIIO ingresado a confirmar
+    // ENTRADA: Se ingresa valor de DIIO a confirmar
+    // SALIDA: carga en el atributo de la clase "List<GrillaFeedlotTraslado> listFeedlotTraslado" con el resultado
+    public Respuesta CargarDIIOAConfirmar(int DIIO) throws Exception
+    {
+        try 
+        {
+            Respuesta r = new Respuesta();
+            r = CargarDIIO(DIIO, 2); //a confirmar
+            return r;
+        } 
+        catch (Exception e) 
+        {
+            throw e;
+        }
+    }
+    
+    // Método privado que carga el DIIO ingresado
+    // ENTRADA: Se ingresa valor de DIIO
+    // ENTRADA: Se ingresa valor tipoCarga (1= a trasladar, 2= a confirmar)
+    // SALIDA: carga en el atributo de la clase "List<GrillaFeedlotTraslado> listFeedlotTraslado" con el resultado
+    private Respuesta CargarDIIO(int DIIO, int tipoCarga)
     {
         
+        return null;
+    }
+    
+    public Respuesta CargarExcel() throws Exception
+    {
+        return null;
     }
 
-    public void GuardarFeedlotTraslado()
+    public Respuesta GuardarFeedlotTraslado() throws Exception
     {
-        
+        return null;
+    }
+    
+    // Método privado que actualiza el cambio categoría animal a mostrar en pantalla
+    // ENTRADA: Sin entrada
+    // SALIDA: carga en el atributo de la clase "FormFeedlotTraslado fft" el cambio de categoría
+    private Respuesta CambioEstado(String motivo) throws Exception
+    {
+        return null;
     }
 }
