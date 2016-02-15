@@ -90,10 +90,14 @@ public class BajaAnimales
         this.idAnimal = idAnimal;
     }
  
+    // Constructor publico por defecto
     public BajaAnimales()
     {
     }
     
+    // Método público que carga lista desplegable de motivo aparente 
+    // ENTRADA: Se ingresan valores de motivo ("Muerto", "Robo")
+    // SALIDA: carga en el atributo de la clase "List<String> listaCb" el resultado
     public  Respuesta CargarCbMotivoAparente(String motivo) throws Exception
     {
         try 
@@ -137,6 +141,10 @@ public class BajaAnimales
         }
     }
     
+    // Método público que busca DIIO ingresado (búsqueda exacta)
+    // ENTRADA: Se ingresa valor de DIIO a consultar
+    // SALIDA: carga en el atributo de la clase "int DIIO" el DIIO confirmado como correcto
+    // SALIDA: carga en el atributo de la calse "Animal animal" todos los datos asociados al DIIO encontrado
     public Respuesta BuscarDIIO(int DIIO) throws Exception
     {
         try 
@@ -165,13 +173,19 @@ public class BajaAnimales
         }
     }
     
-    public Respuesta GuardarBajaAnimales(String estadoAnimal, Date fechaBaja, int DIIO, String motivo) throws Exception
+    // Método público que guarda los cambios ingresado en el formulario
+    // ENTRADA: Se ingresa fecha de baja animal
+    // ENTRADA: Se ingrsa motivo ("Muerto", "Robo")
+    // ENTRADA: Se ingresa valor de lista desplegable motivoAparente
+    // SALIDA: Se agrega registro de "evento" a base de datos
+    // SALIDA: Se actualiza estado en "animal" en base de datos
+    public Respuesta GuardarBajaAnimales(Date fechaBaja, String motivo, String motivoAparente) throws Exception
     {
         try 
         {  
             int estadoAnimalId = 0;
             cl.sgg.dao.EstadoAnimalDAO ea = new EstadoAnimalDAO();
-            estadoAnimalId = ea.getEstadoAnimalByNombre(estadoAnimal).getEstadoanimalId();
+            estadoAnimalId = ea.getEstadoAnimalByNombre(motivoAparente).getEstadoanimalId();
             Respuesta r = new Respuesta();
             if (estadoAnimalId == 0)
             {
@@ -185,12 +199,11 @@ public class BajaAnimales
             ev.setAnimalId(animal.getAnimalId());
             ev.setCategoriaId(animal.getAnimalCategoriaActual());
             ev.setEstadoanimalId(estadoAnimalId);
-            ev.setEventoDs("");
+            ev.setEventoDs(motivo);
             ev.setEventoFechaEvento(d);
             ev.setEventoFechaReg(fechaBaja);
             ev.setEventoValor(null);
             ev.setEventotipoId(7); //Tipo evento "baja no productiva"
-
 
             EventoDAO edao = new EventoDAO();
             if (edao.add(ev)) //agrega evento a la db
@@ -223,10 +236,14 @@ public class BajaAnimales
         }
     }
     
-    public void CambioEstado(String motivo) throws Exception
+    // Método privado que actualiza el cambio estado animal a mostrar en pantalla
+    // ENTRADA: Se ingrsa motivo ("Muerto", "Robo")
+    // SALIDA: carga en el atributo de la clase "String cambioEstado" el cambio de estado una vez se guarde el registro
+    public Respuesta CambioEstado(String motivo) throws Exception
     {
         try 
         {
+            Respuesta r = new Respuesta();
             EstadoAnimalDAO edao = new EstadoAnimalDAO();
             AnimalDAO rdao = new AnimalDAO();
             if ("Muerto".equals(motivo))
@@ -243,6 +260,9 @@ public class BajaAnimales
                     getAnimalEstadoActual()).getEstadoanimalDs()
                     + " --> Robado";
             }
+            r.setMensaje("OK");
+            r.setStatus(true);
+            return r;
         } 
         catch (Exception e) 
         {

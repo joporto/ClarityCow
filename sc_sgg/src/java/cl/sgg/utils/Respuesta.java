@@ -45,13 +45,7 @@ public class Respuesta
     
     public Respuesta() 
     {
-       
+       this.mensaje = "NO OK";
+       this.status = false;
     }
-    
-    public Respuesta(String mensaje, boolean status)
-    {
-        this.mensaje = mensaje;
-        this.status = status;
-    }
-    
 }

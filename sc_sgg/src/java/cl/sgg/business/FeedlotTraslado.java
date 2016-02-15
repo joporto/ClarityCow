@@ -2,10 +2,11 @@
 package cl.sgg.business;
 
 import cl.sgg.dal.Conexion;
+import cl.sgg.utils.Respuesta;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class FeedlotTraslado 
 {
@@ -37,24 +38,21 @@ public class FeedlotTraslado
         this.listFeedlotTraslado = listFeedlotTraslado;
     }
     
-    public FeedlotTraslado(int idTransporte) throws Exception
+    public FeedlotTraslado()
     {
-        try 
-        {
-            this.idTransporte = idTransporte;
-            CargarForm();
-            CargarGrilla();
-        } 
-        catch (Exception e) 
-        {
-            throw e;
-        }   
+        
     }
     
-    public void CargarForm() throws Exception
+    public FeedlotTraslado(int idTransporte)
+    { 
+        this.idTransporte = idTransporte;
+    }
+    
+    public Respuesta CargarForm(int idTransporte) throws Exception //idTransporte recuperado de listado en main Feedlot
     {
         try 
         {
+            Respuesta r = new Respuesta();
             Statement stmt = Conexion.get().createStatement();
             String query = "select et.EVENTOTIPO_DS, t.TRANSPORTE_FECHA,t.TRANSPORTE_FMA, t.TRANSPORTE_GUIA_DESPACHO, "
                     + "e2.RUP_NOMBRE as RUP_ORIGEN_NOM, e2.RUP_ID as RUP_ORIGEN_ID, "
@@ -92,19 +90,24 @@ public class FeedlotTraslado
                 fft.setRupDestino(rs.getString("RUP_DESTINO_ID"));
                 fft.setRupOrigen(rs.getString("RUP_ORIGEN_ID"));
                 fft.setRutTransportista(rs.getString("TRANSPORTISTA_NRUT")+"-"+rs.getString("TRANSPORTISTA_DRUT"));
+                r.setMensaje("OK");
+                r.setStatus(true);
+                return r;
             }
+            r.setMensaje("Sin datos");
+            r.setStatus(false);
+            return r;
         } 
         catch (Exception e) 
         {
             throw e;
         }
-        
     }
     
-    public void CargarGrilla() throws Exception
+    public Respuesta CargarGrilla() throws Exception
     {
+        Respuesta r = new Respuesta();
         listFeedlotTraslado = new ArrayList<GrillaFeedlotTraslado>();
-        
         try 
         {
             Statement stmt = Conexion.get().createStatement();
@@ -131,6 +134,9 @@ public class FeedlotTraslado
                 }
                 this.listFeedlotTraslado.add(gft);
             }
+            r.setMensaje("OK");
+            r.setStatus(true);
+            return r;
         } 
         catch (Exception e) 
         {
