@@ -6,14 +6,16 @@ import java.util.List;
 
 public class FormFeedlotTraslado 
 {
-    private String rupOrigen;
-    private String rupDestino;
+    private int rupOrigen;
+    private int rupDestino;
     private String nomRupOrigen;
     private String nomRupDestino;
     private String comuna;
     private String direccion;
+    private int idTransportista;
     private String nomTransportista;
     private String rutTransportista;
+    private int idVehiculo;
     private String patenteVehiculo;
     private String patenteAcoplado;
     private Date fechaRegistro;
@@ -22,19 +24,20 @@ public class FormFeedlotTraslado
     private String guiaDespacho;
     private List<GrillaFeedlotTraslado> gft;
 
-    public String getRupOrigen() {
+    
+    public int getRupOrigen() {
         return rupOrigen;
     }
 
-    public void setRupOrigen(String rupOrigen) {
+    public void setRupOrigen(int rupOrigen) {
         this.rupOrigen = rupOrigen;
     }
 
-    public String getRupDestino() {
+    public int getRupDestino() {
         return rupDestino;
     }
 
-    public void setRupDestino(String rupDestino) {
+    public void setRupDestino(int rupDestino) {
         this.rupDestino = rupDestino;
     }
 
@@ -69,6 +72,14 @@ public class FormFeedlotTraslado
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+    
+        public int getIdTransportista() {
+        return idTransportista;
+    }
+
+    public void setIdTransportista(int idTransportista) {
+        this.idTransportista = idTransportista;
+    }
 
     public String getNomTransportista() {
         return nomTransportista;
@@ -86,6 +97,14 @@ public class FormFeedlotTraslado
         this.rutTransportista = rutTransportista;
     }
 
+    public int getIdVehiculo() {
+        return idVehiculo;
+    }
+
+    public void setIdVehiculo(int idVehiculo) {
+        this.idVehiculo = idVehiculo;
+    }
+    
     public String getPatenteVehiculo() {
         return patenteVehiculo;
     }

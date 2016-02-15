@@ -6,6 +6,7 @@
 package test;
 
 import cl.sgg.dao.*;
+import cl.sgg.edm.*;
 import java.util.Date;
 /**
  *
@@ -57,6 +58,7 @@ public class testQueryItem {
 
             */
             
+            /*
             //////Prueba Class BajaAnimales
             cl.sgg.utils.Respuesta r = new cl.sgg.utils.Respuesta();
             cl.sgg.business.BajaAnimales ba = new cl.sgg.business.BajaAnimales();
@@ -70,6 +72,13 @@ public class testQueryItem {
             //Prueba Class Feedlot
             cl.sgg.business.Feedlot fl = new cl.sgg.business.Feedlot();
             fl.CargarGrilla();
+            */
+            Transportista t = new Transportista();
+            System.out.println(t.getTransportistaId());
+                  
+            
+                
+                    
             
            
  
