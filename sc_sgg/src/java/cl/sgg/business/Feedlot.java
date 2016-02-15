@@ -19,11 +19,15 @@ public class Feedlot
         this.listGrilla = listGrilla;
     }
     
+    // Constructor publico por defecto
     public Feedlot ()
     {
         this.listGrilla = new ArrayList<GrillaFeedlot>();
     }
     
+    // Método público que carga grilla de pendientes por confirmar
+    // ENTRADA: Sin entrada
+    // SALIDA: carga en el atributo de la clase "List<GrillaFeedlot> listGrilla" el resultado
     public Respuesta CargarGrilla() throws Exception
     {
         Respuesta r = new Respuesta();
