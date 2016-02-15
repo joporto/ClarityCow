@@ -3,7 +3,7 @@ package cl.sgg.business;
 import cl.sgg.dal.Conexion;
 import cl.sgg.dao.*;
 import cl.sgg.edm.*;
-import cl.sgg.utils.Respuesta;
+import cl.sgg.utils.*;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -43,12 +43,14 @@ public class FeedlotTraslado
     public FeedlotTraslado()
     {
         this.idTransporte = 0;
+        listFeedlotTraslado = new ArrayList<GrillaFeedlotTraslado>();
     }
     
    // Constructor público sobrecargado que agrega valor de idTransporte a atributo clase "int idTransporte"
     public FeedlotTraslado(int idTransporte)
     { 
         this.idTransporte = idTransporte;
+        listFeedlotTraslado = new ArrayList<GrillaFeedlotTraslado>();
     }
     
     // Método público que carga valores de formulario al cargar pendiente por confirmar de Feedlot
@@ -145,7 +147,7 @@ public class FeedlotTraslado
             {
                 GrillaFeedlotTraslado gft = new GrillaFeedlotTraslado();
                 gft.setDIIO(rs.getInt("ANIMAL_DIIO_ACTUAL"));
-                gft.setPeso(rs.getString("ANIMAL_PESO_ACTUAL"));
+                gft.setPeso(rs.getFloat("ANIMAL_PESO_ACTUAL"));
                 if(rs.getInt("EVENTO_VALOR")== 0)
                 {
                     gft.setStatus("Por confirmar");
@@ -396,13 +398,64 @@ public class FeedlotTraslado
     // ENTRADA: Se ingresa valor de DIIO
     // ENTRADA: Se ingresa valor tipoCarga (1= a trasladar, 2= a confirmar)
     // SALIDA: carga en el atributo de la clase "List<GrillaFeedlotTraslado> listFeedlotTraslado" con el resultado
-    private Respuesta CargarDIIO(int DIIO, int tipoCarga)
+    private Respuesta CargarDIIO(int DIIO, int tipoCarga) throws Exception
     {
-        
+        try 
+        {
+            Respuesta r = new Respuesta();
+            r.setStatus(false);
+            r.setMensaje("Error, tipo de carga no válido");
+            if (tipoCarga == 1) //a trasladar
+            {
+                BusquedaDIIO buscaDiio = new BusquedaDIIO();
+                Animal animal = buscaDiio.BuscarDIIO(DIIO);
+                if(animal.getAnimalId() != 0)
+                {
+                    GrillaFeedlotTraslado gft = new GrillaFeedlotTraslado();
+                    gft.setDIIO(animal.getAnimalDiioActual());
+                    gft.setPeso(animal.getAnimalPesoActual());
+                    gft.setStatus("Por confirmar");
+                    listFeedlotTraslado.add(gft);
+                    r.setStatus(true);
+                    r.setMensaje("DIIO agregado a grilla");
+                }
+                else
+                {
+                    r.setStatus(false);
+                    r.setMensaje("DIIO no encontrado");
+                }
+            }
+            else if (tipoCarga == 2) //a confirmar
+            {
+                for (GrillaFeedlotTraslado arg : listFeedlotTraslado)
+                {
+                    if(arg.getDIIO() == DIIO)
+                    {
+                        arg.setStatus("Confirmado");
+                    }
+                }
+                r.setStatus(true);
+                r.setMensaje("DIIO confirmado");
+            }
+            return r;
+        } 
+        catch (Exception e) 
+        {
+            throw e;
+        }
+    }
+    
+    public Respuesta CargarExcelATrasladar() throws Exception
+    {
         return null;
     }
     
-    public Respuesta CargarExcel() throws Exception
+    public Respuesta CargarExcelAConfirmar() throws Exception
+    {
+        return null;
+    }
+    
+    private Respuesta CargarExcel() throws Exception
     {
         return null;
     }

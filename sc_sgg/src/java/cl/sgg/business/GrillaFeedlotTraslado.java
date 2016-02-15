@@ -4,7 +4,7 @@ package cl.sgg.business;
 class GrillaFeedlotTraslado 
 {
     private int DIIO;
-    private String peso;
+    private float peso;
     private String status;
 
     public int getDIIO() {
@@ -23,16 +23,18 @@ class GrillaFeedlotTraslado
         this.status = status;
     }
     
-        public String getPeso() {
+        public float getPeso() {
         return peso;
     }
 
-    public void setPeso(String peso) {
+    public void setPeso(float peso) {
         this.peso = peso;
     }
 
     public GrillaFeedlotTraslado() 
     {
-        
+        this.DIIO = 0;
+        this.peso = 0;
+        this.status = "";
     }
 }
