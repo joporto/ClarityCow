@@ -146,7 +146,10 @@ public class FeedlotTraslado
             while (rs.next()) 
             {
                 GrillaFeedlotTraslado gft = new GrillaFeedlotTraslado();
-                gft.setDIIO(rs.getInt("ANIMAL_DIIO_ACTUAL"));
+                
+                BusquedaDIIO buscaDiio = new BusquedaDIIO();
+                Animal animal = buscaDiio.BuscarDIIO(rs.getInt("ANIMAL_DIIO_ACTUAL"));
+                gft.setAnimal(animal);
                 gft.setPeso(rs.getFloat("ANIMAL_PESO_ACTUAL"));
                 if(rs.getInt("EVENTO_VALOR")== 0)
                 {
@@ -367,7 +370,7 @@ public class FeedlotTraslado
     {
         try 
         {
-            Respuesta r = new Respuesta();
+            Respuesta r;
             r = CargarDIIO(DIIO, 1); //a trasladar
             return r;
         } 
@@ -384,7 +387,7 @@ public class FeedlotTraslado
     {
         try 
         {
-            Respuesta r = new Respuesta();
+            Respuesta r;
             r = CargarDIIO(DIIO, 2); //a confirmar
             return r;
         } 
@@ -412,7 +415,7 @@ public class FeedlotTraslado
                 if(animal.getAnimalId() != 0)
                 {
                     GrillaFeedlotTraslado gft = new GrillaFeedlotTraslado();
-                    gft.setDIIO(animal.getAnimalDiioActual());
+                    gft.setAnimal(animal);
                     gft.setPeso(animal.getAnimalPesoActual());
                     gft.setStatus("Por confirmar");
                     listFeedlotTraslado.add(gft);
@@ -429,7 +432,7 @@ public class FeedlotTraslado
             {
                 for (GrillaFeedlotTraslado arg : listFeedlotTraslado)
                 {
-                    if(arg.getDIIO() == DIIO)
+                    if(arg.getAnimal().getAnimalDiioActual() == DIIO)
                     {
                         arg.setStatus("Confirmado");
                     }
@@ -462,6 +465,52 @@ public class FeedlotTraslado
 
     public Respuesta GuardarFeedlotTraslado() throws Exception
     {
+        try 
+        {
+            Respuesta r = new Respuesta();
+            for (GrillaFeedlotTraslado arg : listFeedlotTraslado)
+            {
+                Date d = new Date();
+                Evento ev = new Evento();
+                ev.setAnimalId(arg.getAnimal().getAnimalId());
+                ev.setCategoriaId(4); //CONFIRMAR CATEGORIA
+                ev.setEstadoanimalId(5); // CONFIRMAR ESTADO
+                ev.setEventoDs("Traslado Feedlot confirmado");
+                ev.setEventoFechaEvento(d);
+                ev.setEventoFechaReg(fft.getFechaTraslado());
+                ev.setEventoValor(1f); 
+                ev.setEventotipoId(7); //Tipo evento CONFIRMAR
+                               
+                EventoDAO edao = new EventoDAO();
+                if(edao.add(ev)) //agrega evento a la db
+                {
+                    AnimalDAO adao = new AnimalDAO();
+                    arg.getAnimal().setAnimalEstadoActual(ev.getEstadoanimalId()); //set estado actual
+                    if(adao.update(arg.getAnimal()))
+                    {
+                        r.setStatus(true);
+                        r.setMensaje("Registro actualizado Animal y evento");
+                        return r; 
+                    }
+                    else
+                    {
+                        r.setStatus(false);
+                        r.setMensaje("Error en el guardado Animal");
+                        return r;
+                    }
+                }
+                else
+                {
+                    r.setStatus(false);
+                    r.setMensaje("Error en el guardado evento");
+                    return r;
+                }   
+            }
+        } 
+        catch (Exception e) 
+        {
+            throw e;
+        }
         return null;
     }
     

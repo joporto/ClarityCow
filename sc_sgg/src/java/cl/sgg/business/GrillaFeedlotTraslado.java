@@ -1,20 +1,22 @@
 
 package cl.sgg.business;
 
+import cl.sgg.edm.Animal;
+
 class GrillaFeedlotTraslado 
 {
-    private int DIIO;
+    private Animal animal;
     private float peso;
     private String status;
 
-    public int getDIIO() {
-        return DIIO;
+    public Animal getAnimal() {
+        return animal;
     }
 
-    public void setDIIO(int DIIO) {
-        this.DIIO = DIIO;
+    public void setAnimal(Animal animal) {
+        this.animal = animal;
     }
-
+    
     public String getStatus() {
         return status;
     }
@@ -33,7 +35,7 @@ class GrillaFeedlotTraslado
 
     public GrillaFeedlotTraslado() 
     {
-        this.DIIO = 0;
+        this.animal = new Animal();
         this.peso = 0;
         this.status = "";
     }
