@@ -6,6 +6,7 @@
 package test;
 
 import cl.sgg.dao.*;
+import cl.sgg.edm.*;
 import java.util.Date;
 /**
  *
@@ -57,19 +58,27 @@ public class testQueryItem {
 
             */
             
+            /*
             //////Prueba Class BajaAnimales
             cl.sgg.utils.Respuesta r = new cl.sgg.utils.Respuesta();
             cl.sgg.business.BajaAnimales ba = new cl.sgg.business.BajaAnimales();
             r = ba.BuscarDIIO(111111);
             System.out.println(r.getMensaje());
             Date d = new Date();
-            r = ba.GuardarBajaAnimales(5, d, 111111, "Muerto");
+            r = ba.GuardarBajaAnimales(d, "Sin Motivo Aparente","Muerto");
             System.out.println(r.getMensaje());
             
             
             //Prueba Class Feedlot
             cl.sgg.business.Feedlot fl = new cl.sgg.business.Feedlot();
             fl.CargarGrilla();
+            */
+            Transportista t = new Transportista();
+            System.out.println(t.getTransportistaId());
+                  
+            
+                
+                    
             
            
  
