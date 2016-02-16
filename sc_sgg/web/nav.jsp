@@ -121,7 +121,7 @@
                 cl.sgg.utils.UserSession usr = (cl.sgg.utils.UserSession) request.getSession().getAttribute("userSession");
              
             %>
-           <a>Usuario: <%= usr.getUserName() %> </a>
+           <a class="usuario">Usuario: <%= usr.getUserName() %> </a>
            
            <%
             }
