@@ -49,24 +49,22 @@
   <div class="panel panel-default">
     <!-- Inicio Head -->
     <div class="panel-heading">
-    <%@include file="nav.jsp" %></div>
+    <%@include file="nav.jsp" %>
+    </div>
     
     <!-- Inicio Contenido -->
     <div class="panel-body">
         
     </div>
-    
-  <!-- Inicio Footer -->
-  <!--
-  <div class="panel-footer">
-  <%@include file="footer.jsp" %></div>
-  </div> -->
-</div>
   
+</div>
+</div>
     
+    
+    
+    <%@include file="footer.jsp" %>
     <!-- jQuery Version 1.11.1 -->
     <script src="js/jquery.js"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>    
 </body>

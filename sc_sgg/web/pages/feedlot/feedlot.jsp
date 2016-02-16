@@ -12,12 +12,7 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/bootstrap-select.css" rel="stylesheet">
     
-    <script src="/js/bootstrap-select.js"></script>
-    
     <!-- Custom CSS -->
-
-    <script type="text/javascript" src="/js/jquery-latest.js"></script> 
-    <script type="text/javascript" src="/js/jquery.tablesorter.min.js"></script> 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -65,17 +60,20 @@ body {
                 response.sendRedirect("/login.jsp");
                   
 %> 
-
+    
 <!-- Menu Header -->
 <%@include file="/header.jsp" %>
 <!-- Menu Principal -->
+
 <div class="container">
+  <h2>Feedlot</h2>
   <div class="panel panel-default">
     <!-- Inicio Head -->
-<div class="panel-heading">
-    <%@include file="/nav.jsp" %></div>
+    <div class="panel-heading">
+    <%@include file="/nav.jsp" %>
+    </div>
     
-<div class="panel-body">
+    <div class="panel-body">
     <!-- Inicio Contenido -->          
     <p class="lead">Traslados Feedlot por confirmar</p>
         
@@ -125,23 +123,15 @@ body {
    
             
         
-  </div>      
-
-    
-<!-- Inicio Footer -->
-
-  <div class="panel-footer">
-  <%@include file="/footer.jsp" %></div>
-  </div>
-</div>
-  <!-- Inicio Footer -->
-  
-  <%@include file="/footer.jsp" %></div>
+    </div>      
+    </div>
+    </div>
+<%@include file="/footer.jsp" %>
  
-    <!-- jQuery Version 1.11.1 -->
-    <script src="/js/jquery.js"></script>
+<!-- jQuery Version 1.11.1 -->
+<script src="/js/jquery.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/js/bootstrap.min.js"></script>   
+<!-- Bootstrap Core JavaScript -->
+  <script src="/js/bootstrap.min.js"></script>   
 </body>
 </html>
