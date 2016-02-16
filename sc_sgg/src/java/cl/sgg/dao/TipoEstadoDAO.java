@@ -1,18 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//v1.0.0
 package cl.sgg.dao;
 
 import cl.sgg.dal.NewHibernateUtil;
 import java.util.List;
 import org.hibernate.Session;
 
-/**
- *
- * @author javierOporto
- */
 public class TipoEstadoDAO {
     public boolean add(cl.sgg.edm.TipoEstado a) throws Exception {
         Session sessionA = NewHibernateUtil.getSessionFactory().openSession();

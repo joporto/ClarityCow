@@ -1,29 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//v1.0.0
 package cl.sgg.dao;
 
 import cl.sgg.dal.NewHibernateUtil;
+import java.math.BigInteger;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-/**
- *
- * @author javierOporto
- */
 public class RazaDAO {
-    public boolean add(cl.sgg.edm.Raza a) throws Exception {
+    public int add(cl.sgg.edm.Raza a) throws Exception {
         Session sessionA = NewHibernateUtil.getSessionFactory().openSession();
         sessionA.beginTransaction();
         try 
         {
             sessionA.save(a);
             sessionA.getTransaction().commit();
+            int result = ((BigInteger) sessionA.createSQLQuery("SELECT LAST_INSERT_ID()")
+            .uniqueResult()).intValue();
             sessionA.close();
-            return true;            
+            
+            return result;
         } 
         catch (Exception e) 
         {

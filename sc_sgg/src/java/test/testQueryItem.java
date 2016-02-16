@@ -5,6 +5,7 @@
  */
 package test;
 
+import cl.sgg.business.*;
 import cl.sgg.dao.*;
 import cl.sgg.edm.*;
 import java.util.Date;
@@ -73,8 +74,17 @@ public class testQueryItem {
             cl.sgg.business.Feedlot fl = new cl.sgg.business.Feedlot();
             fl.CargarGrilla();
             */
-            Transportista t = new Transportista();
-            System.out.println(t.getTransportistaId());
+            /*
+            RazaDAO rdao = new RazaDAO();
+            Raza r  = new Raza();
+            r.setRazaAbrev("AA");
+            r.setRazaNombre("razaTest");
+            r.setRazaStatus(0);
+            */
+            BajaAnimales b = new BajaAnimales();
+            b.BuscarDIIO(0);
+
+            //System.out.println(rdao.add(r));
                   
             
                 
