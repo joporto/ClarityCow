@@ -30,24 +30,23 @@ public class bajaAnimales extends HttpServlet
     protected void doPost(HttpServletRequest req,HttpServletResponse res)throws ServletException,IOException
 	{
     BajaAnimales anim = new BajaAnimales();
-    Respuesta resp = new Respuesta(); 
-    
-      String textoBusqueda= req.getParameter("txtBuscar");
-     System.out.print(textoBusqueda);
-      
-    
-     if(!req.getParameter("txtBuscar").isEmpty() ){
-              try {
-                  
-                  resp =  anim.BuscarDIIO(Integer.parseInt(textoBusqueda));
-                  System.out.print(resp.getMensaje());
-                  
-                
-            
-            if(resp.getMensaje()== "OK"){
+    Respuesta resp = new Respuesta();     
+   
+     if(!req.getParameter("txtBuscar").isEmpty() || req.getParameter("txtBuscar") != null){
+              String textoBusqueda= req.getParameter("txtBuscar");              
+              try {   
+              resp =  anim.BuscarDIIO(Integer.parseInt(textoBusqueda));
+            if( resp.isStatus() == true){
+                System.out.print("Entro ACA");
              String message = "Dio Encontrado";
+             String dioActual =  anim.getAnimal().getAnimalDiioActual().toString();
             req.setAttribute("message", message);
+            req.setAttribute("dioActual",dioActual);
+            
+           /* req.setAttribute("fechaBaja", anim.getFechaBaja().toString());*/
+           
             req.getRequestDispatcher("/pages/manejos/bajaAnimales.jsp").forward(req, res); 
+            
             
             }else
             {
@@ -63,8 +62,10 @@ public class bajaAnimales extends HttpServlet
      }else{
           String message = "Ingresar Dio";
           req.setAttribute("message", message);
-          req.getRequestDispatcher("/pages/manejos/bajaAnimales_1.jsp").forward(req, res);   
+          req.getRequestDispatcher("/pages/manejos/bajaAnimales.jsp").forward(req, res);   
      }
+     
+     
      
     
 

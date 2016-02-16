@@ -1,3 +1,4 @@
+//v1.0.1
 package cl.sgg.business;
 
 import java.util.Date;
@@ -153,12 +154,12 @@ public class BajaAnimales
             BusquedaDIIO buscaDiio = new BusquedaDIIO();
             
             animal = buscaDiio.BuscarDIIO(DIIO);
-            if(animal.getAnimalId() != 0)
+            if(animal != null)
             {
                 this.DIIO = DIIO;
                 CambioEstado("Muerto");
                 r.setStatus(true);
-                r.setMensaje("OK");
+                r.setMensaje("DIIO Encontrado");
                 return r;
             }
             else
@@ -184,7 +185,7 @@ public class BajaAnimales
     {
         try 
         {  
-            int estadoAnimalId = 0;
+            int estadoAnimalId;
             cl.sgg.dao.EstadoAnimalDAO ea = new EstadoAnimalDAO();
             estadoAnimalId = ea.getEstadoAnimalByNombre(motivoAparente).getEstadoanimalId();
             Respuesta r = new Respuesta();
