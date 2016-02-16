@@ -15,7 +15,11 @@
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/bootstrap-select.css" rel="stylesheet">
-    
+       <!-- jQuery Version 1.11.1 -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>   
     <script src="/js/bootstrap-select.js"></script>
         
                    <style>
@@ -34,7 +38,7 @@
         
         .bajatxt1{
             
-            margin-left: 10%;
+            margin-left: 10.2%;
         }
         
          .bajatxt2{
@@ -58,7 +62,7 @@
     </head>
     <body>
         
-        
+    
         <!-- Menu Header -->
 
 <%@include file="../../header.jsp" %>
@@ -68,41 +72,52 @@
       <div class="panel panel-default">
       <!-- Inicio Head -->
     <div class="panel-heading"><%@include file="../../nav.jsp" %></div>
+    
+     <div class="container jumbotron">
       <form  id="bajaAnimales" action="bajaAnimales" method="post">
-                <label >DIIO</label>
-                <input type="text" id="txtBuscar" name="txtBuscar" title="Solo Números"   >
-                <!--<button type="button" id="boton_1" class="btn btn-default" >Default</button>-->
-                <input type="submit" />
+                <p>Buscar DIIO</p>       
+               
+                <input type="text" id="txtBuscar"   class="text-input"  name="txtBuscar" title="Solo Números"   >
+                <label value="<%=request.getAttribute("dioActual")%>"></label>
+                <input type="submit" onclick="valor();"/>
             </form>
-        
+     </div>
                
                       <div class="contenido" style="display:none;">
                     
                    <ul class="ulBaja">
-                       <li><label>DIIO ANIMAL</label>     <input type="text"  class="bajatxt1" id="txtDio" name="txtDio"   title="Solo Números"  > </li> 
-                       <li><label>Fecha Registro</label>  <input type="date" class="bajatxt2" id="txtFechaRegistro" name="txtFechaRegistro"   value ="today();" ></li>
+                       <li><label>DIIO ANIMAL</label>     <input type="text"  class="bajatxt1" id="txtDio" name="txtDio"  value="<%=request.getAttribute("dioActual")%>" title="Solo Números"  disabled > </li> 
+                       <li><label>Fecha Registro</label>  <input type="date" class="bajatxt2" id="txtFechaRegistro" name="txtFechaRegistro"   ></li>
                         <li><label>Fecha Baja</label><input type="date" id="txtFechaBaja" class="bajatxt3" name="txtFechaBaja"   value="" >  </li> 
+                        <p></p>
                         <li><label>Cambio estado Animal</label> 
-                        <option>
-                       
-                        </option>
-                        </li>
-                        <li>                                                      
-                      </li>
-                        <li> <label>Motivo Aparente</label>
-                            <form id="guardarBaja" action="guardarBaja" method="POST">
-                                 <input type="text" id="txtBuscar" name="txtBuscar" title="Solo Números"   >
-                <!--<button type="button" id="boton_1" class="btn btn-default" >Default</button>-->
-                <input type="submit"  method="post"/>
-                                
-                            </form>
-   
-                        </li>
+                      
+                       <BR>
+             <INPUT TYPE="radio" NAME="radios" VALUE="radio1" CHECKED>
+             Muerto
+            <BR>
+            <INPUT TYPE="radio" NAME="radios" VALUE="radio2">
+             Robo   
+             <BR>      
+            </li>                      
+           <li> <label>Motivo Aparente</label>
+            <select class="form-control">
+            <option></option>           
+          </select>  
+             </li>
                        <ul>
                            <input type="submit" value="Guardar"/>
                     
                </div>
-</div>
+                </div>
+                       
+                       
+                       <script type="text/javascript">
+                           $('#txtFechaRegistro').datepicker({ 
+     dateFormat: 'dd-mm-yy'
+     }).datepicker("setDate", new Date());
+                           </script>
+    
           <%if(request.getAttribute("message")!=("") && request.getAttribute("message")!=null){
               
               if(request.getAttribute("message") == "Dio Encontrado" ){
@@ -117,6 +132,7 @@
               }
 
             out.println(request.getAttribute("message"));
+         /*  out.println(request.getAttribute("dioActual"));*/
           /*   out.println(request.getAttribute("fechaBaja"));*/            
           
               
@@ -128,12 +144,21 @@
           }
           %>  
        <!--  <label id="message"></label> -->
-       
-       
+       <!--
+       <script type="text/javascript">
+           function valor(){
+               var valuer =  document.getElementById("txtBuscar");
+               var bajatxt =  document.getElementById("bajatxt1");
+               if(valuer != null)                 
+                   $( "p" ).text( valuer.value );
+               
+           
+           }
+           </script>  -->
         <!-- Inicio Footer -->
-         <!--
+      
     <div class="panel-footer">
         <%@include file="../../footer.jsp" %></div>
-  -->
+
     </body>
 </html>
