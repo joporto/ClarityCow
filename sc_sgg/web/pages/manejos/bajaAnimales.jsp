@@ -31,6 +31,29 @@
         .contenido{
             margin-top: 5%;
         }
+        
+        .bajatxt1{
+            
+            margin-left: 10%;
+        }
+        
+         .bajatxt2{
+
+    margin-left: 94px;
+    width: 174px;
+
+        }
+        
+          .bajatxt3{
+             margin-left: 126px;   
+            width: 174px;
+        }
+        
+        .ulBaja{
+       list-style:none;
+       }
+        
+        
     </style>
     </head>
     <body>
@@ -45,7 +68,7 @@
       <div class="panel panel-default">
       <!-- Inicio Head -->
     <div class="panel-heading"><%@include file="../../nav.jsp" %></div>
-      <form  action="bajaAnimales" method="post">
+      <form  id="bajaAnimales" action="bajaAnimales" method="post">
                 <label >DIIO</label>
                 <input type="text" id="txtBuscar" name="txtBuscar" title="Solo Números"   >
                 <!--<button type="button" id="boton_1" class="btn btn-default" >Default</button>-->
@@ -55,15 +78,19 @@
                
                       <div class="contenido" style="display:none;">
                     
-                   <ul>
-                       <li><label>DIIO ANIMAL</label>     <input type="text" id="txtDio" name="txtDio"   title="Solo Números"  > </li> 
-                       <li><label>Fecha Registro</label>  <input type="date" id="txtFechaRegistro" name="txtFechaRegistro"   value ="today();" ></li>
-                        <li><label>Fecha Baja</label><input type="date" id="txtFechaBaja" name="txtFechaBaja"   value="" >  </li> 
-                        <li><label>Cambio estado Animal</label> </li>
+                   <ul class="ulBaja">
+                       <li><label>DIIO ANIMAL</label>     <input type="text"  class="bajatxt1" id="txtDio" name="txtDio"   title="Solo Números"  > </li> 
+                       <li><label>Fecha Registro</label>  <input type="date" class="bajatxt2" id="txtFechaRegistro" name="txtFechaRegistro"   value ="today();" ></li>
+                        <li><label>Fecha Baja</label><input type="date" id="txtFechaBaja" class="bajatxt3" name="txtFechaBaja"   value="" >  </li> 
+                        <li><label>Cambio estado Animal</label> 
+                        <option>
+                       
+                        </option>
+                        </li>
                         <li>                                                      
                       </li>
                         <li> <label>Motivo Aparente</label>
-                            <form action="guardarBaja">
+                            <form id="guardarBaja" action="guardarBaja" method="POST">
                                  <input type="text" id="txtBuscar" name="txtBuscar" title="Solo Números"   >
                 <!--<button type="button" id="boton_1" class="btn btn-default" >Default</button>-->
                 <input type="submit"  method="post"/>

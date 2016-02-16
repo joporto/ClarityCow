@@ -31,10 +31,11 @@ import javax.servlet.http.HttpServletResponse;
     protected void doPost(HttpServletRequest req,HttpServletResponse res)throws ServletException,IOException
 	{
             
-     BajaAnimales anim = new BajaAnimales();
+    BajaAnimales anim = new BajaAnimales();
     Respuesta resp = new Respuesta();     
     DateFormat df = new SimpleDateFormat("EEE MMM dd kk:mm:ss z yyyy", Locale.ENGLISH);
     String fecha = req.getParameter("fechaBaja");
+    
      Date fechaBaja = new Date();
         try {
             fechaBaja = df.parse(fecha);
@@ -43,14 +44,14 @@ import javax.servlet.http.HttpServletResponse;
         }
       String motivo= req.getParameter("fechaBaja");
        String motivoAparente= req.getParameter("fechaBaja");
-     
+          
      
         try {
             anim.GuardarBajaAnimales(fechaBaja, motivo, motivoAparente);
         } catch (Exception ex) {
             Logger.getLogger(guardarBaja.class.getName()).log(Level.SEVERE, null, ex);
         }
-     
+       req.getRequestDispatcher("/pages/manejos/bajaAnimales.jsp").forward(req, res); 
    
 }
     

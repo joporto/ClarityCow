@@ -37,7 +37,7 @@ public class bajaAnimales extends HttpServlet
               try {   
               resp =  anim.BuscarDIIO(Integer.parseInt(textoBusqueda));
             if( resp.isStatus() == true){
-                System.out.print("Entro");
+                System.out.print("Entro ACA");
              String message = "Dio Encontrado";
              String dioActual =  anim.getAnimal().getAnimalDiioActual().toString();
             req.setAttribute("message", message);
