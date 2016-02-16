@@ -63,7 +63,7 @@
                         <a href="#">Pesaje</a>
                     </li>
                     <li class="dropdown">
-                    <a href="#" 
+                    <a href="/pages/feedlot/feedlot.jsp" 
                        class="dropdown-toggle" 
                        data-toggle="dropdown" 
                        role="button" 
@@ -72,6 +72,7 @@
                      <span class="caret"></span>
                     </a>
                             <ul class="dropdown-menu">
+                              <li><a href="/pages/feedlot/feedlot.jsp">Cargar Traslado</a></li>
                               <li><a href="#">Traslado de destete</a></li>
                               <li><a href="#">Manejo de destete</a></li>
                               <li><a href="#">Separación Feedlot</a></li>
@@ -105,7 +106,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-        <li><a href="login.jsp?cmd=close"><span class="glyphicon glyphicon-log-in"></span> Cerrar Sesión</a></li>
+        <li><a href="/login.jsp?cmd=close"><span class="glyphicon glyphicon-log-in"></span> Cerrar Sesión</a></li>
       </ul>
                 
         </div>
@@ -119,10 +120,18 @@
              
             %>
            <a>Usuario: <%= usr.getUserName() %> </a>
-           <br>
+           
            <%
             }
            %>
         </div>
     <!-- /.container -->
-    </nav>
+ </nav>
+ <div class="row">                  
+  <ul class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Private</a></li>
+    <li><a href="#">Pictures</a></li>
+    <li class="active">Vacation</li>        
+  </ul>
+</div>

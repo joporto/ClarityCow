@@ -37,13 +37,14 @@
                 response.sendRedirect("login.jsp");
                   
 %> 
-    
+
+
+
 <!-- Menu Header -->
 <%@include file="header.jsp" %>
 <!-- Menu Principal -->
 
 <div class="container">
-  <h2>Sistema de Gestión Ganadera SGG</h2>
   <div class="panel panel-default">
     <!-- Inicio Head -->
     <div class="panel-heading">
