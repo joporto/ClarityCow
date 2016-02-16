@@ -15,6 +15,7 @@
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/bootstrap-select.css" rel="stylesheet">
+   <link href="/css/style.css" rel="stylesheet" type="text/css"/>
        <!-- jQuery Version 1.11.1 -->
     <script src="/js/jquery.js"></script>
 

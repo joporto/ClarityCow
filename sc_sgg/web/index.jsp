@@ -12,7 +12,7 @@
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-select.css" rel="stylesheet">
-    
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
     <script src="js/bootstrap-select.js"></script>
     
     <!-- Custom CSS -->
