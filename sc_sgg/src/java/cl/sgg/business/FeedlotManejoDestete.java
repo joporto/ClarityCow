@@ -1,4 +1,4 @@
-//v1.0.0
+//v1.0.1
 package cl.sgg.business;
 
 import cl.sgg.dao.*;
@@ -58,7 +58,7 @@ public class FeedlotManejoDestete
             Respuesta r = new Respuesta();
             BusquedaDIIO buscaDiio = new BusquedaDIIO();
             Animal animal = buscaDiio.BuscarDIIO(DIIO);
-            if(animal.getAnimalId() != 0)
+            if(animal != null)
             {
                 listAnimal.add(animal);
                 r.setStatus(true);
