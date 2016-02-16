@@ -18,9 +18,22 @@
     <display-name>bajaAnimales</display-name>
     <servlet-name>bajaAnimales</servlet-name>
     <servlet-class>cl.sgg.controller.bajaAnimales</servlet-class>
+    <load-on-startup>1</load-on-startup>
   </servlet>
    <servlet-mapping>
     <servlet-name>bajaAnimales</servlet-name>
     <url-pattern>/pages/manejos/bajaAnimales</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
+    <description></description>
+    <display-name>guardarBaja</display-name>
+    <servlet-name>guardarBaja</servlet-name>
+    <servlet-class>cl.sgg.controller.guardarBaja</servlet-class>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>guardarBaja</servlet-name>
+    <url-pattern>/pages/manejos/guardarBaja</url-pattern>
   </servlet-mapping>
 </web-app>
