@@ -1,4 +1,4 @@
-//v1.0.0
+//v1.0.1
 package cl.sgg.business;
 
 import java.util.Date;
@@ -154,7 +154,7 @@ public class BajaAnimales
             BusquedaDIIO buscaDiio = new BusquedaDIIO();
             
             animal = buscaDiio.BuscarDIIO(DIIO);
-            if(animal == null)
+            if(animal != null)
             {
                 this.DIIO = DIIO;
                 CambioEstado("Muerto");
