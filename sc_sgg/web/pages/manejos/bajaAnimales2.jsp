@@ -41,7 +41,7 @@
     <div class="panel-heading"><%@include file="/nav.jsp" %></div>
         <!-- Inicio Contenido -->
         
-    <div class="container jumbotron">
+    <div class="panel-body">
         <form name="buscarDiioForm">
         <p>Buscar DIIO</p>       
         <input type="text" class="text-input" name="buscarDiio">

@@ -81,7 +81,7 @@ function validar(e) {
     <div class="panel-body">
         
         
-        <div class="contenedor">
+        <div class="container">
             <form  action="bajaAnimales" method="post">
                 <label >DIIO</label>
                 <input type="text" id="uno" name="uno" class="form-control" id="usr" title="Solo Números"  >

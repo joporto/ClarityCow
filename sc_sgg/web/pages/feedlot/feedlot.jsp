@@ -16,6 +16,8 @@
     
     <!-- Custom CSS -->
 
+    <script type="text/javascript" src="/js/jquery-latest.js"></script> 
+    <script type="text/javascript" src="/js/jquery.tablesorter.min.js"></script> 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -23,6 +25,39 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <style>
+   *{
+    padding: 0;
+    margin: 0;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+     
+}
+  body {
+    padding-top: 70px;
+  }
+  @media (max-width: 980px) {
+    body {
+      padding-top: 0;
+    }
+  }
+
+    </style>
     </head>
 <body>
 <%
@@ -34,27 +69,18 @@
 <!-- Menu Header -->
 <%@include file="/header.jsp" %>
 <!-- Menu Principal -->
-
 <div class="container">
-  <h2>Sistema de Gestión Ganadera SGG</h2>
   <div class="panel panel-default">
     <!-- Inicio Head -->
-    <div class="panel-heading">
+<div class="panel-heading">
     <%@include file="/nav.jsp" %></div>
     
-        
 <div class="panel-body">
-    <!-- Inicio Contenido -->      
-    
-    
-    <div class="col-lg-12 text-center">
-            
-     <p class="lead">Traslados Feedlot por confirmar</p>
-                
-    </div>
+    <!-- Inicio Contenido -->          
+    <p class="lead">Traslados Feedlot por confirmar</p>
         
     <div class="row">   
-    <table class="table table-hover">
+    <table class="table table-hover table-responsive">
     <thead>
       <tr>
         <th>Tipo traslado</th>
@@ -102,13 +128,12 @@
   </div>      
 
     
-<!-- Inicio Footer -->
-  <div class="panel-footer">
-  <%@include file="/footer.jsp" %></div>
-  </div>
+
 </div>
+  <!-- Inicio Footer -->
   
-    
+  <%@include file="/footer.jsp" %></div>
+ 
     <!-- jQuery Version 1.11.1 -->
     <script src="/js/jquery.js"></script>
 

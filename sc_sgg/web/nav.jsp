@@ -127,7 +127,7 @@
         </div>
     <!-- /.container -->
  </nav>
- <div class="row">                  
+ <div class="navbar-right">                  
   <ul class="breadcrumb">
     <li><a href="#">Home</a></li>
     <li><a href="#">Private</a></li>
