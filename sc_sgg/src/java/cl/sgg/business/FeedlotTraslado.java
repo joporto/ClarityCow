@@ -1,3 +1,4 @@
+//v1.0.0
 package cl.sgg.business;
 
 import cl.sgg.dal.Conexion;
@@ -272,7 +273,7 @@ public class FeedlotTraslado
     {
         try 
         {
-            Respuesta r = new Respuesta();
+            Respuesta r;
             r = BuscarRUP(rupOrigen, nomRupOrigen,1); //origen
             return r;
         } 
@@ -290,7 +291,7 @@ public class FeedlotTraslado
     {
         try 
         {
-            Respuesta r = new Respuesta();
+            Respuesta r;
             r = BuscarRUP(rupOrigen, nomRupOrigen,2); //destino
             return r;
         } 
@@ -473,7 +474,12 @@ public class FeedlotTraslado
                 Date d = new Date();
                 Evento ev = new Evento();
                 ev.setAnimalId(arg.getAnimal().getAnimalId());
-                ev.setCategoriaId(4); //CONFIRMAR CATEGORIA
+                if(arg.getAnimal().getAnimalCategoriaActual() == 1) //ternera
+                    ev.setCategoriaId(5); //vaquilla engorda
+                if(arg.getAnimal().getAnimalCategoriaActual() == 2) //ternero
+                    ev.setCategoriaId(3); //torete engorda
+                //PREGUNTAR A ÑATO QUE PASA SI VACA NO ES TERNERA Ni ternero
+              
                 ev.setEstadoanimalId(5); // CONFIRMAR ESTADO
                 ev.setEventoDs("Traslado Feedlot confirmado");
                 ev.setEventoFechaEvento(d);

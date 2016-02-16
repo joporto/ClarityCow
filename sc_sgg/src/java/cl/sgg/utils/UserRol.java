@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//v1.0.0
 package cl.sgg.utils;
 
-/**
- *
- * @author javierOporto
- */
 public class UserRol {
     private int userRolId;
     private String userRolDs;
