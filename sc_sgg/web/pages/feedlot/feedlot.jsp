@@ -128,7 +128,11 @@ body {
   </div>      
 
     
+<!-- Inicio Footer -->
 
+  <div class="panel-footer">
+  <%@include file="/footer.jsp" %></div>
+  </div>
 </div>
   <!-- Inicio Footer -->
   
