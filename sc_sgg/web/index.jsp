@@ -56,7 +56,7 @@
     <div class="panel-body">
         
     </div>
-<<<<<<< HEAD
+
     
   <!-- Inicio Footer -->
   
@@ -64,8 +64,7 @@
   <%@include file="footer.jsp" %></div>
   </div> 
 </div>
-=======
->>>>>>> origin/master
+
   
 </div>
 </div>

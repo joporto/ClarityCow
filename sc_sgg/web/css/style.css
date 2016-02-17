@@ -1,6 +1,6 @@
-<<<<<<< HEAD
+
 .navbar-inverse {
-         background-color: #16a085!important; 
+    background-color: #16a085!important; 
     border-color: #16a085!important; 
 }
 
@@ -21,7 +21,7 @@
 .usuario{
   float:right;
   color: #fff;
-=======
+
 /* Author: Jos� Catal�n
 Proyecto: Vacas Locas
 Fecha: 12/02/2016 */
@@ -100,5 +100,5 @@ Fecha: 12/02/2016 */
 {
     display: block;
     margin-top: 10px;
->>>>>>> origin/master
+
 }
