@@ -1,10 +1,13 @@
-//v1.0.1
+//v1.0.3
 package cl.sgg.business;
 
+import cl.sgg.dal.Conexion;
 import cl.sgg.dao.*;
 import cl.sgg.edm.*;
 import cl.sgg.utils.BusquedaDIIO;
 import cl.sgg.utils.Respuesta;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +18,16 @@ public class FeedlotManejoDestete
     private List<Animal> listAnimal;
     private List<GrillaInsumo> listGrillaInsumo;
     private List<InsumoTipo> listInsumoTipo;
+    private List<Insumo> listInsumo;
 
+    public List<Insumo> getListInsumo() {
+        return listInsumo;
+    }
+
+    public void setListInsumo(List<Insumo> listInsumo) {
+        this.listInsumo = listInsumo;
+    }
+    
     public List<InsumoTipo> getListInsumoTipo() {
         return listInsumoTipo;
     }
@@ -46,6 +58,7 @@ public class FeedlotManejoDestete
         this.listAnimal = new ArrayList<Animal>();
         this.listGrillaInsumo = new ArrayList<GrillaInsumo>();
         this.listInsumoTipo = new ArrayList<InsumoTipo>();
+        this.listInsumo = new ArrayList<Insumo>();
     }
     
     // Método público que invoca la carga de DIIO a manejar
@@ -85,8 +98,21 @@ public class FeedlotManejoDestete
         Respuesta r = new Respuesta();
         try 
         {
-            InsumoTipoDAO itdao = new InsumoTipoDAO();
-            this.listInsumoTipo = itdao.getList();
+            Statement stmt = Conexion.get().createStatement();
+            String query = "SELECT INSUMOTIPO_ID, INSUMOTIPO_DS, INSUMOTIPO_STATUS " +
+                "FROM INSUMO_TIPO WHERE INSUMOTIPO_ID <> 4 AND INSUMOTIPO_STATUS = 1";
+            ResultSet rs = stmt.executeQuery(query);
+     
+            this.listInsumoTipo = new ArrayList<InsumoTipo>();
+            while (rs.next()) 
+            {
+                InsumoTipo it = new InsumoTipo();
+                it.setInsumotipoDs(rs.getString("INSUMOTIPO_DS"));
+                it.setInsumotipoId(rs.getInt("INSUMOTIPO_ID"));
+                it.setInsumotipoStatus(rs.getInt("INSUMOTIPO_STATUS"));
+                this.listInsumoTipo.add(it);
+            }
+            
             if(this.listInsumoTipo.size()>0)
             {
                 r.setMensaje("Lista Tipo insumo cargada");
@@ -105,6 +131,69 @@ public class FeedlotManejoDestete
         }
     }
     
+    // Método público carga lista de Insumo en atributo de la clase
+    // ENTRADA: Sin entrada
+    // SALIDA: carga en el atributo de la clase "List<Insumoo> listInsumo" con el resultado
+    public Respuesta CargarInsumo() throws Exception
+    {
+        Respuesta r = new Respuesta();
+        try 
+        {
+            Statement stmt = Conexion.get().createStatement();
+            String query = "SELECT INSUMO_ID, TIPOINSUMO_ID, INSUMO_CODIGO_SAP, INSUMO_NOMBRE, INSUMO_DS, "
+                    + "INSUMO_UNIDAD_MEDIDA, INSUMO_STATUS, INSUMO_CANTIDAD "
+                    + "FROM INSUMO WHERE TIPOINSUMO_ID <> 4 AND INSUMO_STATUS = 1";
+            ResultSet rs = stmt.executeQuery(query);
+     
+            this.listInsumo = new ArrayList<Insumo>();
+            while (rs.next()) 
+            {
+                Insumo i = new Insumo();
+                i.setInsumoCantidad(rs.getInt("INSUMO_CANTIDAD"));
+                i.setInsumoCodigoSap(rs.getInt("INSUMO_CODIGO_SAP"));
+                i.setInsumoId(rs.getInt("INSUMO_ID"));
+                i.setInsumoNombre(rs.getString("INSUMO_NOMBRE"));
+                i.setInsumoStatus(rs.getInt("INSUMO_STATUS"));
+                i.setInsumoUnidadMedida(rs.getString("INSUMO_UNIDAD_MEDIDA"));
+                i.setTipoinsumoId(rs.getInt("TIPOINSUMO_ID"));
+                this.listInsumo.add(i);
+            }
+            
+            if(this.listInsumo.size()>0)
+            {
+                r.setMensaje("Lista Insumo cargada");
+                r.setStatus(true);
+            }
+            else
+            {
+                r.setMensaje("Lista Insumo no cargada");
+                r.setStatus(false);
+            }
+            return r;
+        } 
+        catch (Exception e) 
+        {
+            throw e;
+        }
+    }
+    
+    // Método público guarda registro en grilla Insumo
+    // ENTRADA: Sin entrada
+    // SALIDA: carga en el atributo de la clase "List<Insumoo> listInsumo" con el resultado
+    public Respuesta GuardarInsumoGrilla() throws Exception
+    {
+        try 
+        {
+            Respuesta r = new Respuesta();
+            return r;
+        } 
+        catch (Exception e) 
+        {
+            throw e;
+        }
+    }
+    
+    
     public Respuesta GuardarForm(Date fechaManejo) throws Exception
     {
         try 
@@ -121,11 +210,11 @@ public class FeedlotManejoDestete
                 ev.setEventoFechaEvento(d);
                 ev.setEventoFechaReg(fechaManejo);
                 ev.setEventoValor(null);
-                ev.setEventotipoId(17); //Tipo evento "Feedlot Destete"
+                ev.setEventotipoId(17); //Tipo evento "XXXXXXXXXXXXXX"
 
                 EventoDAO edao = new EventoDAO();
-                
-                if (edao.add(ev)) //agrega evento a la db
+                int idEvento = edao.add(ev); //agrega evento a la db
+                if (idEvento != 0) 
                 {
                     
                    

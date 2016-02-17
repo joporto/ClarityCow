@@ -1,4 +1,4 @@
-//v1.0.1
+//v1.0.2
 package cl.sgg.business;
 
 import java.util.Date;
@@ -115,7 +115,6 @@ public class BajaAnimales
                 listaCb = list;
                 r.setStatus(true);
                 r.setMensaje("OK");
-                return r;
             }
             else if ("Robado".equals(motivo))
             {
@@ -127,14 +126,13 @@ public class BajaAnimales
                 listaCb = list;
                 r.setStatus(true);
                 r.setMensaje("OK");
-                return r;
             }
             else
             {
                 r.setStatus(false);
                 r.setMensaje("Error de sistema");
-                return r;
             }
+            return r;
         } 
         catch (Exception e) 
         {
@@ -158,16 +156,15 @@ public class BajaAnimales
             {
                 this.DIIO = DIIO;
                 CambioEstado("Muerto");
-                r.setStatus(true);
                 r.setMensaje("DIIO Encontrado");
-                return r;
+                r.setStatus(true);
             }
             else
             {
                 r.setStatus(false);
                 r.setMensaje("DIIO no encontrado");
-                return r;
             }
+            return r;
         } 
         catch (Exception e) 
         {
@@ -208,29 +205,30 @@ public class BajaAnimales
             ev.setEventotipoId(7); //Tipo evento "baja no productiva"
 
             EventoDAO edao = new EventoDAO();
-            if (edao.add(ev)) //agrega evento a la db
+            int idEvento = edao.add(ev); //agrega evento a la db
+            if (idEvento != 0) 
             {
                 AnimalDAO adao = new AnimalDAO();
                 animal.setAnimalEstadoActual(estadoAnimalId);
                 if(adao.update(animal))
                 {
                     r.setStatus(true);
-                    r.setMensaje("Registro actualizado");
-                    return r; 
+                    r.setMensaje("Registro animal actualizado y evento creado");
                 }
                 else
                 {
+                    ev.setEventoId(idEvento);
+                    edao.delete(ev);
                     r.setStatus(false);
-                    r.setMensaje("Error en el guardado");
-                    return r;
+                    r.setMensaje("Error en update animal");
                 }
             }
             else
             {
                 r.setStatus(false);
-                r.setMensaje("Error en el guardado");
-                return r;
+                r.setMensaje("Error en el guardado de evento");
             }
+            return r;
         } 
         catch (Exception e) 
         {

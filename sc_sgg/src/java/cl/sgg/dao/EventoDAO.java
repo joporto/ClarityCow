@@ -1,22 +1,25 @@
-//v1.0.0
+//v1.1.0
 package cl.sgg.dao;
 
 import cl.sgg.dal.NewHibernateUtil;
+import java.math.BigInteger;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 public class EventoDAO {
     
-    public boolean add(cl.sgg.edm.Evento a) throws Exception {
+    public int add(cl.sgg.edm.Evento a) throws Exception {
         Session sessionA = NewHibernateUtil.getSessionFactory().openSession();
         sessionA.beginTransaction();
         try 
         {
             sessionA.save(a);
             sessionA.getTransaction().commit();
+            int result = ((BigInteger) sessionA.createSQLQuery("SELECT LAST_INSERT_ID()")
+            .uniqueResult()).intValue();
             sessionA.close();
-            return true;            
+            return result;            
         } 
         catch (Exception e) 
         {

@@ -74,18 +74,20 @@ public class testQueryItem {
             cl.sgg.business.Feedlot fl = new cl.sgg.business.Feedlot();
             fl.CargarGrilla();
             */
-            /*
+            
             RazaDAO rdao = new RazaDAO();
             Raza r  = new Raza();
             r.setRazaAbrev("AA");
             r.setRazaNombre("razaTest");
             r.setRazaStatus(0);
-            */
-            BajaAnimales b = new BajaAnimales();
-            b.BuscarDIIO(0);
-
-            //System.out.println(rdao.add(r));
-                  
+            int aux = rdao.add(r);
+            System.out.println(aux);
+            
+            r.setRazaId(aux);
+            if(rdao.delete(r))
+                System.out.println("true");
+            else
+                System.out.println("false");
             
                 
                     

@@ -1,4 +1,4 @@
-//v1.0.0
+//v1.0.1
 package cl.sgg.business;
 
 import cl.sgg.dal.Conexion;
@@ -488,7 +488,8 @@ public class FeedlotTraslado
                 ev.setEventotipoId(7); //Tipo evento CONFIRMAR
                                
                 EventoDAO edao = new EventoDAO();
-                if(edao.add(ev)) //agrega evento a la db
+                int idEvento = edao.add(ev); //agrega evento a la db
+                if(idEvento != 0) 
                 {
                     AnimalDAO adao = new AnimalDAO();
                     arg.getAnimal().setAnimalEstadoActual(ev.getEstadoanimalId()); //set estado actual
