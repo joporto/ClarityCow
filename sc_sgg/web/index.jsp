@@ -49,12 +49,14 @@
   <div class="panel panel-default">
     <!-- Inicio Head -->
     <div class="panel-heading">
-    <%@include file="nav.jsp" %></div>
+    <%@include file="nav.jsp" %>
+    </div>
     
     <!-- Inicio Contenido -->
     <div class="panel-body">
         
     </div>
+<<<<<<< HEAD
     
   <!-- Inicio Footer -->
   
@@ -62,11 +64,17 @@
   <%@include file="footer.jsp" %></div>
   </div> 
 </div>
+=======
+>>>>>>> origin/master
   
+</div>
+</div>
     
+    
+    
+    <%@include file="footer.jsp" %>
     <!-- jQuery Version 1.11.1 -->
     <script src="js/jquery.js"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>    
 </body>
