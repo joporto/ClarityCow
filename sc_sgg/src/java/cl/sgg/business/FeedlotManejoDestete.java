@@ -1,4 +1,4 @@
-//v1.0.3
+//v1.0.4
 package cl.sgg.business;
 
 import cl.sgg.dal.Conexion;
@@ -199,6 +199,8 @@ public class FeedlotManejoDestete
         try 
         {  
             Respuesta r = new Respuesta();
+            r.setMensaje("Se debe agregar un DIIO");
+            r.setStatus(false);
             for (Animal arg : listAnimal)
             {
                 Date d = new Date();
@@ -210,20 +212,38 @@ public class FeedlotManejoDestete
                 ev.setEventoFechaEvento(d);
                 ev.setEventoFechaReg(fechaManejo);
                 ev.setEventoValor(null);
-                ev.setEventotipoId(17); //Tipo evento "XXXXXXXXXXXXXX"
+                ev.setEventotipoId(17); //Tipo evento "Feedlot Destete"
 
                 EventoDAO edao = new EventoDAO();
                 int idEvento = edao.add(ev); //agrega evento a la db
                 if (idEvento != 0) 
                 {
-                    
-                   
+                    int contadorAdd = 0;
+                    for(Insumo arg1: listInsumo)
+                    {
+                        EventoInsumo ei = new EventoInsumo();
+                        ei.setEventoId(idEvento);
+                        ei.setInsumoId(arg1.getInsumoId());
+                        EventoInsumoDAO eidao = new EventoInsumoDAO();
+                        int idEventoInsumo = eidao.add(ei);
+                        if(idEventoInsumo != 0)
+                        {
+                            contadorAdd++;
+                        }
+                        else
+                        {
+                            r.setStatus(false);
+                            r.setMensaje("Error al registrar Evento_Insumo");
+                            return r;
+                        }
+                    }
+                    r.setMensaje("Se agrega registro de evento y "+contadorAdd+" Eventos_insumo");
+                    r.setStatus(true);
                 }
                 else
                 {
                     r.setStatus(false);
-                    r.setMensaje("Error en el guardado");
-                    return r;
+                    r.setMensaje("Error en el guardado de evento");
                 }
             }
             return r;

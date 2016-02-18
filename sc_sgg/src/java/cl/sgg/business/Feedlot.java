@@ -1,4 +1,4 @@
-//v1.0.0
+//v1.0.1
 package cl.sgg.business;
 
 import java.util.List;
@@ -41,7 +41,8 @@ public class Feedlot
                     + "join TRANSPORTE t on t.TRANSPORTE_ID= e1.TRANSPORTE_ID "
                     + "join ESTABLECIMIENTO e2 on e2.RUP_ID= t.TRANSPORTE_RUP_ORIGEN "
                     + "join ESTABLECIMIENTO e3 on e3.RUP_ID= t.TRANSPORTE_RUP_DESTINO "
-                    + "where e.EVENTOTIPO_ID = 17 and e.EVENTO_VALOR = 0";
+                    + "where e.EVENTOTIPO_ID = 13 and e.EVENTO_VALOR = 0 "
+                    + "group by t.TRANSPORTE_ID";
             ResultSet rs = stmt.executeQuery(query);
      
             while (rs.next()) 
