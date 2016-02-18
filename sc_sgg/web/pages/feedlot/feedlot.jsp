@@ -11,6 +11,8 @@
     <!-- Bootstrap Core CSS -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/bootstrap-select.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet" type="text/css"/>
+    <script src="/js/bootstrap-select.js"></script>
     
     <!-- Custom CSS -->
 
@@ -21,38 +23,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     
-    <style>
-   *{
-    padding: 0;
-    margin: 0;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-     
-}
-  body {
-    padding-top: 70px;
-  }
-  @media (max-width: 980px) {
-    body {
-      padding-top: 0;
-    }
-  }
-
-    </style>
+    
     </head>
 <body>
 <%
@@ -110,7 +81,7 @@ body {
           <td><%= arg.getFundoOrigen() %></td>
           <td><%= arg.getFundoDestino() %></td>
           <td><%= arg.getStatus() %></td>
-          <td><a href="#" class="btn btn-info" role="button">Cargar</a></td>
+          <td><a href="trasladoDestete.jsp?idTransporte=<%= arg.getIdTransporte() %>" class="btn btn-info" role="button">Cargar</a></td>
       </tr>
       
       <%

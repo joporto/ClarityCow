@@ -19,7 +19,7 @@
                  <a class="navbar-brand" href="/index.jsp">SC - SGG</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li>
                         <a href="#">Histórico Animal</a>
@@ -106,35 +106,42 @@
                     <li>
                         <a href="#">Reportes</a>
                     </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-        <li><a href="/login.jsp?cmd=close"><span class="glyphicon glyphicon-log-in"></span> Cerrar Sesión</a></li>
-      </ul>
+                    
+                         
+                     </ul>
                 
-        </div>
-            <!-- /.navbar-collapse --> 
-           
-            <!-- /. User identificación y logout-->
-            <%
-            if(request.getSession().getAttribute("userSession") != null)       
-            {
-                cl.sgg.utils.UserSession usr = (cl.sgg.utils.UserSession) request.getSession().getAttribute("userSession");
+               
+                   
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/login.jsp?cmd=close">
+                            <span class="glyphicon glyphicon-log-in"></span>Cerrar Sesión</a>
+                    </li>
+                   
+                </ul>
+             <ul class="nav navbar-nav navbar-right">
+                  <li>
+          
+                           
+                    </li>
+             </ul>
+        
+             
+           </div>
+             <!-- /.container
+            
+              <%
+                        if(request.getSession().getAttribute("userSession") != null)       
+                         {
+                            cl.sgg.utils.UserSession usr = 
+                                    (cl.sgg.utils.UserSession) request.getSession().getAttribute("userSession");
              
             %>
-           <a class="usuario">Usuario: <%= usr.getUserName() %> </a>
-           
-           <%
-            }
-           %>
+            <span class="glyphicon glyphicon-user"> <%= usr.getUserName() %></span>
+             <%         }
+             %>
+             -->
         </div>
-    <!-- /.container -->
+    
  </nav>
- <div class="navbar-right">                  
-  <ul class="breadcrumb">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Private</a></li>
-    <li><a href="#">Pictures</a></li>
-    <li class="active">Vacation</li>        
-  </ul>
-</div>
 

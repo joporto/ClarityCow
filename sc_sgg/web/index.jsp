@@ -64,13 +64,7 @@
   <%@include file="footer.jsp" %></div>
   </div> 
 </div>
-
   
-</div>
-</div>
-    
-    
-    
     <%@include file="footer.jsp" %>
     <!-- jQuery Version 1.11.1 -->
     <script src="js/jquery.js"></script>

@@ -8,6 +8,6 @@
                     <div class="panel-footer">
 			<p>SmartClarity <strong>SGG</strong> </p>
 			<p class="copyright">Copyright &copy; 2016 Flagare SPA &mdash; <a href="http://flagare.cl/" title="Flagare SPA">Flagare SPA</a></p>
-		</div>
                     </div>
+                </div>
 
