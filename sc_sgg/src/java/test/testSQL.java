@@ -25,6 +25,8 @@ public class testSQL {
             Feedlot f = new Feedlot();
             
             f.CargarGrilla();
+            
+            System.out.println(f.getListGrilla().size());
             for (GrillaFeedlot arg : f.getListGrilla()) {
                 
                 System.out.println(arg.toString());
