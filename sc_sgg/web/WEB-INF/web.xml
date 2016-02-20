@@ -25,6 +25,21 @@
     <url-pattern>/pages/manejos/bajaAnimales</url-pattern>
   </servlet-mapping>
   
+  
+  <servlet>
+    <description></description>
+    <display-name>trasladoDestete</display-name>
+    <servlet-name>trasladoDestete</servlet-name>
+    <servlet-class>cl.sgg.controller.trasladoDestete</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
+   <servlet-mapping>
+    <servlet-name>trasladoDestete</servlet-name>
+    <url-pattern>/pages/feedlot/trasladoDestete</url-pattern>
+  </servlet-mapping>
+  
+  
+  
     <servlet>
     <description></description>
     <display-name>guardarBaja</display-name>

@@ -18,6 +18,12 @@
     <link href="/css/style.css" rel="stylesheet" type="text/css"/>
     <script src="/js/bootstrap-select.js"></script>
     
+    
+        <link href="/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+        
+        <script src="/js/fileinput.js" type="text/javascript"></script>
+        <script src="/js/fileinput_locale_es.js" type="text/javascript"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <!-- Custom CSS -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -26,7 +32,12 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
+    <script type="text/javascript">
+        // with plugin options
+        $("#input-1").fileinput({'showUpload':false, 'previewFileType':'any'});
+        
+        
+    </script>
     </head>
 <body>
 <%
@@ -57,6 +68,7 @@
          String nomRupDestino = "";
          String comuna = "";
          String direccion = "";
+         
          String idTransportista = "";
          String nomTransportista = "";
          String rutTransportista = "";
@@ -74,8 +86,16 @@
         if(request.getParameter("idTransporte") != null)
         {
             idTrasporte = Integer.parseInt(request.getParameter("idTransporte"));
-            cl.sgg.business.FeedlotTraslado ft = new FeedlotTraslado(idTrasporte);
+            request.getSession().setAttribute("idTrasporte", idTrasporte);
+        }
         
+        
+        if(request.getSession().getAttribute("idTrasporte") != null)
+        {
+          
+            cl.sgg.business.FeedlotTraslado ft = new FeedlotTraslado(idTrasporte);
+            
+            
         if(ft.CargarForm().isStatus())
         {
             rupOrigen = ""+ft.getFft().getRupOrigen();
@@ -96,7 +116,10 @@
             guiaDespacho = ft.getFft().getGuiaDespacho();
             gft = ft.getFft().getGft();
             
-        }else{
+            
+            
+        }else
+        {
             //Evento No encontrado
         }
        
@@ -132,7 +155,13 @@
           </div>
             <br>
             <br>
-        <form class="form-horizontal" role="form">
+            <form class="form-horizontal" role="form" action="trasladoDestete" method="post">
+            
+            
+                
+                <input style="display:none;" type="text" name="idTransporte" class="form-control" placeholder="Rup Origen" value="<%= request.getSession().getAttribute("idTrasporte") %>">
+                
+                
             <div class="form-group">
               <label class="control-label col-sm-2">RUP Origen</label>
               <div class="col-sm-4">
@@ -210,33 +239,131 @@
                 <input disabled type="text" class="form-control" placeholder="fecha de traslado" value="<%= fechaRegistro %>">
               </div>
             </div>
-            
-              <div>
-          <ol class="breadcrumb">
-            <li><a >Ternero</a></li>
-            <li><a ><- Cambia a -> </a></li>
-            <li class="active">Vaca</li>
-          </ol>
-        </div>
-            
-            <div class="form-group"> 
-              <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Guardar</button>
+              
+              
+              
+            <div class="form-group">
+              <label class="control-label col-sm-2" >Tipo de acción</label>
+              <div class="col-sm-4"> 
+                    <div class="radio">
+                       <label class="text-primary small"><input type="radio" name="optradio">Confirmar</label>
+                    </div>
+                    <div class="radio">
+                          <label class="text-primary small"><input type="radio" name="optradio">Trasladar</label>
+                    </div>
+              </div>
+              <label class="control-label col-sm-2" >Cargar DIIO</label>
+              <div class="col-sm-4"> 
+                  <input type="text" class="form-control" placeholder="Diio" name="txtDiio">
+                
+              </div>
+            </div>  
+             
+            <div class="form-group">
+              <label class="control-label col-sm-2" >Peso</label>
+              <div class="col-sm-4"> 
+                <input type="text" class="form-control" placeholder="peso" name="txtPeso">
+              </div>
+             
+              <div class="col-sm-4"> 
+                  <button type="submit" name="btnGuardar" class="btn btn-default" value="guardarDiio">Agregar/Actualizar</button>
               </div>
             </div>
-        </form>
+            <div class="form-group">
+              <label class="control-label col-sm-2" >Archivo Excel</label>
+              <div class="col-sm-4"> 
+                <input id="file-1" type="file" name="fileExcel">
+              </div>
+             
+              <div class="col-sm-4"> 
+                  <button type="submit" name="btnGuardar" class="btn btn-default" value="guardarExcel">Cargar Excel</button>
+              </div>
+            </div>
+              
+           
+              
+              
+            <div class="form-group">
+            <table class="table table-hover table-responsive">
+              <thead>
+                <tr>
+                  <th>DIIO</th>
+                  <th>Peso (KG)</th>
+                  <th>Estado</th>
+                  <th>Editar</th>
+                  <th>Borrar</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+              <% 
+                  cl.sgg.business.FeedlotTraslado ft = new cl.sgg.business.FeedlotTraslado();
+                  
+                  if(request.getParameter("ftt") != null)
+                  {
+                      List<cl.sgg.business.GrillaFeedlotTraslado> lista;
+                      lista = (List<cl.sgg.business.GrillaFeedlotTraslado>)request.getAttribute("ftt");
+                      ft.setListFeedlotTraslado(lista);
+                  }
+                  
+
+                  if(ft.getListFeedlotTraslado().size() > 0)
+                  {
+                      for(cl.sgg.business.GrillaFeedlotTraslado arg: ft.getListFeedlotTraslado())
+                      {
+
+              %>  
+
+                <tr>
+                    <td><%= arg.getAnimal().getAnimalDiioActual() %></td>
+                    <td><%= arg.getPeso() %></td>
+                    <td><%= arg.getStatus()%></td>
+                    <td><a href="#">Editar</a></td>
+                    <td><a href="#">Borrar</a></td>
+                </tr>
+
+                <%
+                      }
+                  }
+                %>
+              </tbody>
+            </table>
+              
+              </div>
+              
+               
+              <br>
+            <div class="form-group"> 
+              <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" name="btnGuardar" class="btn btn-default" value="guardarFormulario">Guardar Formulario</button>
+              </div>
+            </div>
             
-        </div>
-        
+    </form>
+              
+             
+
+              
+           
+              
+            
+             
+              
+              
+              
+            
+            
+    </div>
     </div>      
     </div>
     </div>
-<%@include file="/footer.jsp" %>
  
 <!-- jQuery Version 1.11.1 -->
 <script src="/js/jquery.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-  <script src="/js/bootstrap.min.js"></script>   
+  <script src="/js/bootstrap.min.js"></script> 
 </body>
+
+
 </html>
