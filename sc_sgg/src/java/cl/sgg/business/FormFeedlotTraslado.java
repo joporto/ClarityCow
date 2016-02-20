@@ -1,4 +1,4 @@
-//v1.0.2
+//v1.0.3
 package cl.sgg.business;
 
 import java.util.Date;
@@ -23,7 +23,6 @@ public class FormFeedlotTraslado
     private String FMA;
     private String guiaDespacho;
     private List<GrillaFeedlotTraslado> gft;
-
     
     public int getRupOrigen() {
         return rupOrigen;
@@ -179,10 +178,5 @@ public class FormFeedlotTraslado
         this.fechaTraslado = null;
         this.FMA = "";
         this.guiaDespacho = "";
-    }
-
-    @Override
-    public String toString() {
-        return "FormFeedlotTraslado{" + "rupOrigen=" + rupOrigen + ", rupDestino=" + rupDestino + ", nomRupOrigen=" + nomRupOrigen + ", nomRupDestino=" + nomRupDestino + ", comuna=" + comuna + ", direccion=" + direccion + ", nomTransportista=" + nomTransportista + ", rutTransportista=" + rutTransportista + ", patenteVehiculo=" + patenteVehiculo + ", patenteAcoplado=" + patenteAcoplado + ", fechaRegistro=" + fechaRegistro + ", fechaTraslado=" + fechaTraslado + ", FMA=" + FMA + ", guiaDespacho=" + guiaDespacho + ", gft=" + gft + '}';
     }
 }

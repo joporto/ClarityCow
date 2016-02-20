@@ -75,19 +75,8 @@ public class testQueryItem {
             fl.CargarGrilla();
             */
             
-            RazaDAO rdao = new RazaDAO();
-            Raza r  = new Raza();
-            r.setRazaAbrev("AA");
-            r.setRazaNombre("razaTest");
-            r.setRazaStatus(0);
-            int aux = rdao.add(r);
-            System.out.println(aux);
-            
-            r.setRazaId(aux);
-            if(rdao.delete(r))
-                System.out.println("true");
-            else
-                System.out.println("false");
+        cl.sgg.business.FeedlotTraslado ft = new FeedlotTraslado();
+        ft.CargarDIIOAConfirmar(111111, 2f);
             
           
                     

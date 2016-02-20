@@ -1,4 +1,4 @@
-//v1.1.2
+//v1.2.2
 package cl.sgg.business;
 
 import cl.sgg.dal.Conexion;
@@ -366,13 +366,14 @@ public class FeedlotTraslado
     
     // Método público que invoca la carga de DIIO ingresado a trasladar
     // ENTRADA: Se ingresa valor de DIIO a trasladar
+    // ENTRADA: Se ingresa valor de peso a trasladar
     // SALIDA: carga en el atributo de la clase "List<GrillaFeedlotTraslado> listFeedlotTraslado" con el resultado
-    public Respuesta CargarDIIOATrasladar(int DIIO) throws Exception
+    public Respuesta CargarDIIOATrasladar(int DIIO, float peso) throws Exception
     {
         try 
         {
             Respuesta r;
-            r = CargarDIIO(DIIO, 1); //a trasladar
+            r = CargarDIIO(DIIO, 1, peso); //a trasladar
             return r;
         } 
         catch (Exception e) 
@@ -383,13 +384,14 @@ public class FeedlotTraslado
     
     // Método público que invoca la carga de DIIO ingresado a confirmar
     // ENTRADA: Se ingresa valor de DIIO a confirmar
+    // ENTRADA: Se ingresa valor de peso a confirmar
     // SALIDA: carga en el atributo de la clase "List<GrillaFeedlotTraslado> listFeedlotTraslado" con el resultado
-    public Respuesta CargarDIIOAConfirmar(int DIIO) throws Exception
+    public Respuesta CargarDIIOAConfirmar(int DIIO, float peso) throws Exception
     {
         try 
         {
             Respuesta r;
-            r = CargarDIIO(DIIO, 2); //a confirmar
+            r = CargarDIIO(DIIO, 2, peso); //a confirmar
             return r;
         } 
         catch (Exception e) 
@@ -401,8 +403,9 @@ public class FeedlotTraslado
     // Método privado que carga el DIIO ingresado
     // ENTRADA: Se ingresa valor de DIIO
     // ENTRADA: Se ingresa valor tipoCarga (1= a trasladar, 2= a confirmar)
+    // ENTRADA: Se ingresa valor de peso
     // SALIDA: carga en el atributo de la clase "List<GrillaFeedlotTraslado> listFeedlotTraslado" con el resultado
-    private Respuesta CargarDIIO(int DIIO, int tipoCarga) throws Exception
+    private Respuesta CargarDIIO(int DIIO, int tipoCarga, float peso) throws Exception
     {
         try 
         {
@@ -419,8 +422,8 @@ public class FeedlotTraslado
                     {
                         GrillaFeedlotTraslado gft = new GrillaFeedlotTraslado();
                         gft.setAnimal(animal);
-                        gft.setPeso(animal.getAnimalPesoActual());
                         gft.setStatus("Por confirmar");
+                        gft.setPeso(peso);
                         listFeedlotTraslado.add(gft);
                         r.setStatus(true);
                         r.setMensaje("DIIO agregado a grilla");
@@ -438,12 +441,42 @@ public class FeedlotTraslado
                 }
             }
             else if (tipoCarga == 2) //a confirmar
-            {
+            {              
+                int contador = 0;
                 for (GrillaFeedlotTraslado arg : listFeedlotTraslado)
                 {
                     if(arg.getAnimal().getAnimalDiioActual() == DIIO)
                     {
                         arg.setStatus("Confirmado");
+                        contador++;
+                    }
+                }
+                if(contador==0)
+                {
+                    BusquedaDIIO buscaDiio = new BusquedaDIIO();
+                    Animal animal = buscaDiio.BuscarDIIO(DIIO);
+                    if(animal.getAnimalId() != 0)
+                    {
+                        if(animal.getAnimalRupActual() == fft.getRupOrigen())
+                        {
+                            GrillaFeedlotTraslado gft = new GrillaFeedlotTraslado();
+                            gft.setAnimal(animal);
+                            gft.setStatus("Confirmado");
+                            gft.setPeso(peso);
+                            listFeedlotTraslado.add(gft);
+                            r.setStatus(true);
+                            r.setMensaje("DIIO agregado a grilla");
+                        }
+                        else
+                        {
+                            r.setMensaje("DIIO no pertenece a RUP");
+                            r.setStatus(false);
+                        }
+                    }
+                    else
+                    {
+                        r.setStatus(false);
+                        r.setMensaje("DIIO no encontrado");
                     }
                 }
                 r.setStatus(true);
@@ -484,23 +517,26 @@ public class FeedlotTraslado
             {
                 Date d = new Date();
                 Evento ev = new Evento();
-                ev.setAnimalId(arg.getAnimal().getAnimalId());
-                if(arg.getAnimal().getAnimalCategoriaActual() == 1) //ternera
-                    ev.setCategoriaId(5); //vaquilla engorda
-                else if(arg.getAnimal().getAnimalCategoriaActual() == 2) //ternero
-                    ev.setCategoriaId(3); //torete engorda
-                else
-                    ev.setCategoriaId(arg.getAnimal().getAnimalCategoriaActual());
+                ev.setAnimalId(arg.getAnimal().getAnimalId());   
                 
-                ev.setEstadoanimalId(2); // Estado = "Engorda"
                 if(arg.getStatus()=="Por confirmar")
                 {
+                    ev.setCategoriaId(arg.getAnimal().getAnimalCategoriaActual());
                     ev.setEventoDs("Traslado Feedlot por confirmado");
                     ev.setEventoValor(0f);
                     ev.setEventotipoId(13); //Tipo evento "Traslado Destete Salida"
+                    ev.setEstadoanimalId(arg.getAnimal().getAnimalEstadoActual());
                 }
-                else
+                else //Confirmado
                 {
+                    ev.setEstadoanimalId(2); // Estado = "Engorda"
+                    if(arg.getAnimal().getAnimalCategoriaActual() == 1) //ternera
+                        ev.setCategoriaId(5); //vaquilla engorda
+                    else if(arg.getAnimal().getAnimalCategoriaActual() == 2) //ternero
+                        ev.setCategoriaId(3); //torete engorda
+                    else
+                    ev.setCategoriaId(arg.getAnimal().getAnimalCategoriaActual());
+                    
                     ev.setEventoDs("Traslado Feedlot confirmado");
                     ev.setEventoValor(1f); 
                     ev.setEventotipoId(25); //Tipo evento "Traslado destete llegada"
@@ -512,18 +548,51 @@ public class FeedlotTraslado
                 int idEvento = edao.add(ev); //agrega evento a la db
                 if(idEvento != 0) 
                 {
-                    AnimalDAO adao = new AnimalDAO();
-                    arg.getAnimal().setAnimalEstadoActual(ev.getEstadoanimalId()); //set estado actual
-                    if(adao.update(arg.getAnimal()))
+                    if(arg.getStatus()!="Por confirmar")
                     {
-                        r.setStatus(true);
-                        r.setMensaje("Registro actualizado Animal y evento");
-                        return r; 
+                        EventoRupDAO erdao = new EventoRupDAO();
+                        EventoRup er = new EventoRup();
+                        er.setEventoId(idEvento);
+                        er.setRupId(fft.getRupDestino());
+                        int idEventoRup = erdao.add(er);
+                        if(idEventoRup != 0)
+                        {
+                           AnimalDAO adao = new AnimalDAO();
+                            arg.getAnimal().setAnimalEstadoActual(ev.getEstadoanimalId()); //set estado actual
+                            arg.getAnimal().setAnimalCategoriaActual(ev.getCategoriaId()); //set categoria actual
+                            arg.getAnimal().setAnimalRupActual(fft.getRupDestino());
+                            if(arg.getPeso()!=0)
+                                arg.getAnimal().setAnimalPesoActual(arg.getPeso());
+                            if(adao.update(arg.getAnimal()))
+                            {
+                                r.setStatus(true);
+                                r.setMensaje("Registro actualizado Animal, y creado de: evento, eventoRup");
+                                return r;
+                            }
+                            else
+                            {
+                                er.setEventorupId(idEventoRup);
+                                erdao.delete(er); //borra registro eventoRup
+                                ev.setEventoId(idEvento);
+                                edao.delete(ev); //borra registro evento
+                                r.setStatus(false);
+                                r.setMensaje("Error en el guardado Animal");
+                                return r;
+                            } 
+                        }
+                        else
+                        {
+                            ev.setEventoId(idEvento);
+                            edao.delete(ev);
+                            r.setStatus(false);
+                            r.setMensaje("Error en el guardado EventoRup");
+                            return r;
+                        }
                     }
                     else
                     {
-                        r.setStatus(false);
-                        r.setMensaje("Error en el guardado Animal");
+                        r.setStatus(true);
+                        r.setMensaje("Registro evento creado");
                         return r;
                     }
                 }
@@ -539,14 +608,6 @@ public class FeedlotTraslado
         {
             throw e;
         }
-        return null;
-    }
-    
-    // Método privado que actualiza el cambio categoría animal a mostrar en pantalla
-    // ENTRADA: Sin entrada
-    // SALIDA: carga en el atributo de la clase "FormFeedlotTraslado fft" el cambio de categoría
-    private Respuesta CambioEstado(String motivo) throws Exception
-    {
         return null;
     }
 }
