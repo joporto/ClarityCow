@@ -1,4 +1,4 @@
-//v1.0.3
+//v1.0.4
 package cl.sgg.business;
 
 import java.util.Date;
@@ -6,6 +6,7 @@ import java.util.List;
 import cl.sgg.utils.*;
 import cl.sgg.edm.*;
 import cl.sgg.dao.*;
+import java.util.ArrayList;
 
 public class BajaAnimales
 {
@@ -103,7 +104,7 @@ public class BajaAnimales
     {
         try 
         {
-            List<String> list = null;
+            List<String> list = new ArrayList<String>();
             Respuesta r = new Respuesta();
             if ("Muerto".equals(motivo))
             {

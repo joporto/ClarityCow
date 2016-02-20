@@ -1,4 +1,4 @@
-//v1.0.1
+//v1.0.2
 package cl.sgg.business;
 
 public class GrillaFeedlot 
@@ -78,7 +78,14 @@ public class GrillaFeedlot
     
     public GrillaFeedlot()
     {
-        
+        this.idTransporte = 0;
+        this.tipoTraslado = "";
+        this.fechaTraslado = null;
+        this.FMA = "";
+        this.guiaDespacho = "";
+        this.fundoOrigen = "";
+        this.fundoDestino = "";
+        this.status = "";
     }
     
     public GrillaFeedlot(int idTransporte, String tipoTraslado, String fechaTraslado, String FMA, String guiaDespacho, String fundoOrigen, String fundoDestino, String status) {

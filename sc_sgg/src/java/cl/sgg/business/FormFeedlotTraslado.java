@@ -1,4 +1,4 @@
-//v1.0.1
+//v1.0.2
 package cl.sgg.business;
 
 import java.util.Date;
@@ -161,7 +161,24 @@ public class FormFeedlotTraslado
         this.gft = gft;
     }
 
-    public FormFeedlotTraslado() {
+    public FormFeedlotTraslado() 
+    {
+        this.rupOrigen = 0;
+        this.rupDestino = 0;
+        this.nomRupOrigen = "";
+        this.nomRupDestino = "";
+        this.comuna = "";
+        this.direccion = "";
+        this.idTransportista = 0;
+        this.nomTransportista = "";
+        this.rutTransportista = "";
+        this.idVehiculo = 0;
+        this.patenteVehiculo = "";
+        this.patenteAcoplado = "";
+        this.fechaRegistro = null;
+        this.fechaTraslado = null;
+        this.FMA = "";
+        this.guiaDespacho = "";
     }
 
     @Override

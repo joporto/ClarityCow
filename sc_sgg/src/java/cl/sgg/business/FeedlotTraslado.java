@@ -1,4 +1,4 @@
-//v1.1.1
+//v1.1.2
 package cl.sgg.business;
 
 import cl.sgg.dal.Conexion;
@@ -97,7 +97,7 @@ public class FeedlotTraslado
                 fft.setFMA(rs.getString("TRANSPORTE_FMA"));
                 fft.setFechaRegistro(rs.getDate("EVENTO_FECHA_REG"));
                 fft.setFechaTraslado(rs.getDate("EVENTO_FECHA_EVENTO"));
-                fft.setGuiaDespacho(rs.getString("RUP_COMUNA"));
+                fft.setGuiaDespacho(rs.getString("TRANSPORTE_GUIA_DESPACHO"));
                 fft.setNomRupDestino(rs.getString("RUP_DESTINO_NOM"));
                 fft.setNomRupOrigen(rs.getString("RUP_ORIGEN_NOM"));
                 fft.setNomTransportista(rs.getString("TRANSPORTISTA_NOMBRE"));
@@ -492,14 +492,22 @@ public class FeedlotTraslado
                 else
                     ev.setCategoriaId(arg.getAnimal().getAnimalCategoriaActual());
                 
-              
-                ev.setEstadoanimalId(5); // CONFIRMAR ESTADO
-                ev.setEventoDs("Traslado Feedlot confirmado");
+                ev.setEstadoanimalId(2); // Estado = "Engorda"
+                if(arg.getStatus()=="Por confirmar")
+                {
+                    ev.setEventoDs("Traslado Feedlot por confirmado");
+                    ev.setEventoValor(0f);
+                    ev.setEventotipoId(13); //Tipo evento "Traslado Destete Salida"
+                }
+                else
+                {
+                    ev.setEventoDs("Traslado Feedlot confirmado");
+                    ev.setEventoValor(1f); 
+                    ev.setEventotipoId(25); //Tipo evento "Traslado destete llegada"
+                }
                 ev.setEventoFechaEvento(d);
                 ev.setEventoFechaReg(fft.getFechaTraslado());
-                ev.setEventoValor(1f); 
-                ev.setEventotipoId(25); //Tipo evento "Traslado destete llegada"
-                               
+                   
                 EventoDAO edao = new EventoDAO();
                 int idEvento = edao.add(ev); //agrega evento a la db
                 if(idEvento != 0) 
