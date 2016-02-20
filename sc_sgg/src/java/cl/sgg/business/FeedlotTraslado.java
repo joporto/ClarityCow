@@ -5,10 +5,23 @@ import cl.sgg.dal.Conexion;
 import cl.sgg.dao.*;
 import cl.sgg.edm.*;
 import cl.sgg.utils.*;
+import java.io.FileInputStream;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.*;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Iterator;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 
 public class FeedlotTraslado 
 {
@@ -495,14 +508,117 @@ public class FeedlotTraslado
         return null;
     }
     
-    public Respuesta CargarExcelAConfirmar() throws Exception
+    public Respuesta CargarExcelAConfirmar(FileInputStream file, int tipoCarga) throws Exception
     {
-        return null;
+        try 
+        {
+            Respuesta r = new Respuesta();
+            r = CargarExcel(file, 2); //a confirmar
+            return r;
+        } 
+        catch (Exception e) 
+        {
+            throw e;
+        }
     }
     
-    private Respuesta CargarExcel() throws Exception
+    private Respuesta CargarExcel(FileInputStream file, int tipoCarga) throws Exception
     {
-        return null;
+        String cellText;
+        try 
+        {
+            Respuesta r = new Respuesta();
+            
+            int aux = -1;
+            int aux2 = -1;
+            //FileInputStream file = new FileInputStream(new File(excelPath));
+            //Coge el libro del fichero
+            Workbook workbook = new XSSFWorkbook(file);
+            
+            //Coge la primera hoja del libro
+            Sheet sheet = workbook.getSheetAt(0);
+            
+            //Recorre las filas de la hoja
+            Iterator<Row> rowIterator = sheet.iterator();
+            while(rowIterator.hasNext()) 
+            {
+		//Recoge la fila siguiente
+                Row row = rowIterator.next();
+                
+                //Itera por cada celda de cada fila 
+                Iterator<Cell> cellIterator = row.cellIterator();
+                
+		//Recoge la celda actual  
+                while(cellIterator.hasNext()) 
+                {
+                    Cell cell = cellIterator.next();
+                    
+                    switch(cell.getCellType()) {
+                        case Cell.CELL_TYPE_BOOLEAN:
+                            cellText = cell.getBooleanCellValue() + "";
+                            break;
+                        case Cell.CELL_TYPE_NUMERIC:
+                            cellText = cell.getNumericCellValue() + "";
+                            break;
+                        case Cell.CELL_TYPE_STRING:
+                            cellText = cell.getStringCellValue();
+                            break;
+                        case Cell.CELL_TYPE_FORMULA:
+                            cellText = cell.getCellFormula();
+                            break;
+                        default:
+                            cellText = cell.getStringCellValue();
+                            break;
+                    }
+                    
+                    int DIIO = 0;
+                    float peso = 0f;
+                    
+                    //DIIO
+                    if(cellText.equals("DIIO"))
+                    {
+                        aux = cell.getColumnIndex();
+                    }
+                    if(aux != -1 && cell.getColumnIndex()==aux)
+                    {
+                        if(cellText.contains("E"))
+                        {
+                            
+                            int bbb = cellText.indexOf("E");
+                            cellText = cellText.substring(0, bbb);
+                            
+                            cellText = cellText.replace(".", "");
+                            System.out.println(cellText);
+                            while(cellText.length() < 15)
+                            {
+                                cellText = cellText+"0";
+                            }
+                            DIIO = Integer.parseInt(cellText);
+                        }
+                    }
+                    
+                    //DIIO
+                    if(cellText.equals("PESO"))
+                    {
+                        aux2 = cell.getColumnIndex();
+                    }
+                    if(aux2 != -1 && cell.getColumnIndex()==aux2)
+                    {
+                        peso = Float.parseFloat(cellText);
+                    } 
+                    return CargarDIIOAConfirmar(DIIO, peso);
+                }
+            }
+            return r;
+        } 
+        catch (FileNotFoundException e) 
+        {
+            throw e;
+        } 
+        catch (IOException e) 
+        {
+            throw e;
+        }
     }
 
     // Método público que guarda los eventos de los DIIOS cargados en la grilla

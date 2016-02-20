@@ -75,8 +75,6 @@ public class testQueryItem {
             fl.CargarGrilla();
             */
             
-        cl.sgg.business.FeedlotTraslado ft = new FeedlotTraslado();
-        ft.CargarDIIOAConfirmar(111111, 2f);
             
           
                     
