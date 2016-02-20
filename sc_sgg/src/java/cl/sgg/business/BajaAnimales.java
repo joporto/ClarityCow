@@ -1,4 +1,4 @@
-//v1.0.2
+//v1.0.3
 package cl.sgg.business;
 
 import java.util.Date;
@@ -201,7 +201,7 @@ public class BajaAnimales
             ev.setEventoDs(motivo);
             ev.setEventoFechaEvento(d);
             ev.setEventoFechaReg(fechaBaja);
-            ev.setEventoValor(null);
+            ev.setEventoValor(0f);
             ev.setEventotipoId(7); //Tipo evento "baja no productiva"
 
             EventoDAO edao = new EventoDAO();

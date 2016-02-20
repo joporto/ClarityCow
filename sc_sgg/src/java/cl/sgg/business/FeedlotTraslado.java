@@ -1,4 +1,4 @@
-//v1.0.1
+//v1.1.0
 package cl.sgg.business;
 
 import cl.sgg.dal.Conexion;
@@ -162,7 +162,7 @@ public class FeedlotTraslado
                 }
                 this.listFeedlotTraslado.add(gft);
             }
-            r.setMensaje("OK");
+            r.setMensaje("Datos cargados de grilla");
             r.setStatus(true);
             return r;
         } 
@@ -321,9 +321,9 @@ public class FeedlotTraslado
             {
                 e = edao.getEstablecimientoByNombre(nomRupOrigen);
             }
-            if (e.getRupId() != 0) //encontró transportista?
+            if (e.getRupId() != 0) //encontró RUP?
             {
-                if (e.getRupStatus() == 0) //transportista desactivado
+                if (e.getRupStatus() == 0) //RUP desactivado
                 {
                     r.setMensaje("RUP desactivado");
                     r.setStatus(false);
@@ -332,7 +332,7 @@ public class FeedlotTraslado
                 else
                 {
                     r.setStatus(false);
-                    r.setMensaje("Transportista no cargado, tipoRUP no valido");
+                    r.setMensaje("TipoRUP no valido");
                     if(tipoRUP == 1) //origen
                     {
                         fft.setRupOrigen(e.getRupId());
@@ -415,13 +415,21 @@ public class FeedlotTraslado
                 Animal animal = buscaDiio.BuscarDIIO(DIIO);
                 if(animal.getAnimalId() != 0)
                 {
-                    GrillaFeedlotTraslado gft = new GrillaFeedlotTraslado();
-                    gft.setAnimal(animal);
-                    gft.setPeso(animal.getAnimalPesoActual());
-                    gft.setStatus("Por confirmar");
-                    listFeedlotTraslado.add(gft);
-                    r.setStatus(true);
-                    r.setMensaje("DIIO agregado a grilla");
+                    if(animal.getAnimalRupActual()== fft.getRupOrigen())
+                    {
+                        GrillaFeedlotTraslado gft = new GrillaFeedlotTraslado();
+                        gft.setAnimal(animal);
+                        gft.setPeso(animal.getAnimalPesoActual());
+                        gft.setStatus("Por confirmar");
+                        listFeedlotTraslado.add(gft);
+                        r.setStatus(true);
+                        r.setMensaje("DIIO agregado a grilla");
+                    }
+                    else
+                    {
+                        r.setMensaje("DIIO no pertenece a RUP");
+                        r.setStatus(false);
+                    }
                 }
                 else
                 {
@@ -476,16 +484,18 @@ public class FeedlotTraslado
                 ev.setAnimalId(arg.getAnimal().getAnimalId());
                 if(arg.getAnimal().getAnimalCategoriaActual() == 1) //ternera
                     ev.setCategoriaId(5); //vaquilla engorda
-                if(arg.getAnimal().getAnimalCategoriaActual() == 2) //ternero
+                else if(arg.getAnimal().getAnimalCategoriaActual() == 2) //ternero
                     ev.setCategoriaId(3); //torete engorda
-                //PREGUNTAR A ÑATO QUE PASA SI VACA NO ES TERNERA Ni ternero
+                else
+                    ev.setCategoriaId(arg.getAnimal().getAnimalCategoriaActual());
+                
               
                 ev.setEstadoanimalId(5); // CONFIRMAR ESTADO
                 ev.setEventoDs("Traslado Feedlot confirmado");
                 ev.setEventoFechaEvento(d);
                 ev.setEventoFechaReg(fft.getFechaTraslado());
                 ev.setEventoValor(1f); 
-                ev.setEventotipoId(7); //Tipo evento CONFIRMAR
+                ev.setEventotipoId(25); //Tipo evento "Traslado destete llegada"
                                
                 EventoDAO edao = new EventoDAO();
                 int idEvento = edao.add(ev); //agrega evento a la db

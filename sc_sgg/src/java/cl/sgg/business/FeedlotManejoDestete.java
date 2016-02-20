@@ -1,4 +1,4 @@
-//v1.0.4
+//v1.0.5
 package cl.sgg.business;
 
 import cl.sgg.dal.Conexion;
@@ -211,7 +211,7 @@ public class FeedlotManejoDestete
                 ev.setEventoDs("Manejo destete");
                 ev.setEventoFechaEvento(d);
                 ev.setEventoFechaReg(fechaManejo);
-                ev.setEventoValor(null);
+                ev.setEventoValor(0f);
                 ev.setEventotipoId(17); //Tipo evento "Feedlot Destete"
 
                 EventoDAO edao = new EventoDAO();
