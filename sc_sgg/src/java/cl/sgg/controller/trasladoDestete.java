@@ -6,6 +6,7 @@
 package cl.sgg.controller;
 
 import cl.sgg.business.FeedlotTraslado;
+import cl.sgg.business.FormFeedlotTraslado;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -48,16 +49,17 @@ public class trasladoDestete extends HttpServlet {
                   {
                       try 
                       {
-                          ft.CargarDIIOAConfirmar(Integer.parseInt(request.getParameter("txtDiio")));
+                          ft = (cl.sgg.business.FeedlotTraslado)request.getSession().getAttribute("ft");
                           
-                         
+                          ft.CargarDIIOAConfirmar(Integer.parseInt(request.getParameter("txtDiio")),Float.parseFloat(request.getParameter("txtPeso")));
                           
-                          request.setAttribute("ftt", ft.getListFeedlotTraslado());
+                          request.getSession().setAttribute("ft", ft);
                           request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response); 
                           
-                      } catch (Exception e) 
+                      } 
+                      catch (Exception e) 
                       {
-                          
+                          out.print(e.getMessage());
                       }
                       
                   }

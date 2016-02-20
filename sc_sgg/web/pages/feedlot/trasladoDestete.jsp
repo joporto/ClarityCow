@@ -68,34 +68,36 @@
          String nomRupDestino = "";
          String comuna = "";
          String direccion = "";
-         
-         String idTransportista = "";
          String nomTransportista = "";
          String rutTransportista = "";
-         String idVehiculo = "";
          String patenteVehiculo = "";
          String patenteAcoplado = "";
          String fechaRegistro = "";
          String fechaTraslado = "";
          String FMA = "";
          String guiaDespacho = "";
-         List<cl.sgg.business.GrillaFeedlotTraslado> gft;
+         
         
-        
+         cl.sgg.business.FeedlotTraslado ft = new FeedlotTraslado();
+         
         int idTrasporte = 0;
+        
+        
         if(request.getParameter("idTransporte") != null)
         {
-            idTrasporte = Integer.parseInt(request.getParameter("idTransporte"));
+            if(request.getSession().getAttribute("ft") != null)
+            {
+                ft = (cl.sgg.business.FeedlotTraslado)request.getSession().getAttribute("ft");
+            }
+            else
+            {
+                idTrasporte = Integer.parseInt(request.getParameter("idTransporte"));
+                ft = new FeedlotTraslado(idTrasporte);
+            }
             request.getSession().setAttribute("idTrasporte", idTrasporte);
+            request.getSession().setAttribute("ft", ft);
         }
         
-        
-        if(request.getSession().getAttribute("idTrasporte") != null)
-        {
-          
-            cl.sgg.business.FeedlotTraslado ft = new FeedlotTraslado(idTrasporte);
-            
-            
         if(ft.CargarForm().isStatus())
         {
             rupOrigen = ""+ft.getFft().getRupOrigen();
@@ -104,35 +106,24 @@
             nomRupDestino = ft.getFft().getNomRupDestino();
             comuna = ft.getFft().getComuna();
             direccion = ft.getFft().getDireccion();
-            idTransportista = ""+ft.getFft().getIdTransportista();
+            //idTransportista = ""+ft.getFft().getIdTransportista();
             nomTransportista = ft.getFft().getNomTransportista();
             rutTransportista = ft.getFft().getRutTransportista();
-            idVehiculo = ""+ft.getFft().getIdVehiculo();
+            //idVehiculo = ""+ft.getFft().getIdVehiculo();
             patenteVehiculo = ft.getFft().getPatenteVehiculo();
             patenteAcoplado = ft.getFft().getPatenteAcoplado();
             fechaRegistro = ""+ft.getFft().getFechaRegistro();
             fechaTraslado = ""+ft.getFft().getFechaTraslado();
             FMA = ft.getFft().getFMA();
             guiaDespacho = ft.getFft().getGuiaDespacho();
-            gft = ft.getFft().getGft();
+            //gft = ft.getFft().getGft();
             
-            
-            
-        }else
+        }
+        else
         {
             //Evento No encontrado
         }
        
-        
-       
-        }
-        else
-        {
-            //show filters
-            
-        }
-        
-        
         
         %>
    
@@ -297,16 +288,7 @@
               </thead>
               <tbody>
               <% 
-                  cl.sgg.business.FeedlotTraslado ft = new cl.sgg.business.FeedlotTraslado();
-                  
-                  if(request.getParameter("ftt") != null)
-                  {
-                      List<cl.sgg.business.GrillaFeedlotTraslado> lista;
-                      lista = (List<cl.sgg.business.GrillaFeedlotTraslado>)request.getAttribute("ftt");
-                      ft.setListFeedlotTraslado(lista);
-                  }
-                  
-
+ 
                   if(ft.getListFeedlotTraslado().size() > 0)
                   {
                       for(cl.sgg.business.GrillaFeedlotTraslado arg: ft.getListFeedlotTraslado())
