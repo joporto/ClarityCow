@@ -1,4 +1,4 @@
-//v1.1.0
+//v1.1.1
 package cl.sgg.business;
 
 import cl.sgg.dal.Conexion;
@@ -472,6 +472,9 @@ public class FeedlotTraslado
         return null;
     }
 
+    // Método público que guarda los eventos de los DIIOS cargados en la grilla
+    // ENTRADA: sin entrada
+    // SALIDA: se agregan registros en base de datos
     public Respuesta GuardarFeedlotTraslado() throws Exception
     {
         try 

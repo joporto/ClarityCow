@@ -6,7 +6,6 @@
 package test;
 
 import cl.sgg.business.Feedlot;
-import cl.sgg.business.GrillaFeedlot;
 import cl.sgg.utils.Respuesta;
 
 /**
@@ -22,16 +21,7 @@ public class testSQL {
     {
         try 
         {
-            Feedlot f = new Feedlot();
             
-            f.CargarGrilla();
-            
-            System.out.println(f.getListGrilla().size());
-            for (GrillaFeedlot arg : f.getListGrilla()) {
-                
-                System.out.println(arg.toString());
-                
-            }
             
         } 
         catch (Exception e) 

@@ -1,9 +1,9 @@
-//v1.0.0
+//v1.0.1
 package cl.sgg.business;
 
 import cl.sgg.edm.Animal;
 
-class GrillaFeedlotTraslado 
+public class GrillaFeedlotTraslado 
 {
     private Animal animal;
     private float peso;
