@@ -1,17 +1,14 @@
-//v1.2.2
+//v1.3.1
 package cl.sgg.business;
 
 import cl.sgg.dal.Conexion;
 import cl.sgg.dao.*;
 import cl.sgg.edm.*;
 import cl.sgg.utils.*;
-import java.io.FileInputStream;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.*;
-
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -503,16 +500,31 @@ public class FeedlotTraslado
         }
     }
     
-    public Respuesta CargarExcelATrasladar() throws Exception
-    {
-        return null;
-    }
-    
-    public Respuesta CargarExcelAConfirmar(FileInputStream file, int tipoCarga) throws Exception
+    // Método público que realiza la llamada a cargar Excel según de traslados
+    // ENTRADA: FileInputStream objeto que contiene excel con datos a rescatar
+    // SALIDA: respuesta respecto a la carga realizada
+    public Respuesta CargarExcelATrasladar(FileInputStream file) throws Exception
     {
         try 
         {
-            Respuesta r = new Respuesta();
+            Respuesta r;
+            r = CargarExcel(file, 1); //a trasladar
+            return r;
+        } 
+        catch (Exception e) 
+        {
+            throw e;
+        }
+    }
+    
+    // Método público que realiza la llamada a cargar Excel según de confirmación
+    // ENTRADA: FileInputStream objeto que contiene excel con datos a rescatar
+    // SALIDA: respuesta respecto a la carga realizada
+    public Respuesta CargarExcelAConfirmar(FileInputStream file) throws Exception
+    {
+        try 
+        {
+            Respuesta r;
             r = CargarExcel(file, 2); //a confirmar
             return r;
         } 
@@ -522,6 +534,10 @@ public class FeedlotTraslado
         }
     }
     
+    // Método privado que obtiene los datos de Excel y lo traslada a CargarDIIOAConfirmar o CargarDIIOATrasladar
+    // ENTRADA: FileInputStream objeto que contiene excel con datos a rescatar
+    // ENTRADA: tipoCarga, indica si es (1= a trasladar o 2= a confirmar)
+    // SALIDA: Llama a CargarDIIOAConfirmar o CargarDIIOATrasladar
     private Respuesta CargarExcel(FileInputStream file, int tipoCarga) throws Exception
     {
         String cellText;
@@ -606,9 +622,14 @@ public class FeedlotTraslado
                     {
                         peso = Float.parseFloat(cellText);
                     } 
-                    return CargarDIIOAConfirmar(DIIO, peso);
+                    if(tipoCarga == 2)
+                        return CargarDIIOAConfirmar(DIIO, peso);
+                    else
+                        return CargarDIIOATrasladar(DIIO, peso);
                 }
             }
+            r.setMensaje("Formato de Excel no válido");
+            r.setStatus(false);
             return r;
         } 
         catch (FileNotFoundException e) 
