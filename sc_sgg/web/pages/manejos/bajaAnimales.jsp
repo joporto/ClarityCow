@@ -92,6 +92,11 @@
     -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     }
+    
+    .form-control{
+        display: initial!important;
+         width: 174px!important;
+    }
     </style>
 </head>
     <body>
@@ -134,7 +139,7 @@
      <div class="container jumbotron">
       <form  id="bajaAnimales" name="bajaAnimales" action="bajaAnimales" onsubmit="return validateForm()" method="post">
                 <p>Buscar DIIO</p>  
-                <input type="text" placeholder="Solo Números" id="txtBuscar"   class="text-input txtTexto"  name="txtBuscar" title="Solo Numeros"  required >
+                <input type="text" maxlength="15" placeholder="Solo Números" id="txtBuscar"   class="text-input txtTexto"  name="txtBuscar" title="Solo Numeros"  required >
                 <input type="hidden" value="<%=request.getAttribute("dioActual")%>" name="escondido" id="escondido">
                 <input type="hidden" value="Buscar" name="valorBoton" id="valorBoton">
                   <input type="hidden" value="Muerto" name="Motivo" id="Motivo">
@@ -154,7 +159,7 @@
              
               
               if(request.getAttribute("message")!=("") && request.getAttribute("message")!=null){
-              if(request.getAttribute("message") == "Dio Encontrado" ){
+              if(request.getAttribute("message") == "DIIO Encontrado" ){
                   
                  
                  /*  anim.BuscarDIIO(Integer.parseInt(request.getAttribute("dioActual").toString()));*/
@@ -183,7 +188,7 @@
                       <form  id="guardarBaja" name="guardarBaja" action="bajaAnimales" method="post">
                    <ul class="ulBaja">
                        <li><label>DIIO ANIMAL</label><input type="text"  class="txtTexto bajatxt1" id="txtDio" name="txtDio"  value="<%=request.getAttribute("dioActual")%>"   disabled > </li> 
-                       <li><label>Fecha Registro</label> <input  id="fechaRegistro" name="fechaRegistro" class="txtTexto bajatxt2" type="text" class="form-control"  placeholder="yyyy-mm-dd"></li>                    
+                       <li><label>Fecha Registro</label> <input disabled id="fechaRegistro" name="fechaRegistro" class="txtTexto bajatxt2" type="text" class="form-control"  placeholder="yyyy-mm-dd"></li>                    
                         <li><label>Fecha Baja</label><input  required id="fechaBaja" name="fechaBaja" class="txtTexto bajatxt3" type="text" class="form-control"  placeholder="yyyy-mm-dd"> </li> 
                         <p></p>
                         <li><label>Cambio estado Animal</label>                       
@@ -240,7 +245,13 @@
               }
           }
           
-          
+          var ano =  new Date().getUTCFullYear();
+              var dia =  new Date().getDate();
+              var mes = new Date().getMonth();
+              var mesactual = mes+1;
+              var fecha = ano+"-"+mesactual+"-"+dia;
+              
+              document.getElementById('fechaRegistro').value = fecha;
  $.fn.datepicker.dates['es'] = {
         days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
         daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],

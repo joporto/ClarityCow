@@ -1,4 +1,4 @@
-//v1.1.0
+//v1.1.1
 package cl.sgg.business;
 
 import cl.sgg.dal.Conexion;
@@ -329,7 +329,7 @@ public class FeedlotManejoDestete
                 ev.setAnimalId(arg.getAnimalId());
                 ev.setCategoriaId(arg.getAnimalCategoriaActual());
                 ev.setEstadoanimalId(arg.getAnimalEstadoActual());
-                ev.setEventoDs("Manejo destete");
+                ev.setEventoDs("Manejo Destete");
                 ev.setEventoFechaEvento(d);
                 ev.setEventoFechaReg(fechaManejo);
                 ev.setEventoValor(0f);

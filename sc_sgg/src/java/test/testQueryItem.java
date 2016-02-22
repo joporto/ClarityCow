@@ -75,9 +75,9 @@ public class testQueryItem {
             fl.CargarGrilla();
             */
             
-            BajaAnimales b = new BajaAnimales();
-            b.CargarCbMotivoAparente("Robado");
-          
+            GrupopesoCorralDAO d= new GrupopesoCorralDAO();
+            d.getGrupopesoCorralByIdCorralAndIdGrupoPeso(1, 1);
+            System.out.println(d.getGrupopesoCorralByIdCorralAndIdGrupoPeso(1, 1).getCorralgrupopesoId());
                     
             
            

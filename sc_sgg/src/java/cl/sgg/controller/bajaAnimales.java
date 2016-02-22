@@ -115,7 +115,7 @@ public class bajaAnimales extends HttpServlet
        
             
             if( resp.isStatus() == true){
-              String message = "Dio Encontrado";
+              String message = "DIIO Encontrado";
           
              String dioActual =  anim.getAnimal().getAnimalDiioActual().toString();
           
@@ -162,7 +162,7 @@ public class bajaAnimales extends HttpServlet
             req.getRequestDispatcher("/pages/manejos/bajaAnimales.jsp").forward(req, res); 
 
             }else{
-            String message = "Dio NO Encontrado";
+            String message = "DIIO NO Encontrado";
             req.setAttribute("message", message);
             req.getRequestDispatcher("/pages/manejos/bajaAnimales.jsp").forward(req, res);   
             }

@@ -1,4 +1,4 @@
-//v1.0.1
+//v1.0.0
 package cl.sgg.dao;
 
 import cl.sgg.dal.NewHibernateUtil;
@@ -7,8 +7,8 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-public class RazaDAO {
-    public int add(cl.sgg.edm.Raza a) throws Exception {
+public class GrupopesoDAO {
+    public int add(cl.sgg.edm.GrupoPeso a) throws Exception {
         Session sessionA = NewHibernateUtil.getSessionFactory().openSession();
         sessionA.beginTransaction();
         try 
@@ -30,13 +30,13 @@ public class RazaDAO {
         }      
     }
     
-    public List<cl.sgg.edm.Raza> getList() throws Exception {
+    public List<cl.sgg.edm.GrupoPeso> getList() throws Exception {
         
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try 
         {
-            return (List<cl.sgg.edm.Raza>) session.createCriteria(cl.sgg.edm.Raza.class).list(); 
+            return (List<cl.sgg.edm.GrupoPeso>) session.createCriteria(cl.sgg.edm.GrupoPeso.class).list(); 
         } 
         catch (Exception e) 
         {
@@ -51,7 +51,7 @@ public class RazaDAO {
         }
     }
     
-    public boolean delete(cl.sgg.edm.Raza a) throws Exception {
+    public boolean delete(cl.sgg.edm.GrupoPeso a) throws Exception {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try 
@@ -69,7 +69,7 @@ public class RazaDAO {
         } 
     }
      
-    public boolean update(cl.sgg.edm.Raza a) throws Exception {
+    public boolean update(cl.sgg.edm.GrupoPeso a) throws Exception {
         Session session = NewHibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try 
@@ -87,14 +87,36 @@ public class RazaDAO {
         } 
     }
     
-    public cl.sgg.edm.Raza getRazaById(int id) throws Exception
+    public cl.sgg.edm.GrupoPeso getGrupoPesoById(int id) throws Exception
     {
          Session session = NewHibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
 
-            cl.sgg.edm.Raza tmp = (cl.sgg.edm.Raza) session.createCriteria(cl.sgg.edm.Raza.class)
-                    .add(Restrictions.eq("razaId", id))
+            cl.sgg.edm.GrupoPeso tmp = (cl.sgg.edm.GrupoPeso) session.createCriteria(cl.sgg.edm.GrupoPeso.class)
+                    .add(Restrictions.eq("grupopesoId", id))
+                    .uniqueResult();
+            
+            session.close();
+            return tmp;
+
+        } catch (Exception e) 
+        {
+            System.err.print(e.getMessage());
+            session.close();
+            throw e;
+        }
+        
+    }
+    
+    public cl.sgg.edm.GrupoPeso getGrupoPesoByDS(String DS) throws Exception
+    {
+         Session session = NewHibernateUtil.getSessionFactory().openSession();
+        try {
+            session.beginTransaction();
+
+            cl.sgg.edm.GrupoPeso tmp = (cl.sgg.edm.GrupoPeso) session.createCriteria(cl.sgg.edm.GrupoPeso.class)
+                    .add(Restrictions.eq("grupopesoDs", DS))
                     .uniqueResult();
             
             session.close();

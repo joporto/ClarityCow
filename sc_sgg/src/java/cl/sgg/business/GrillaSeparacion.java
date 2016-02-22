@@ -1,23 +1,42 @@
-//V1.0.0
+//V1.1.0
 package cl.sgg.business;
 
 public class GrillaSeparacion 
 {
+    private String id;
     private String corral;
+    private int idCorral;
     private String grupoPeso;
-    private int status; //0: new registro, 1:
+    private int idGrupoPeso;
 
+    public String getId() 
+    {
+        return corral+grupoPeso;
+    }
+    
     public String getCorral() {
         return corral;
+    }
+
+    public int getIdCorral() {
+        return idCorral;
+    }
+
+    public void setIdCorral(int idCorral) {
+        this.idCorral = idCorral;
+    }
+
+    public int getIdGrupoPeso() {
+        return idGrupoPeso;
+    }
+
+    public void setIdGrupoPeso(int idGrupoPeso) {
+        this.idGrupoPeso = idGrupoPeso;
     }
 
     public void setCorral(String corral) 
     {
         this.corral = corral;
-        if(status == 0)
-            status = 1; //Guardado inicial a la grilla sin cambios
-        if(status == 1)
-            status =2; //guardado con cambios requiere agregar registro
     }
 
     public String getGrupoPeso() {
@@ -32,6 +51,6 @@ public class GrillaSeparacion
     {
         this.corral = "";
         this.grupoPeso = "";
-        this.status = 0; //sin cambios
+        this.id = this.corral+this.grupoPeso;
     }
 }

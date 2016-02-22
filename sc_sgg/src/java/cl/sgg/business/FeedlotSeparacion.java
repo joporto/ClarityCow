@@ -1,4 +1,4 @@
-//v1.0.0
+//v1.1.0
 package cl.sgg.business;
 
 import cl.sgg.dal.Conexion;
@@ -8,6 +8,7 @@ import cl.sgg.utils.Respuesta;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -63,8 +64,7 @@ public class FeedlotSeparacion
     // ENTRADA: Opcional, Se ingresa valor de codigo RUP a consultar, si no va = ""
     // ENTRADA: Opcional, Se ingresa valor de nombre RUP a consultar, si no va = ""
     // SALIDA: carga en el atributo de la clase "Establecimiento rup" con el resultado
-    // SALIDA: carga en el atributo de la clase "List<GrillaSeparacion> listSeparacion" con el resultado
-    public Respuesta BuscarRUPCargaGrilla(int rup, String nomRup) throws Exception
+    public Respuesta BuscarRUP(int rup, String nomRup) throws Exception
     {
         try 
         {
@@ -90,16 +90,8 @@ public class FeedlotSeparacion
                 else
                 {
                     this.rup = e;
-                    if(BuscarGrilla().isStatus())
-                    {
-                        r.setStatus(true);
-                        r.setMensaje("RUP y grilla cargado");
-                    }
-                    else
-                    {
-                        r.setStatus(false);
-                        r.setMensaje("Grilla no cargada");  
-                    }    
+                    r.setStatus(true);
+                    r.setMensaje("RUP encontrado");
                 }
             }
             else
@@ -115,10 +107,10 @@ public class FeedlotSeparacion
         }
     }
 
-    // Método privado se carga la grilla de corrales-grupos peso
+    // Método público que carga la grilla de corrales-grupos peso
     // ENTRADA: Sin entrada
     // SALIDA: carga en el atributo de la clase "List<GrillaSeparacion> listSeparacion" con el resultado
-    private Respuesta BuscarGrilla() throws Exception
+    public Respuesta BuscarGrilla() throws Exception
     {
         try 
         {
@@ -126,7 +118,7 @@ public class FeedlotSeparacion
             r.setMensaje("error al ejecutar la consulta");
             r.setStatus(false);
             Statement stmt = Conexion.get().createStatement();
-            String query = "SELECT gp.GRUPOPESO_ID, gp.GRUPOPESO_DS, c.CORRAL_ID, c.CORRAL_DS "
+            String query = "SELECT gp.GRUPOPESO_ID, gp.GRUPOPESO_DS, c.CORRAL_ID, c.CORRAL_DS, gpc.CORRALGRUPOPESO_ID "
                 + "FROM GRUPO_PESO gp "
                 + "join GRUPOPESO_CORRAL gpc on gpc.GRUPOPESO_ID = gp.GRUPOPESO_ID "
                 + "join CORRAL c on c.CORRAL_ID = gpc.CORRAL_ID "
@@ -137,7 +129,9 @@ public class FeedlotSeparacion
             {
                 GrillaSeparacion gs = new GrillaSeparacion();
                 gs.setCorral(rs.getString("CORRAL_DS"));
+                gs.setIdCorral(rs.getInt("CORRAL_ID"));
                 gs.setGrupoPeso(rs.getString("GRUPOPESO_DS"));
+                gs.setIdGrupoPeso(rs.getInt("GRUPOPESO_ID"));
                 this.listSeparacion.add(gs);
             }
             return r;
@@ -159,7 +153,7 @@ public class FeedlotSeparacion
             r.setMensaje("error al ejecutar la consulta");
             r.setStatus(false);
             Statement stmt = Conexion.get().createStatement();
-            String query = "select CORRAL_DS "
+            String query = "select CORRAL_DS, CORRAL_ID "
                 + "from CORRAL "
                 + "where CORRAL_STATUS = 1 and RUP_ID =" + this.rup.getRupId();
             ResultSet rs = stmt.executeQuery(query);
@@ -209,20 +203,136 @@ public class FeedlotSeparacion
         }
     }
     
-    public Respuesta GuardaRegistroGrillaSeparación(String corral_DS, String grupoPeso_DS) throws Exception
+    // Método público guarda nuevo registro ingresado en la grilla
+    // ENTRADA: descripción del corral a ingresar
+    // ENTRADA: descripción del Grupo Peso a ingresar
+    // SALIDA: guarda registro en tabla GrupopesoCorral
+    public Respuesta AgregarGrillaSeparacion(String corral_DS, String grupoPeso_DS) throws Exception
     {
         try 
         {
            Respuesta r = new Respuesta();
-           
-           for (GrillaSeparacion arg: listSeparacion)
+           int aux = 0;
+           for(GrillaSeparacion arg: listSeparacion)
            {
-               if(arg.getCorral() == corral_DS && arg.getGrupoPeso() == corral_DS)
+               if(arg.getCorral().equals(corral_DS) && arg.getGrupoPeso().equals(grupoPeso_DS))
                {
-                   
+                   aux++;
                }
            }
-           
+           if(aux > 0)
+           {
+               r.setMensaje("Registro ya existe");
+               r.setStatus(false);
+           }
+           else
+           {
+               CorralDAO cdao = new CorralDAO();
+               Corral c = cdao.getCorralByDS(corral_DS);
+               if (c != null)
+               {
+                  GrupopesoDAO gpdao = new GrupopesoDAO();
+                  GrupoPeso gp = gpdao.getGrupoPesoByDS(corral_DS);
+                  if(gp != null)
+                  {
+                      GrupopesoCorralDAO gpcdao = new GrupopesoCorralDAO();
+                      GrupopesoCorral gpc = new GrupopesoCorral();
+                      Date d = new Date();
+                      gpc.setCorralId(c.getCorralId());
+                      gpc.setGrupopesoId(gp.getGrupopesoId());
+                      gpc.setCorralgrupopesoFecha(d);
+                      int idGrupopesoCorral = gpcdao.add(gpc);
+                      if(idGrupopesoCorral != 0)
+                      {
+                          r.setMensaje("Registro guardado");
+                          r.setStatus(true);
+                      }
+                      else
+                      {
+                          r.setMensaje("Registro no guardado");
+                          r.setStatus(false);
+                      }
+                  }
+               }
+               else
+               {
+                   r.setMensaje("Corral no encontrado");
+                   r.setStatus(false);
+               }
+           }
+           return r; 
+        } 
+        catch (Exception e) 
+        {
+           throw e; 
+        }
+    }
+    
+    // Método público guarda actualización de registro de grilla separación
+    // ENTRADA: id del listado grilla separación
+    // ENTRADA: descripción del corral a ingresar
+    // ENTRADA: descripción del Grupo Peso a ingresar
+    // SALIDA: guarda registro actualizado en tabla GrupopesoCorral
+    public Respuesta ModificarGrillaSeparacion(String id, String corral_DS, String grupoPeso_DS) throws Exception
+    {
+        try 
+        {
+           Respuesta r = new Respuesta();
+           for(GrillaSeparacion arg: listSeparacion)
+           {
+               if((arg.getCorral()+arg.getGrupoPeso()).equals(id))
+               {
+                   GrupopesoCorralDAO gpcdao = new GrupopesoCorralDAO();
+                   GrupopesoCorral gpc = gpcdao.getGrupopesoCorralByIdCorralAndIdGrupoPeso(arg.getIdGrupoPeso(), arg.getIdCorral());
+                   gpc.setCorralId(arg.getIdCorral());
+                   gpc.setGrupopesoId(arg.getIdGrupoPeso());
+                   Date d = new Date();
+                   gpc.setCorralgrupopesoFecha(d);
+                   gpcdao = new GrupopesoCorralDAO();
+                   if (gpcdao.update(gpc))
+                   {
+                       r.setMensaje("Registro modificado");
+                       r.setStatus(true);
+                   }
+                   else
+                   {
+                       r.setMensaje("Registro no modificado");
+                       r.setStatus(false);
+                   }  
+               }
+           }
+           return r; 
+        } 
+        catch (Exception e) 
+        {
+           throw e; 
+        }
+    }
+    
+    // Método público elimina  registro de grilla separación
+    // ENTRADA: descripción del corral a ingresar
+    // ENTRADA: descripción del Grupo Peso a ingresar
+    // SALIDA: elimina registro en tabla GrupopesoCorral
+    public Respuesta BorrarGrillaSeparacion(String corral_DS, String grupoPeso_DS) throws Exception
+    {
+        try 
+        {
+           Respuesta r = new Respuesta();
+           for(GrillaSeparacion arg: listSeparacion)
+           {
+                GrupopesoCorralDAO gpcdao = new GrupopesoCorralDAO();
+                GrupopesoCorral gpc = gpcdao.getGrupopesoCorralByIdCorralAndIdGrupoPeso(arg.getIdGrupoPeso(), arg.getIdCorral());
+                if (gpcdao.delete(gpc))
+                {
+                    r.setMensaje("Registro borrado");
+                    r.setStatus(true);
+                }
+                else
+                {
+                    r.setMensaje("Registro no borrado");
+                    r.setStatus(false);
+                }    
+           }
            return r; 
         } 
         catch (Exception e) 

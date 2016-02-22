@@ -675,7 +675,7 @@ public class FeedlotTraslado
                     ev.setCategoriaId(arg.getAnimal().getAnimalCategoriaActual());
                     
                     ev.setEventoDs("Traslado Feedlot confirmado");
-                    ev.setEventoValor(1f); 
+                    ev.setEventoValor(1f);
                     ev.setEventotipoId(25); //Tipo evento "Traslado destete llegada"
                 }
                 ev.setEventoFechaEvento(d);
