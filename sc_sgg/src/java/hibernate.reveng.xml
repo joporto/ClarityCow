@@ -35,4 +35,5 @@
   <table-filter match-name="INSUMO"/>
   <table-filter match-name="CATEGORIA"/>
   <table-filter match-name="CATEGORIA_VALOR_FERIA"/>
+  <table-filter match-name="USUARIOS"/>
 </hibernate-reverse-engineering>

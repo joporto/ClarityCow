@@ -3,16 +3,34 @@ package cl.sgg.utils;
 
 public class UserSession 
 {
-    private String userName; 
+    private int userId;
+    private String userName;
+    private String name;
+    private String apellido;
+    private String descripcion;
+    
     private UserRol userR;
     private boolean valid;
     private String message;
 
-    public UserSession(String userName, UserRol userR, boolean valid, String message) {
+    
+    public UserSession(int userId, String userName, String name, String apellido, String descripcion, UserRol userR, boolean valid, String message) {
+        this.userId = userId;
         this.userName = userName;
+        this.name = name;
+        this.apellido = apellido;
+        this.descripcion = descripcion;
         this.userR = userR;
         this.valid = valid;
         this.message = message;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -21,6 +39,30 @@ public class UserSession
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public UserRol getUserR() {
@@ -49,6 +91,7 @@ public class UserSession
 
     @Override
     public String toString() {
-        return "UserSession{" + "userName=" + userName + ", userR=" + userR + ", valid=" + valid + ", message=" + message + '}';
+        return "UserSession{" + "userId=" + userId + ", userName=" + userName + ", name=" + name + ", apellido=" + apellido + ", descripcion=" + descripcion + ", userR=" + userR + ", valid=" + valid + ", message=" + message + '}';
     }
+
 }

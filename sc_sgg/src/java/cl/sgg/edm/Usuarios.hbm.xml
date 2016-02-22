@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-feb-2016 0:18:44 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="CLARITYCOW" name="cl.sgg.edm.Usuarios" optimistic-lock="version" table="ANIMAL">
+    
+    <id name="userId" type="int">
+      <column name="USERID"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="userName" type="string">
+      <column length="10" name="USERNAME" not-null="true"/>
+    </property>
+     <property name="password" type="string">
+      <column length="10" name="PASSWORD" not-null="true"/>
+    </property>
+    <property name="firstName" type="string">
+      <column length="10" name="FIRSTNAME" not-null="true"/>
+    </property>
+     <property name="lastName" type="string">
+      <column length="10" name="LASTNAME" not-null="true"/>
+    </property>
+    <property name="userDesc" type="string">
+      <column length="10" name="USERDESC" not-null="true"/>
+    </property>
+    <property name="userValid" type="java.lang.Boolean">
+      <column length="10" name="USERVALID" not-null="true"/>
+    </property>
+     <property name="userMessage" type="string">
+      <column length="10" name="USERMESSAGE" not-null="true"/>
+    </property>
+      <property name="userRol" type="java.lang.Integer">
+      <column length="10" name="USERROL" not-null="true"/>
+    </property>
+    
+  </class>
+</hibernate-mapping>
