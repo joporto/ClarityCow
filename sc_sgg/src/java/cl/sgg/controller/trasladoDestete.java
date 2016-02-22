@@ -32,61 +32,108 @@ public class trasladoDestete extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException 
+    {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-           
+        try (PrintWriter out = response.getWriter()) 
+        {
           if(request.getParameter("btnGuardar")!= null)
           {
-              String accionBtn = request.getParameter("btnGuardar");
-              
-              if(accionBtn.equals("guardarDiio"))
+            String accionBtn = request.getParameter("btnGuardar");
+            
+            if(accionBtn.equals("guardarDiio"))
+            { 
+              String radioBtn = request.getParameter("optradio");
+              cl.sgg.business.FeedlotTraslado ft; 
+              if(request.getSession().getAttribute("ft") != null)
               {
-                  cl.sgg.business.FeedlotTraslado ft = new FeedlotTraslado();
-                  
-                  if(request.getParameter("optradio").equals("Confirmar"));
+                  ft = (cl.sgg.business.FeedlotTraslado)request.getSession().getAttribute("ft");
+              }
+              else
+              {
+                  ft = new FeedlotTraslado();
+              }
+              
+              if(radioBtn.equals("Confirmar"))
+              {
+                  try 
                   {
-                      try 
-                      {
-                          ft = (cl.sgg.business.FeedlotTraslado)request.getSession().getAttribute("ft");
-                          
-                          ft.CargarDIIOAConfirmar(Integer.parseInt(request.getParameter("txtDiio")),Float.parseFloat(request.getParameter("txtPeso")));
-                          
-                          request.getSession().setAttribute("ft", ft);
-                          request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response); 
-                          
-                      } 
-                      catch (Exception e) 
-                      {
-                          out.print(e.getMessage());
-                      }
-                      
+                      int diio = Integer.parseInt(request.getParameter("txtDiio")); 
+                      float peso = Float.parseFloat(request.getParameter("txtPeso"));
+                      ft.CargarDIIOAConfirmar(diio,peso);
+                      request.getSession().setAttribute("ft", ft);
+                      request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response); 
+                  } 
+                  catch (Exception e) 
+                  {
+                      request.getSession().setAttribute("mensaje",e.getMessage());
+                      request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response); 
+                  }
+              }
+              else if(radioBtn.equals("Trasladar"))
+              {
+                  try 
+                  {
+                      int diio = Integer.parseInt(request.getParameter("txtDiio")); 
+                      float peso = Float.parseFloat(request.getParameter("txtPeso"));
+                      ft.CargarDIIOATrasladar(diio,peso);
+                      request.getSession().setAttribute("ft", ft);
+                      request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response); 
+                  } 
+                  catch (Exception e) 
+                  {
+                      request.getSession().setAttribute("mensaje",e.getMessage());
+                      request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response); 
                   }
                   
-                
+              }
+               
+            }
+            else if(accionBtn.equals("guardarExcel"))
+            {
+                out.print("Guardar Excel");
+
+            }
+            else if(accionBtn.equals("guardarFormulario"))
+            {
+              cl.sgg.business.FeedlotTraslado ft; 
+              if(request.getSession().getAttribute("ft") != null)
+              {
+                  ft = (cl.sgg.business.FeedlotTraslado)request.getSession().getAttribute("ft");
                   
-                  
-                  
-                 
-                
+                  try 
+                  {
+                      request.getSession().setAttribute("mensaje", ft.GuardarFeedlotTraslado().getMensaje());
+                      request.getRequestDispatcher("/pages/feedlot/feedlot.jsp").forward(request, response); 
+                  } 
+                  catch (Exception e) 
+                  {
+                      out.println("No se detecta acción");
+                      request.getSession().setAttribute("mensaje", e.getMessage());
+                      request.getRequestDispatcher("/pages/feedlot/feedlot.jsp").forward(request, response); 
+
+                  }
                   
               }
-              else if(accionBtn.equals("guardarExcel"))
-              {
-                  
-              }
-              else if(accionBtn.equals("guardarFormulario"))
-              {
-                  
-              }else
+              else
               {
                   //enviar página de error
-                  out.println("No se detecta acción");
-              }
+                  request.getSession().setAttribute("mensaje","error con feedlot");
+                  request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response); 
+              } 
+ 
+            }
+            else
+            {
+                //enviar página de error
+                out.println("No se detecta acción");
+            }
               
           }
-          
+          else
+          { 
+              out.println("No se detecta acción");
+          }
             
         }
     }

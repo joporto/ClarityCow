@@ -237,10 +237,10 @@
               <label class="control-label col-sm-2" >Tipo de acción</label>
               <div class="col-sm-4"> 
                     <div class="radio">
-                       <label class="text-primary small"><input type="radio" name="optradio">Confirmar</label>
+                        <label class="text-primary small"><input type="radio" name="optradio" value="Confirmar">Confirmar</label>
                     </div>
                     <div class="radio">
-                          <label class="text-primary small"><input type="radio" name="optradio">Trasladar</label>
+                        <label class="text-primary small"><input type="radio" name="optradio" value="Trasladar">Trasladar</label>
                     </div>
               </div>
               <label class="control-label col-sm-2" >Cargar DIIO</label>
@@ -288,7 +288,10 @@
               </thead>
               <tbody>
               <% 
- 
+                  
+                  if(ft.getListFeedlotTraslado().size() == 0)
+                  ft.CargarGrilla();
+                
                   if(ft.getListFeedlotTraslado().size() > 0)
                   {
                       for(cl.sgg.business.GrillaFeedlotTraslado arg: ft.getListFeedlotTraslado())
@@ -324,16 +327,7 @@
     </form>
               
              
-
-              
-           
-              
-            
-             
-              
-              
-              
-            
+   
             
     </div>
     </div>      
