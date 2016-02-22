@@ -81,7 +81,7 @@ public class UsuariosDAO
             session.beginTransaction();
 
             cl.sgg.edm.Usuarios tmp = (cl.sgg.edm.Usuarios) session.createCriteria(cl.sgg.edm.Usuarios.class)
-                    .add(Restrictions.eq("userName", userName))
+                    .add(Restrictions.eq("username", userName))
                     .add(Restrictions.eq("password", password))
                     .uniqueResult();
             

@@ -5,6 +5,7 @@
  */
 package cl.sgg.controller;
 
+import cl.sgg.dao.UsuariosDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -37,27 +38,45 @@ public class LoginServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             
             
-            
-            
-            String usr=request.getParameter("Usuario");
-            String psw=request.getParameter("password"); 
-            
-            //Realizar validación y autenticación con BD
-            if(usr.equalsIgnoreCase("usuario1") && psw.equals("1234"))
+            if(request.getParameter("Usuario") != null && request.getParameter("password") != null)
             {
-                cl.sgg.utils.UserRol ur = new cl.sgg.utils.UserRol(1, "admin");
-                cl.sgg.utils.UserSession us = new cl.sgg.utils.UserSession("Usuario1", ur, true, "Usuario Admin");
-                HttpSession s = request.getSession();
-                s.setAttribute("userSession", us);
-                response.sendRedirect("index.jsp");
+            
+                String usr=request.getParameter("Usuario");
+                String psw=request.getParameter("password"); 
+            
+                cl.sgg.dao.UsuariosDAO usrDao = new UsuariosDAO();
+                
+                //Implementar la tabla de roles
+                cl.sgg.utils.UserRol usrRol = new cl.sgg.utils.UserRol(1, "admin");
+                try 
+                {
+                    if(usrDao.getUser(usr, psw) != null)
+                    {
+                        cl.sgg.utils.UserSession usrSession = 
+                                new cl.sgg.utils.UserSession(usrDao.getUser(usr, psw),usrRol);
+                        request.getSession().setAttribute("userSession", usrSession);
+                        response.sendRedirect("index.jsp");
+                    }
+                    else
+                    {
+                        throw new Exception("Usuario o Password incorrectos");
+                    }
+                } 
+                catch (Exception e) 
+                {
+                    request.setAttribute("mensaje", "Usuario o Password incorrectos");
+                    request.getRequestDispatcher("login.jsp").forward(request, response); 
+                }
             }
             else
             {
-                response.sendRedirect("index.html");
+                request.setAttribute("mensaje", "Usuario o Password incorrectos");
+                request.getRequestDispatcher("login.jsp").forward(request, response); 
             }
-            
-            
-        }
+                
+                
+           }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

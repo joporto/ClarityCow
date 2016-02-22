@@ -3,95 +3,111 @@ package cl.sgg.utils;
 
 public class UserSession 
 {
-    private int userId;
-    private String userName;
-    private String name;
-    private String apellido;
-    private String descripcion;
-    
-    private UserRol userR;
-    private boolean valid;
-    private String message;
+     private Integer userid;
+     private String username;
+     private String firstname;
+     private String lastname;
+     private String userdesc;
+     private boolean uservalid;
+     private String usermessage;
+     private cl.sgg.utils.UserRol userrol;
 
     
-    public UserSession(int userId, String userName, String name, String apellido, String descripcion, UserRol userR, boolean valid, String message) {
-        this.userId = userId;
-        this.userName = userName;
-        this.name = name;
-        this.apellido = apellido;
-        this.descripcion = descripcion;
-        this.userR = userR;
-        this.valid = valid;
-        this.message = message;
+    
+    public UserSession(cl.sgg.edm.Usuarios usr, cl.sgg.utils.UserRol rol)
+    {
+        this.firstname = usr.getFirstname();
+        this.lastname = usr.getLastname();
+        this.userdesc = usr.getUserdesc();
+        this.userid = usr.getUserid();
+        this.usermessage = usr.getUsermessage();
+        this.username = usr.getUsername();
+        this.userrol = rol;
+        this.uservalid = usr.isUservalid();
+        
     }
 
-    public int getUserId() {
-        return userId;
+    public UserSession(Integer userid, String username, String firstname, String lastname, String userdesc, boolean uservalid, String usermessage, UserRol userrol) {
+        this.userid = userid;
+        this.username = username;
+        
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.userdesc = userdesc;
+        this.uservalid = uservalid;
+        this.usermessage = usermessage;
+        this.userrol = userrol;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public Integer getUserid() {
+        return userid;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getUsername() {
+        return username;
     }
 
-    public String getName() {
-        return name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+
+    public String getFirstname() {
+        return firstname;
     }
 
-    public String getApellido() {
-        return apellido;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public String getLastname() {
+        return lastname;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public String getUserdesc() {
+        return userdesc;
     }
 
-    public UserRol getUserR() {
-        return userR;
+    public void setUserdesc(String userdesc) {
+        this.userdesc = userdesc;
     }
 
-    public void setUserR(UserRol userR) {
-        this.userR = userR;
+    public boolean isUservalid() {
+        return uservalid;
     }
 
-    public boolean isValid() {
-        return valid;
+    public void setUservalid(boolean uservalid) {
+        this.uservalid = uservalid;
     }
 
-    public void setValid(boolean valid) {
-        this.valid = valid;
+    public String getUsermessage() {
+        return usermessage;
     }
 
-    public String getMessage() {
-        return message;
+    public void setUsermessage(String usermessage) {
+        this.usermessage = usermessage;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public cl.sgg.utils.UserRol getUserrol() {
+        return userrol;
+    }
+
+    public void setUserrol(cl.sgg.utils.UserRol userrol) {
+        this.userrol = userrol;
     }
 
     @Override
     public String toString() {
-        return "UserSession{" + "userId=" + userId + ", userName=" + userName + ", name=" + name + ", apellido=" + apellido + ", descripcion=" + descripcion + ", userR=" + userR + ", valid=" + valid + ", message=" + message + '}';
+        return "UserSession{" + "userid=" + userid + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname + ", userdesc=" + userdesc + ", uservalid=" + uservalid + ", usermessage=" + usermessage + ", userrol=" + userrol + '}';
     }
+    
 
 }

@@ -137,7 +137,7 @@
                                     (cl.sgg.utils.UserSession) request.getSession().getAttribute("userSession");
              
             %>
-            <span class="glyphicon glyphicon-user"> <%= usr.getUserName() %></span>
+            <span class="glyphicon glyphicon-user"> <%= usr.getUsername() %></span>
              <%         }
              %>
              -->

@@ -40,6 +40,7 @@
     <mapping resource="cl/sgg/edm/Proveedor.hbm.xml"/>
     <mapping resource="cl/sgg/edm/Ingrediente.hbm.xml"/>
     <mapping resource="cl/sgg/edm/Establecimiento.hbm.xml"/>
+    
     <mapping resource="cl/sgg/edm/Usuarios.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
