@@ -6,31 +6,22 @@
     Author     : Murciegalo - Joporto
 --%>
 <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Menú</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                 <a class="navbar-brand" href="/index.jsp">SC - SGG</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
+<div class="mainbar">
+ 
+  <div class="container">
+
+    <button type="button" class="btn mainbar-toggle" data-toggle="collapse" data-target=".mainbar-collapse">
+      <i class="fa fa-bars"></i>
+    </button>
+     
+    
+    <div class="mainbar-collapse collapse">
+       <ul class="nav navbar-nav mainbar-nav">
                     <li>
                         <a href="#">Histórico Animal</a>
                     </li>
                     <li class="dropdown">
-                    <a href="#" 
-                       class="dropdown-toggle" 
-                       data-toggle="dropdown" 
-                       role="button" 
-                       aria-haspopup="true" 
-                       aria-expanded="false">Manejos 
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">Manejos 
                      <span class="caret"></span>
                     </a>
                             <ul class="dropdown-menu">
@@ -39,7 +30,7 @@
                               <li><a href="#">Palpación</a></li>
                               <li><a href="#">Manejo de enfermedades</a></li>
                               <li><a href="#">Medición de pelvis</a></li>
-                              <li><a href="pages/manejos/bajaAnimales.jsp">Baja de animales</a></li>
+                              <li><a href="/pages/manejos/bajaAnimales.jsp">Baja de animales</a></li>
                               <li><a href="#">Cargar DIIO</a></li>
                               <li><a href="#">Cambio DIIO</a></li>
                               <li><a href="#">Compra Animal</a></li>
@@ -47,13 +38,8 @@
                             </ul>
                     </li>
                     <li class="dropdown">
-                    <a href="#" 
-                       class="dropdown-toggle" 
-                       data-toggle="dropdown" 
-                       role="button" 
-                       aria-haspopup="true" 
-                       aria-expanded="false">Traslados 
-                     <span class="caret"></span>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">Traslados 
+                    <span class="caret"></span>
                     </a>
                             <ul class="dropdown-menu">
                               <li><a href="#">Traslado</a></li>
@@ -65,12 +51,7 @@
                         <a href="#">Pesaje</a>
                     </li>
                     <li class="dropdown">
-                    <a href="/pages/feedlot/feedlot.jsp" 
-                       class="dropdown-toggle" 
-                       data-toggle="dropdown" 
-                       role="button" 
-                       aria-haspopup="true" 
-                       aria-expanded="false">Feedlot 
+                    <a href="/pages/feedlot/feedlot.jsp" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">Feedlot 
                      <span class="caret"></span>
                     </a>
                             <ul class="dropdown-menu">
@@ -85,12 +66,7 @@
                         <a href="#">Ventas</a>
                     </li>
                     <li class="dropdown">
-                    <a href="#" 
-                       class="dropdown-toggle" 
-                       data-toggle="dropdown" 
-                       role="button" 
-                       aria-haspopup="true" 
-                       aria-expanded="false">Maestros 
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">Maestros 
                      <span class="caret"></span>
                     </a>
                             <ul class="dropdown-menu">
@@ -106,42 +82,11 @@
                     <li>
                         <a href="#">Reportes</a>
                     </li>
-                    
-                         
-                     </ul>
-                
-               
-                   
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="/login.jsp?cmd=close">
-                            <span class="glyphicon glyphicon-log-in"></span>Cerrar Sesión</a>
-                    </li>
-                   
-                </ul>
-             <ul class="nav navbar-nav navbar-right">
-                  <li>
-          
-                           
-                    </li>
-             </ul>
-        
-             
-           </div>
-             <!-- /.container
-            
-              <%
-                        if(request.getSession().getAttribute("userSession") != null)       
-                         {
-                            cl.sgg.utils.UserSession usr = 
-                                    (cl.sgg.utils.UserSession) request.getSession().getAttribute("userSession");
-             
-            %>
-            <span class="glyphicon glyphicon-user"> <%= usr.getUsername() %></span>
-             <%         }
-             %>
-             -->
-        </div>
-    
- </nav>
+      </ul>
+
+    </div> <!-- /.navbar-collapse -->   
+
+  </div> <!-- /.container --> 
+
+</div>
 

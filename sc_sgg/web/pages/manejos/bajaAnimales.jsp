@@ -14,338 +14,354 @@
 <!DOCTYPE html>
 <html>
     <head>
-<%@ page import="java.util.Date" %>   
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
+        <%@ page import="java.util.Date" %>   
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
 
-    <!-- Bootstrap Core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet"  type="text/css">
-    <link href="/css/bootstrap-select.css" rel="stylesheet"  type="text/css">
-    <link href="/css/datepicker.css" rel="stylesheet" type="text/css"/>
-   <link href="/css/style.css" rel="stylesheet" type="text/css"/>
-       <!-- jQuery Version 1.11.1 -->
-    <script src="/js/jquery.js"></script>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="/js/bootstrap.min.js" type="text/javascript"></script>      
-    <script src="/js/bootstrap-select.js" type="text/javascript"></script>
-    <script src="/js/bootstrap-datepicker.js" type="text/javascript"></script>
-    <script src="/js/bootstrapValidator.min.js" type="text/javascript"></script>
-                   <style>
-    body {
-        padding-top: 70px;
-        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-        }
-        
-        .form_animales{
-            padding-top: 5%;
-        }
-        
-        .contenido{
-            margin-top: 5%;
-        }
-        
-        .bajatxt1{
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300,700">
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/js/libs/css/ui-lightness/jquery-ui-1.9.2.custom.min.css">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+        <!-- Plugin CSS -->
+        <link rel="stylesheet" href="/js/plugins/morris/morris.css">
+        <link rel="stylesheet" href="/js/plugins/icheck/skins/minimal/blue.css">
+        <link rel="stylesheet" href="/js/plugins/select2/select2.css">
+        <link rel="stylesheet" href="/js/plugins/fullcalendar/fullcalendar.css">
+
+        <!-- App CSS -->
+        <link rel="stylesheet" href="/css/target-admin.css">
+        <link rel="stylesheet" href="/css/custom.css">
+
+
+        <link href="/css/datepicker.css" rel="stylesheet" type="text/css"/>
+        <script src="/js/bootstrap-datepicker.js" type="text/javascript"></script>
+        <script src="/js/bootstrapValidator.min.js" type="text/javascript"></script>
+        <style>
             
-            margin-left: 10.4%!important;
+
+            .form_animales{
+                padding-top: 5%;
+            }
+
+            .contenido{
+                margin-top: 5%;
+            }
+
+            .bajatxt1{
+
+                margin-left: 10.4%!important;
                 width: 174px;
-        }
-        
-         .bajatxt2{
+            }
 
-    margin-left: 94px !important;
-    width: 174px!important;
+            .bajatxt2{
 
-        }
-        
-          .bajatxt3{
-             margin-left: 126px!important;   
-            width: 174px!important;
-        }
-        
-        .ulBaja{
-       list-style:none;
-       }
-       
-       .txtMotivo{
-           float:left!important;
-           margin-right: 8%!important;
-       }
-            
-       .txtTexto{         
-    /* width: 100%; */
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-   /* background-color: #fff;*/
-    background-image: none;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    }
-    
-    .form-control{
-        display: initial!important;
-         width: 174px!important;
-    }
-    </style>
-</head>
+                margin-left: 94px !important;
+                width: 174px!important;
+
+            }
+
+            .bajatxt3{
+                margin-left: 126px!important;   
+                width: 174px!important;
+            }
+
+            .ulBaja{
+                list-style:none;
+            }
+
+            .txtMotivo{
+                float:left!important;
+                margin-right: 8%!important;
+            }
+
+            .txtTexto{         
+                /* width: 100%; */
+                height: 34px;
+                padding: 6px 12px;
+                font-size: 14px;
+                line-height: 1.42857143;
+                color: #555;
+                /* background-color: #fff;*/
+                background-image: none;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+                -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+                transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            }
+
+            .form-control{
+                display: initial!important;
+                width: 174px!important;
+            }
+        </style>
+    </head>
     <body>
-        
-    
+        <%
+            if (request.getSession().getAttribute("userSession") == null) {
+                response.sendRedirect("/login.jsp");
+            }
+
+        %> 
+
         <!-- Menu Header -->
-
-<%@include file="../../header.jsp" %>
-<!-- Menu Principal -->
-
-
-<div class="container" >
-      <div class="panel panel-default">
-      <!-- Inicio Head -->
-    <div class="panel-heading">
+        <%@include file="/header.jsp" %>
+        <!-- Menu Principal -->
         <%@include file="/nav.jsp" %>
-    </div>
-    
-    <script type="text/javascript">
-    function validateForm() {
-    var x = document.forms["bajaAnimales"]["txtBuscar"].value;
-    if (x == null || x == "") {
-        alert("Ingrese un DIO");
-        return false;
-    }
-   if (Math.floor(x) == x) {
-  return true;
-} else {
-     alert("Valor ingresado debe ser Númerico");
-  return false;
-}
-}
+
+        <div class="container">
+
+            <div class="content">
+
+                <div class="content-container">
+
+                    <div class="row jumbotron">
 
 
-
-
-   </script>
-    
-    
-     <div class="container jumbotron">
-      <form  id="bajaAnimales" name="bajaAnimales" action="bajaAnimales" onsubmit="return validateForm()" method="post">
-                <p>Buscar DIIO</p>  
-                <input type="text" maxlength="15" placeholder="Solo Números" id="txtBuscar"   class="text-input txtTexto"  name="txtBuscar" title="Solo Numeros"  required >
-                <input type="hidden" value="<%=request.getAttribute("dioActual")%>" name="escondido" id="escondido">
-                <input type="hidden" value="Buscar" name="valorBoton" id="valorBoton">
-                  <input type="hidden" value="Muerto" name="Motivo" id="Motivo">
-                  <input type="submit" id="botonForm" name="botonForm" value="Buscar"/> </br></br>
-                  <label>
-                    <% if(request.getAttribute("message")!=("") && request.getAttribute("message")!=null){
-%>                       
-                    <%=request.getAttribute("message")%> 
+                       
                             
-                    <% }%></label>
-            </form>
-     </div>
-               
-           <%
-             /* BajaAnimales anim = new BajaAnimales();*/
-             
-             
-              
-              if(request.getAttribute("message")!=("") && request.getAttribute("message")!=null){
-              if(request.getAttribute("message") == "DIIO Encontrado" ){
-                  
-                 
-                 /*  anim.BuscarDIIO(Integer.parseInt(request.getAttribute("dioActual").toString()));*/
-                 /*  anim.setMotivoAparente("Robo");*/
-               /* try {                 
-                    if(anim.CargarCbMotivoAparente("Muerto").isStatus())                        
-            {                 
-                  System.out.print("uno");
-                  list =  anim.getListaCb();
 
-            }
-                    if(anim.CargarCbMotivoAparente("Robo").isStatus())
-                            {
-                        System.out.print("dos");
-                        list =  anim.getListaCb();  
-                    }                    
-                    
-                } catch (Exception e) {                 
-                    System.out.print(e.toString());
-                }     */ 
-              %>
-              
-            
-            
-                      <div class="contenido" style="display:none;">
-                      <form  id="guardarBaja" name="guardarBaja" action="bajaAnimales" method="post">
-                   <ul class="ulBaja">
-                       <li><label>DIIO ANIMAL</label><input type="text"  class="txtTexto bajatxt1" id="txtDio" name="txtDio"  value="<%=request.getAttribute("dioActual")%>"   disabled > </li> 
-                       <li><label>Fecha Registro</label> <input disabled id="fechaRegistro" name="fechaRegistro" class="txtTexto bajatxt2" type="text" class="form-control"  placeholder="yyyy-mm-dd"></li>                    
-                        <li><label>Fecha Baja</label><input  required id="fechaBaja" name="fechaBaja" class="txtTexto bajatxt3" type="text" class="form-control"  placeholder="yyyy-mm-dd"> </li> 
-                        <p></p>
-                        <li><label>Cambio estado Animal</label>                       
-                       <BR>
-                       
-                            <INPUT TYPE="radio" id="radio1" NAME="radios" onchange="motivoAparente('Muerto');" value="Muerto" >
-                            Muerto
-                           <BR>
-                           <INPUT TYPE="radio" id="radio2"  NAME="radios" onchange="motivoAparente('Robado');"  value="Robado"   >
-                            Robo 
-                           
-             <BR>      
-            </li>                      
-           <li> <label class="txtMotivo">Motivo Aparente</label>
-            <select name="selMotivo" id="selMotivo" class="form-control">
-                
-                <% 
-                     List<String> data = (List<String>)request.getAttribute("lista"); 
-                      for (int i = 0; i < data.size(); i++) {
-                   %>                    
-            <option value="<%=data.get(i)%>"><%=data.get(i)%></option>
-                   <%               
-                }          
-                    %>
-          </select>  
-             </li>
-                       <ul>
-                           <input type="submit" name="botonForm" value="Guardar"/>
-                     </form>
-               </div>
-                  
-                </div>
-          
-                  
-      <script>           
 
-          
-          
-          
-          function motivoAparente(motivo)
-          {
-            
-              
-                
-              if(motivo == "Muerto"){
-                   document.getElementById('Motivo').value = "Muerto";
-                 /*  document.getElementById('radio1').checked = true;*/
-               document.forms["bajaAnimales"].submit();
-              }
-               if(motivo == "Robado"){
-                   document.getElementById('Motivo').value = "Robado";
-               document.forms["bajaAnimales"].submit();
-          
-              }
-          }
-          
-          var ano =  new Date().getUTCFullYear();
-              var dia =  new Date().getDate();
-              var mes = new Date().getMonth();
-              var mesactual = mes+1;
-              var fecha = ano+"-"+mesactual+"-"+dia;
-              
-              document.getElementById('fechaRegistro').value = fecha;
- $.fn.datepicker.dates['es'] = {
-        days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
-        daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
-        daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
-        months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-        monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-        today: "Hoy"
-    };
-               $('#fechaRegistro').datepicker({                   
-                     language: "es",
-                    autoclose: true,
-                    todayHighlight: true,
-                     endDate: '+0d',
-                    format:"yyyy-mm-dd"
-                   
-                
-                });  
-             $('#fechaBaja').datepicker({
-                     language: "es",
-                autoclose: true,
-                todayHighlight: true,
-                 endDate: '+0d',
-                format:"yyyy-mm-dd"
-                
-                });   
-                
-                
-      
+                                <script type="text/javascript">
+                                    function validateForm() {
+                                        var x = document.forms["bajaAnimales"]["txtBuscar"].value;
+                                        if (x == null || x == "") {
+                                            alert("Ingrese un DIO");
+                                            return false;
+                                        }
+                                        if (Math.floor(x) == x) {
+                                            return true;
+                                        } else {
+                                            alert("Valor ingresado debe ser Númerico");
+                                            return false;
+                                        }
+                                    }
 
-          </script>
-    
-         
-              <style>
-                  .contenido{
-                      
-                      display: block!important;
-                  }
-              </style>
-              <%
-              }
-           /* out.println(request.getAttribute("message")); */
-         /*  out.println(request.getAttribute("dioActual"));*/
-          /*   out.println(request.getAttribute("fechaBaja"));*/            
-          
-              
-               
-               }
-          else{
-           
-           
-          }
-   
-                           /* System.out.print(request.getAttribute("valorCheck"));*/
-                            if(request.getAttribute("valorCheck")!= null){
-                            if("true".equals(request.getAttribute("valorCheck").toString())){
-                           /* System.out.print("Entro True");*/
+
+
+
+                                </script>
+
+
+                                
+                                    <form  id="bajaAnimales" name="bajaAnimales" action="bajaAnimales" onsubmit="return validateForm()" method="post">
+                                        <p>Buscar DIIO</p>  
+                                        <input type="text" maxlength="15" placeholder="Solo Números" id="txtBuscar"   class="text-input txtTexto"  name="txtBuscar" title="Solo Numeros"  required >
+                                        <input type="hidden" value="<%=request.getAttribute("dioActual")%>" name="escondido" id="escondido">
+                                        <input type="hidden" value="Buscar" name="valorBoton" id="valorBoton">
+                                        <input type="hidden" value="Muerto" name="Motivo" id="Motivo">
+                                        <input type="submit" id="botonForm" class="btn btn-default" name="botonForm" value="Buscar"/> </br></br>
+                                        <label>
+                                            <% if (request.getAttribute("message") != ("") && request.getAttribute("message") != null) {
+                                            %>                       
+                                            <%=request.getAttribute("message")%> 
+
+                                            <% }%></label>
+                                    </form>
+                              
+
+                                <%
+                                    /* BajaAnimales anim = new BajaAnimales();*/
+
+                                    if (request.getAttribute("message") != ("") && request.getAttribute("message") != null) {
+                                        if (request.getAttribute("message") == "DIIO Encontrado") 
+                                        {
+
+                                           
                                 %>
-                                <script>
-                                    document.getElementById('radio1').checked = true;
-                                    </script>
-                             <%   }else{ %><script>
-                                    document.getElementById('radio2').checked = true;
-                                    </script>
-                                    <%}}
 
- if(request.getAttribute("resultadoGuardar")!= null )
-{
-if("true".equals(request.getAttribute("resultadoGuardar").toString()) ){
-                       
-               %>       
-               <p>Registro Guardado</p>
-                       <% 
-                   }else{
-                   
-                       %>                      
-                       <p>Registro  NO Guardado</p>       
-                       <%  
-                   }
-            }
-          %>  
-       <!--  <label id="message"></label> -->
-       <!--
-       <script type="text/javascript">
-           function valor(){
-               var valuer =  document.getElementById("txtBuscar");
-               var bajatxt =  document.getElementById("bajatxt1");
-               if(valuer != null)                 
-                   $( "p" ).text( valuer.value );
-               
-           
-           }
-           </script>  -->
-        <!-- Inicio Footer -->
-    <!--
- <%@include file="/footer.jsp" %>-->
-    </body>
-</html>
+
+
+                                <div class="contenido" style="display:none;">
+                                    <form  id="guardarBaja" name="guardarBaja" action="bajaAnimales" method="post">
+                                        <ul class="ulBaja">
+                                            <li><label>DIIO ANIMAL</label><input type="text"  class="txtTexto bajatxt1" id="txtDio" name="txtDio"  value="<%=request.getAttribute("dioActual")%>"   disabled > </li> 
+                                            <li><label>Fecha Registro</label> <input disabled id="fechaRegistro" name="fechaRegistro" class="txtTexto bajatxt2 form-control" type="text" placeholder="yyyy-mm-dd"></li>                    
+                                            <li><label>Fecha Baja</label><input  required id="fechaBaja" name="fechaBaja" class="txtTexto bajatxt3 form-control" type="text" placeholder="yyyy-mm-dd"> </li> 
+                                           
+                                            <li><label>Cambio estado Animal</label>                       
+                                                <BR>
+
+                                                <INPUT TYPE="radio" id="radio1" NAME="radios" onchange="motivoAparente('Muerto');" value="Muerto" >
+                                                Muerto
+                                                <BR>
+                                                <INPUT TYPE="radio" id="radio2"  NAME="radios" onchange="motivoAparente('Robado');"  value="Robado"   >
+                                                Robo 
+
+                                                <BR>      
+                                            </li>                      
+                                            <li> <label class="txtMotivo">Motivo Aparente</label>
+                                                <select name="selMotivo" id="selMotivo" class="form-control">
+
+                                                    <%
+                                                        List<String> data = (List<String>) request.getAttribute("lista");
+                                                        for (int i = 0; i < data.size(); i++) {
+                                                    %>                    
+                                                    <option value="<%=data.get(i)%>"><%=data.get(i)%></option>
+                                                    <%
+                                                        }
+                                                    %>
+                                                </select>  
+                                            </li>
+                                            </ul>
+                                                <input type="submit" name="botonForm" class="btn btn-default" value="Guardar"/>
+                                                </form>
+                                                </div>
+
+                                                </div>
+
+
+                                                <script>
+
+
+
+
+                                                    function motivoAparente(motivo)
+                                                    {
+
+
+
+                                                        if (motivo == "Muerto") {
+                                                            document.getElementById('Motivo').value = "Muerto";
+                                                            /*  document.getElementById('radio1').checked = true;*/
+                                                            document.forms["bajaAnimales"].submit();
+                                                        }
+                                                        if (motivo == "Robado") {
+                                                            document.getElementById('Motivo').value = "Robado";
+                                                            document.forms["bajaAnimales"].submit();
+
+                                                        }
+                                                    }
+
+                                                    var ano = new Date().getUTCFullYear();
+                                                    var dia = new Date().getDate();
+                                                    var mes = new Date().getMonth();
+                                                    var mesactual = mes + 1;
+                                                    var fecha = ano + "-" + mesactual + "-" + dia;
+
+                                                    document.getElementById('fechaRegistro').value = fecha;
+                                                    $.fn.datepicker.dates['es'] = {
+                                                        days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+                                                        daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
+                                                        daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+                                                        months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                                                        monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                                                        today: "Hoy"
+                                                    };
+                                                    $('#fechaRegistro').datepicker({
+                                                        language: "es",
+                                                        autoclose: true,
+                                                        todayHighlight: true,
+                                                        endDate: '+0d',
+                                                        format: "yyyy-mm-dd"
+
+
+                                                    });
+                                                    $('#fechaBaja').datepicker({
+                                                        language: "es",
+                                                        autoclose: true,
+                                                        todayHighlight: true,
+                                                        endDate: '+0d',
+                                                        format: "yyyy-mm-dd"
+
+                                                    });
+
+
+
+
+                                                </script>
+
+
+                                                <style>
+                                                    .contenido{
+
+                                                        display: block!important;
+                                                    }
+                                                </style>
+                                                <%
+                                                        }
+                                                        /* out.println(request.getAttribute("message")); */
+                                                        /*  out.println(request.getAttribute("dioActual"));*/
+                                                        /*   out.println(request.getAttribute("fechaBaja"));*/
+
+                                                    } else {
+
+                                                    }
+
+                                                    /* System.out.print(request.getAttribute("valorCheck"));*/
+                                                    if (request.getAttribute("valorCheck") != null) {
+                                                        if ("true".equals(request.getAttribute("valorCheck").toString())) {
+                                                            /* System.out.print("Entro True");*/
+                                                %>
+                                                <script>
+                                                    document.getElementById('radio1').checked = true;
+                                                </script>
+                                                <%   } else { %><script>
+                                                    document.getElementById('radio2').checked = true;
+                                                </script>
+                                                <%}
+                                                    }
+
+                                                    if (request.getAttribute("resultadoGuardar") != null) {
+                                                        if ("true".equals(request.getAttribute("resultadoGuardar").toString())) {
+
+                                                %>       
+                                                <p>Registro Guardado</p>
+                                                <%                       } else {
+
+                                                %>                      
+                                                <p>Registro  NO Guardado</p>       
+                                                <%                               }
+                                                    }
+                                                %>  
+
+
+
+                                                </div>
+                                                </div>
+                                                </div>
+
+                                              
+        
+
+
+                                                <%@include file="/footer.jsp" %>
+
+                                                <script src="/js/libs/jquery-1.10.1.min.js"></script>
+                                                <script src="/js/libs/jquery-ui-1.9.2.custom.min.js"></script>
+                                                <script src="/js/libs/bootstrap.min.js"></script>
+
+                                                <!--[if lt IE 9]>
+                                                <script src="./js/libs/excanvas.compiled.js"></script>
+                                                <![endif]-->
+
+                                                <!-- Plugin JS -->
+                                                <script src="/js/plugins/icheck/jquery.icheck.js"></script>
+                                                <script src="/js/plugins/select2/select2.js"></script>
+                                                <script src="/js/libs/raphael-2.1.2.min.js"></script>
+                                                <script src="/js/plugins/morris/morris.min.js"></script>
+                                                <script src="/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+                                                <script src="/js/plugins/nicescroll/jquery.nicescroll.min.js"></script>
+                                                <script src="/js/plugins/fullcalendar/fullcalendar.min.js"></script>
+
+                                                <!-- App JS -->
+                                                <script src="/js/target-admin.js"></script>
+
+                                                <!-- Plugin JS -->
+                                                <script src="/js/demos/dashboard.js"></script>
+                                                <script src="/js/demos/calendar.js"></script>
+                                                <script src="/js/demos/charts/morris/area.js"></script>
+                                                <script src="/js/demos/charts/morris/donut.js"></script>
+                                                </body>
+                                                </html>
