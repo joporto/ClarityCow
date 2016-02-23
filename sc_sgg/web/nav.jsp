@@ -1,10 +1,4 @@
-
-
-<%-- 
-    Document   : nav
-    Created on : 11-feb-2016, 12:12:25
-    Author     : Murciegalo - Joporto
---%>
+<!-- V1.0.0 -->
 <!-- Navigation -->
 <div class="mainbar">
  
@@ -58,7 +52,7 @@
                               <li><a href="/pages/feedlot/feedlot.jsp">Cargar Traslado</a></li>
                               <li><a href="/pages/feedlot/trasladoDestete.jsp">Traslado de destete</a></li>
                               <li><a href="#">Manejo de destete</a></li>
-                              <li><a href="#">Separación Feedlot</a></li>
+                              <li><a href="/pages/feedlot/FeedlotSeparacion.jsp">Separación Feedlot</a></li>
                               <li><a href="#">Pesaje Feedlot</a></li>
                             </ul>
                     </li>
