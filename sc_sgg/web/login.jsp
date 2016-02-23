@@ -122,9 +122,9 @@
                 <div class="col-sm-6 col-md-4 col-md-offset-4">
                     <h1 class="text-center login-title">Sign in SGG - SmartClarity</h1>
                     <div class="account-wall">
-                        <img class="profile-img" src="./img/logo-smartclarity.png"
+                        <img class="profile-img" src="/img/logo_sc.png"
                              alt="">
-                        <form class="form-signin" action="LoginServlet" method="post">
+                        <form class="form-signin" action="/LoginServlet" method="post">
                             <input type="text" class="form-control" placeholder="Usuario" required autofocus name="Usuario">
                             <input type="password" class="form-control" placeholder="Password" required name="password">
                             <button class="btn btn-lg btn-primary btn-block" type="submit">

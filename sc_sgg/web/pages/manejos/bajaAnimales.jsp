@@ -46,8 +46,9 @@
         <link href="/css/datepicker.css" rel="stylesheet" type="text/css"/>
         <script src="/js/bootstrap-datepicker.js" type="text/javascript"></script>
         <script src="/js/bootstrapValidator.min.js" type="text/javascript"></script>
+         
         <style>
-            
+
 
             .form_animales{
                 padding-top: 5%;
@@ -129,239 +130,296 @@
                     <div class="row jumbotron">
 
 
-                       
-                            
-
-
-                                <script type="text/javascript">
-                                    function validateForm() {
-                                        var x = document.forms["bajaAnimales"]["txtBuscar"].value;
-                                        if (x == null || x == "") {
-                                            alert("Ingrese un DIO");
-                                            return false;
-                                        }
-                                        if (Math.floor(x) == x) {
-                                            return true;
-                                        } else {
-                                            alert("Valor ingresado debe ser Númerico");
-                                            return false;
-                                        }
-                                    }
 
 
 
 
-                                </script>
+                        <script type="text/javascript">
+                            function validateForm() {
+                                var x = document.forms["bajaAnimales"]["txtBuscar"].value;
+                                if (x == null || x == "") {
+                                    alert("Ingrese un DIO");
+                                    return false;
+                                }
+                                if (Math.floor(x) == x) {
+                                    return true;
+                                } else {
+                                    alert("Valor ingresado debe ser Númerico");
+                                    return false;
+                                }
+                            }
+
+
+
+
+                        </script>
+
+
+
+                        <form  id="bajaAnimales" class="form-horizontal" name="bajaAnimales" action="bajaAnimales" onsubmit="return validateForm()" method="post">
+                            <p>Baja de animales, ingrese un DIIO valido y luego ingrese la causa de baja</p>  
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Ingresar DIIO</label>
+                                <div class="col-sm-2">
+                                    <input type="text" maxlength="15" placeholder="Solo Números" id="txtBuscar"   class="text-input txtTexto form-control"  name="txtBuscar" title="Solo Numeros"  required >
+                                    <input type="hidden" value="<%=request.getAttribute("dioActual")%>" name="escondido" id="escondido">
+                                    <input type="hidden" value="Buscar" name="valorBoton" id="valorBoton">
+                                    <input type="hidden" value="Muerto" name="Motivo" id="Motivo">
+
+                                </div>
+                                <label class="control-label col-sm-2">
+                                    <% if (request.getAttribute("message") != ("") && request.getAttribute("message") != null) {
+                                    %>                       
+                                    <%=request.getAttribute("message")%> 
+
+                                    <% }%></label>
+                                <div class="col-sm-2">
+                                    <input type="submit" id="botonForm" class="btn btn-default form-control" name="botonForm" value="Buscar"/> </br></br>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row">
+
+                        <%
+                            /* BajaAnimales anim = new BajaAnimales();*/
+
+                            if (request.getAttribute("message") != ("") && request.getAttribute("message") != null) {
+                                if (request.getAttribute("message") == "DIIO Encontrado") {
+
+
+                        %>
+
+
+
+                        <div class="contenido" style="display:none;">
+                            <form  id="guardarBaja" class="form form-horizontal" name="guardarBaja" action="bajaAnimales" method="post">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2">DIIO ANIMAL</label>
+
+                                    <div class="col-sm-4">
+                                        <input type="text"  class="form-control" id="txtDio" name="txtDio"  value="<%=request.getAttribute("dioActual")%>"   disabled > 
+                                    </div>
+                                </div>
+                                <div class="form-group">
+
+                                    <label class="control-label col-sm-2">Fecha Registro</label>
+                                    <div class="col-sm-4">
+                                        <input disabled id="fechaRegistro" name="fechaRegistro" class="form-control" type="text" placeholder="yyyy-mm-dd">
+
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+
+                                    <label class="control-label col-sm-2">Fecha Baja</label>
+                                    <div class="col-sm-4">
+
+                                        <input  required id="fechaBaja" name="fechaBaja" class="form-control" type="text" placeholder="yyyy-mm-dd">
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+
+                                    <label class="control-label col-sm-2">Cambio estado Animal</label>
+                                    <div class="col-sm-1">
+                                        
+
+                                        <INPUT TYPE="radio" id="radio1" NAME="radios" class="form-control" onchange="motivoAparente('Muerto');" value="Muerto" >
+                                        Muerto
+                                        
+                                        <INPUT TYPE="radio" id="radio2"  NAME="radios" class="form-control" onchange="motivoAparente('Robado');"  value="Robado"   >
+                                        Robo 
+
+                                       
+
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+
+                                    <label class="control-label col-sm-2">Motivo Aparente</label>
+                                    <div class="col-sm-4">
+
+                                        <select name="selMotivo" id="selMotivo" class="form-control">
+
+                                            <%
+                                                List<String> data = (List<String>) request.getAttribute("lista");
+                                                for (int i = 0; i < data.size(); i++) {
+                                            %>                    
+                                            <option value="<%=data.get(i)%>"><%=data.get(i)%></option>
+                                            <%
+                                                }
+                                            %>
+                                        </select>  
+                                    </div>
+                                </div> 
+                                <div class="form-group">
+
+                                    <label class="control-label col-sm-2"></label>
+                                    <div class="col-sm-4">
+
+                                        <input type="submit" name="botonForm" class="btn btn-default" value="Guardar"/>
+                                    </div>
+                                </div> 
+
+
+
+
+
+
+
+
+
+
 
 
                                 
-                                    <form  id="bajaAnimales" name="bajaAnimales" action="bajaAnimales" onsubmit="return validateForm()" method="post">
-                                        <p>Buscar DIIO</p>  
-                                        <input type="text" maxlength="15" placeholder="Solo Números" id="txtBuscar"   class="text-input txtTexto"  name="txtBuscar" title="Solo Numeros"  required >
-                                        <input type="hidden" value="<%=request.getAttribute("dioActual")%>" name="escondido" id="escondido">
-                                        <input type="hidden" value="Buscar" name="valorBoton" id="valorBoton">
-                                        <input type="hidden" value="Muerto" name="Motivo" id="Motivo">
-                                        <input type="submit" id="botonForm" class="btn btn-default" name="botonForm" value="Buscar"/> </br></br>
-                                        <label>
-                                            <% if (request.getAttribute("message") != ("") && request.getAttribute("message") != null) {
-                                            %>                       
-                                            <%=request.getAttribute("message")%> 
+                            </form>
+                        </div>
 
-                                            <% }%></label>
-                                    </form>
-                              
-
-                                <%
-                                    /* BajaAnimales anim = new BajaAnimales();*/
-
-                                    if (request.getAttribute("message") != ("") && request.getAttribute("message") != null) {
-                                        if (request.getAttribute("message") == "DIIO Encontrado") 
-                                        {
-
-                                           
-                                %>
+                    </div>
 
 
-
-                                <div class="contenido" style="display:none;">
-                                    <form  id="guardarBaja" name="guardarBaja" action="bajaAnimales" method="post">
-                                        <ul class="ulBaja">
-                                            <li><label>DIIO ANIMAL</label><input type="text"  class="txtTexto bajatxt1" id="txtDio" name="txtDio"  value="<%=request.getAttribute("dioActual")%>"   disabled > </li> 
-                                            <li><label>Fecha Registro</label> <input disabled id="fechaRegistro" name="fechaRegistro" class="txtTexto bajatxt2 form-control" type="text" placeholder="yyyy-mm-dd"></li>                    
-                                            <li><label>Fecha Baja</label><input  required id="fechaBaja" name="fechaBaja" class="txtTexto bajatxt3 form-control" type="text" placeholder="yyyy-mm-dd"> </li> 
-                                           
-                                            <li><label>Cambio estado Animal</label>                       
-                                                <BR>
-
-                                                <INPUT TYPE="radio" id="radio1" NAME="radios" onchange="motivoAparente('Muerto');" value="Muerto" >
-                                                Muerto
-                                                <BR>
-                                                <INPUT TYPE="radio" id="radio2"  NAME="radios" onchange="motivoAparente('Robado');"  value="Robado"   >
-                                                Robo 
-
-                                                <BR>      
-                                            </li>                      
-                                            <li> <label class="txtMotivo">Motivo Aparente</label>
-                                                <select name="selMotivo" id="selMotivo" class="form-control">
-
-                                                    <%
-                                                        List<String> data = (List<String>) request.getAttribute("lista");
-                                                        for (int i = 0; i < data.size(); i++) {
-                                                    %>                    
-                                                    <option value="<%=data.get(i)%>"><%=data.get(i)%></option>
-                                                    <%
-                                                        }
-                                                    %>
-                                                </select>  
-                                            </li>
-                                            </ul>
-                                                <input type="submit" name="botonForm" class="btn btn-default" value="Guardar"/>
-                                                </form>
-                                                </div>
-
-                                                </div>
-
-
-                                                <script>
+                    <script>
 
 
 
 
-                                                    function motivoAparente(motivo)
-                                                    {
+                        function motivoAparente(motivo)
+                        {
 
 
 
-                                                        if (motivo == "Muerto") {
-                                                            document.getElementById('Motivo').value = "Muerto";
-                                                            /*  document.getElementById('radio1').checked = true;*/
-                                                            document.forms["bajaAnimales"].submit();
-                                                        }
-                                                        if (motivo == "Robado") {
-                                                            document.getElementById('Motivo').value = "Robado";
-                                                            document.forms["bajaAnimales"].submit();
+                            if (motivo == "Muerto") {
+                                document.getElementById('Motivo').value = "Muerto";
+                                /*  document.getElementById('radio1').checked = true;*/
+                                document.forms["bajaAnimales"].submit();
+                            }
+                            if (motivo == "Robado") {
+                                document.getElementById('Motivo').value = "Robado";
+                                document.forms["bajaAnimales"].submit();
 
-                                                        }
-                                                    }
+                            }
+                        }
 
-                                                    var ano = new Date().getUTCFullYear();
-                                                    var dia = new Date().getDate();
-                                                    var mes = new Date().getMonth();
-                                                    var mesactual = mes + 1;
-                                                    var fecha = ano + "-" + mesactual + "-" + dia;
+                        var ano = new Date().getUTCFullYear();
+                        var dia = new Date().getDate();
+                        var mes = new Date().getMonth();
+                        var mesactual = mes + 1;
+                        var fecha = ano + "-" + mesactual + "-" + dia;
 
-                                                    document.getElementById('fechaRegistro').value = fecha;
-                                                    $.fn.datepicker.dates['es'] = {
-                                                        days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
-                                                        daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
-                                                        daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
-                                                        months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-                                                        monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-                                                        today: "Hoy"
-                                                    };
-                                                    $('#fechaRegistro').datepicker({
-                                                        language: "es",
-                                                        autoclose: true,
-                                                        todayHighlight: true,
-                                                        endDate: '+0d',
-                                                        format: "yyyy-mm-dd"
-
-
-                                                    });
-                                                    $('#fechaBaja').datepicker({
-                                                        language: "es",
-                                                        autoclose: true,
-                                                        todayHighlight: true,
-                                                        endDate: '+0d',
-                                                        format: "yyyy-mm-dd"
-
-                                                    });
+                        document.getElementById('fechaRegistro').value = fecha;
+                        $.fn.datepicker.dates['es'] = {
+                            days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+                            daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
+                            daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+                            months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                            monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                            today: "Hoy"
+                        };
+                        $('#fechaRegistro').datepicker({
+                            language: "es",
+                            autoclose: true,
+                            todayHighlight: true,
+                            endDate: '+0d',
+                            format: "yyyy-mm-dd"
 
 
+                        });
+                        $('#fechaBaja').datepicker({
+                            language: "es",
+                            autoclose: true,
+                            todayHighlight: true,
+                            endDate: '+0d',
+                            format: "yyyy-mm-dd"
 
-
-                                                </script>
-
-
-                                                <style>
-                                                    .contenido{
-
-                                                        display: block!important;
-                                                    }
-                                                </style>
-                                                <%
-                                                        }
-                                                        /* out.println(request.getAttribute("message")); */
-                                                        /*  out.println(request.getAttribute("dioActual"));*/
-                                                        /*   out.println(request.getAttribute("fechaBaja"));*/
-
-                                                    } else {
-
-                                                    }
-
-                                                    /* System.out.print(request.getAttribute("valorCheck"));*/
-                                                    if (request.getAttribute("valorCheck") != null) {
-                                                        if ("true".equals(request.getAttribute("valorCheck").toString())) {
-                                                            /* System.out.print("Entro True");*/
-                                                %>
-                                                <script>
-                                                    document.getElementById('radio1').checked = true;
-                                                </script>
-                                                <%   } else { %><script>
-                                                    document.getElementById('radio2').checked = true;
-                                                </script>
-                                                <%}
-                                                    }
-
-                                                    if (request.getAttribute("resultadoGuardar") != null) {
-                                                        if ("true".equals(request.getAttribute("resultadoGuardar").toString())) {
-
-                                                %>       
-                                                <p>Registro Guardado</p>
-                                                <%                       } else {
-
-                                                %>                      
-                                                <p>Registro  NO Guardado</p>       
-                                                <%                               }
-                                                    }
-                                                %>  
+                        });
 
 
 
-                                                </div>
-                                                </div>
-                                                </div>
 
-                                              
-        
+                    </script>
 
 
-                                                <%@include file="/footer.jsp" %>
+                    <style>
+                        .contenido{
 
-                                                <script src="/js/libs/jquery-1.10.1.min.js"></script>
-                                                <script src="/js/libs/jquery-ui-1.9.2.custom.min.js"></script>
-                                                <script src="/js/libs/bootstrap.min.js"></script>
+                            display: block!important;
+                        }
+                    </style>
+                    <%
+                            }
+                            /* out.println(request.getAttribute("message")); */
+                            /*  out.println(request.getAttribute("dioActual"));*/
+                            /*   out.println(request.getAttribute("fechaBaja"));*/
 
-                                                <!--[if lt IE 9]>
-                                                <script src="./js/libs/excanvas.compiled.js"></script>
-                                                <![endif]-->
+                        } else {
 
-                                                <!-- Plugin JS -->
-                                                <script src="/js/plugins/icheck/jquery.icheck.js"></script>
-                                                <script src="/js/plugins/select2/select2.js"></script>
-                                                <script src="/js/libs/raphael-2.1.2.min.js"></script>
-                                                <script src="/js/plugins/morris/morris.min.js"></script>
-                                                <script src="/js/plugins/sparkline/jquery.sparkline.min.js"></script>
-                                                <script src="/js/plugins/nicescroll/jquery.nicescroll.min.js"></script>
-                                                <script src="/js/plugins/fullcalendar/fullcalendar.min.js"></script>
+                        }
 
-                                                <!-- App JS -->
-                                                <script src="/js/target-admin.js"></script>
+                        /* System.out.print(request.getAttribute("valorCheck"));*/
+                        if (request.getAttribute("valorCheck") != null) {
+                            if ("true".equals(request.getAttribute("valorCheck").toString())) {
+                                /* System.out.print("Entro True");*/
+                    %>
+                    <script>
+                        document.getElementById('radio1').checked = true;
+                    </script>
+                    <%   } else { %><script>
+                        document.getElementById('radio2').checked = true;
+                    </script>
+                    <%}
+                        }
 
-                                                <!-- Plugin JS -->
-                                                <script src="/js/demos/dashboard.js"></script>
-                                                <script src="/js/demos/calendar.js"></script>
-                                                <script src="/js/demos/charts/morris/area.js"></script>
-                                                <script src="/js/demos/charts/morris/donut.js"></script>
-                                                </body>
-                                                </html>
+                        if (request.getAttribute("resultadoGuardar") != null) {
+                            if ("true".equals(request.getAttribute("resultadoGuardar").toString())) {
+
+                    %>       
+                    <p>Registro Guardado</p>
+                    <%                       } else {
+
+                    %>                      
+                    <p>Registro  NO Guardado</p>       
+                    <%                               }
+                        }
+                    %>  
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <%@include file="/footer.jsp" %>
+
+        <script src="/js/libs/jquery-1.10.1.min.js"></script>
+        <script src="/js/libs/jquery-ui-1.9.2.custom.min.js"></script>
+        <script src="/js/libs/bootstrap.min.js"></script>
+
+        <!--[if lt IE 9]>
+        <script src="./js/libs/excanvas.compiled.js"></script>
+        <![endif]-->
+
+        <!-- Plugin JS -->
+        <script src="/js/plugins/icheck/jquery.icheck.js"></script>
+        <script src="/js/plugins/select2/select2.js"></script>
+        <script src="/js/libs/raphael-2.1.2.min.js"></script>
+        <script src="/js/plugins/morris/morris.min.js"></script>
+        <script src="/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+        <script src="/js/plugins/nicescroll/jquery.nicescroll.min.js"></script>
+        <script src="/js/plugins/fullcalendar/fullcalendar.min.js"></script>
+
+        <!-- App JS -->
+        <script src="/js/target-admin.js"></script>
+
+        <!-- Plugin JS -->
+        <script src="/js/demos/dashboard.js"></script>
+        <script src="/js/demos/calendar.js"></script>
+        <script src="/js/demos/charts/morris/area.js"></script>
+        <script src="/js/demos/charts/morris/donut.js"></script>
+    </body>
+</html>

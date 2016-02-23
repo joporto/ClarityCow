@@ -32,12 +32,7 @@
     </head>
 
     <body>
-        <%
-            if (request.getSession().getAttribute("userSession") == null) {
-                response.sendRedirect("/login.jsp");
-            }
 
-        %> 
 
         <!-- Menu Header -->
         <%@include file="/header.jsp" %>
@@ -51,7 +46,9 @@
                 <div class="content-container">
 
                     <div class="row">
+                        <!-- Contenido Principal aqui -->
 
+                       
 
                     </div>
                 </div>
