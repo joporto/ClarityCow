@@ -132,7 +132,6 @@
 
 
 
-<<<<<<< Updated upstream
 
 
                         <script type="text/javascript">
@@ -268,114 +267,22 @@
 
 
 
-=======
->>>>>>> Stashed changes
-
-
-                        <script type="text/javascript">
-                            function validateForm() {
-                                var x = document.forms["bajaAnimales"]["txtBuscar"].value;
-                                if (x == null || x == "") {
-                                    alert("Ingrese un DIO");
-                                    return false;
-                                }
-                                if (Math.floor(x) == x) {
-                                    return true;
-                                } else {
-                                    alert("Valor ingresado debe ser Númerico");
-                                    return false;
-                                }
-                            }
 
 
 
 
-                        </script>
 
 
-
-                        <form  id="bajaAnimales" name="bajaAnimales" action="bajaAnimales" onsubmit="return validateForm()" method="post">
-                            <p>Buscar DIIO</p>  
-                            <input type="text" maxlength="15" placeholder="Solo Números" id="txtBuscar"   class="text-input txtTexto"  name="txtBuscar" title="Solo Numeros"  required >
-                            <input type="hidden" value="<%=request.getAttribute("dioActual")%>" name="escondido" id="escondido">
-                            <input type="hidden" value="Buscar" name="valorBoton" id="valorBoton">
-                            <input type="hidden" value="Muerto" name="Motivo" id="Motivo">
-                            <input type="submit" id="botonForm" class="btn btn-default" name="botonForm" value="Buscar"/> </br></br>
-                            <label>
-                                <% if (request.getAttribute("message") != ("") && request.getAttribute("message") != null) {
-                                %>                       
-                                <%=request.getAttribute("message")%> 
-
-                                <% }%></label>
-                        </form>
-
-
-                        <%
-                            /* BajaAnimales anim = new BajaAnimales();*/
-
-                            if (request.getAttribute("message") != ("") && request.getAttribute("message") != null) {
-                                if (request.getAttribute("message") == "DIIO Encontrado") {
-
-
-                        %>
-
-
-
-                        <div class="contenido" style="display:none;">
-                            <form  id="guardarBaja" name="guardarBaja" action="bajaAnimales" method="post">
-                                <ul class="ulBaja">
-                                    <li><label>DIIO ANIMAL</label><input type="text"  class="txtTexto bajatxt1" id="txtDio" name="txtDio"  value="<%=request.getAttribute("dioActual")%>"   disabled > </li> 
-                                    <li><label>Fecha Registro</label> <input disabled id="fechaRegistro" name="fechaRegistro" class="txtTexto bajatxt2 form-control" type="text" placeholder="yyyy-mm-dd"></li>                    
-                                    <li><label>Fecha Baja</label><input  required id="fechaBaja" name="fechaBaja" class="txtTexto bajatxt3 form-control" type="text" placeholder="yyyy-mm-dd"> </li> 
-
-                                    <li><label>Cambio estado Animal</label>                       
-                                        <BR>
-
-                                        <INPUT TYPE="radio" id="radio1" NAME="radios" onchange="motivoAparente('Muerto');" value="Muerto" >
-                                        Muerto
-                                        <BR>
-                                        <INPUT TYPE="radio" id="radio2"  NAME="radios" onchange="motivoAparente('Robado');"  value="Robado"   >
-                                        Robo 
-
-                                        <BR>      
-                                    </li>                      
-                                    <li> <label class="txtMotivo">Motivo Aparente</label>
-                                        <select name="selMotivo" id="selMotivo" class="form-control">
-
-<<<<<<< Updated upstream
-=======
-                                            <%
-                                                List<String> data = (List<String>) request.getAttribute("lista");
-                                                for (int i = 0; i < data.size(); i++) {
-                                            %>                    
-                                            <option value="<%=data.get(i)%>"><%=data.get(i)%></option>
-                                            <%
-                                                }
-                                            %>
-                                        </select>  
-                                    </li>
-                                </ul>
-                                <input type="submit" name="botonForm" class="btn btn-default" value="Guardar"/>
-                            </form>
-                        </div>
->>>>>>> Stashed changes
-
-                    </div>
-
-<<<<<<< Updated upstream
                                 
                             </form>
                         </div>
 
                     </div>
 
-=======
->>>>>>> Stashed changes
 
                     <script>
 
 
-<<<<<<< Updated upstream
 
 
                         function motivoAparente(motivo)
@@ -431,63 +338,6 @@
 
 
 
-=======
-
-
-                        function motivoAparente(motivo)
-                        {
-
-
-
-                            if (motivo == "Muerto") {
-                                document.getElementById('Motivo').value = "Muerto";
-                                /*  document.getElementById('radio1').checked = true;*/
-                                document.forms["bajaAnimales"].submit();
-                            }
-                            if (motivo == "Robado") {
-                                document.getElementById('Motivo').value = "Robado";
-                                document.forms["bajaAnimales"].submit();
-
-                            }
-                        }
-
-                        var ano = new Date().getUTCFullYear();
-                        var dia = new Date().getDate();
-                        var mes = new Date().getMonth();
-                        var mesactual = mes + 1;
-                        var fecha = ano + "-" + mesactual + "-" + dia;
-
-                        document.getElementById('fechaRegistro').value = fecha;
-                        $.fn.datepicker.dates['es'] = {
-                            days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
-                            daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
-                            daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
-                            months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-                            monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-                            today: "Hoy"
-                        };
-                        $('#fechaRegistro').datepicker({
-                            language: "es",
-                            autoclose: true,
-                            todayHighlight: true,
-                            endDate: '+0d',
-                            format: "yyyy-mm-dd"
-
-
-                        });
-                        $('#fechaBaja').datepicker({
-                            language: "es",
-                            autoclose: true,
-                            todayHighlight: true,
-                            endDate: '+0d',
-                            format: "yyyy-mm-dd"
-
-                        });
-
-
-
-
->>>>>>> Stashed changes
                     </script>
 
 
@@ -500,13 +350,8 @@
                     <%
                             }
                             /* out.println(request.getAttribute("message")); */
-<<<<<<< Updated upstream
                             /*  out.println(request.getAttribute("dioActual"));*/
                             /*   out.println(request.getAttribute("fechaBaja"));*/
-=======
-/*  out.println(request.getAttribute("dioActual"));*/
-/*   out.println(request.getAttribute("fechaBaja"));*/
->>>>>>> Stashed changes
 
                         } else {
 

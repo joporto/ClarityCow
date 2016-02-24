@@ -51,7 +51,7 @@
                             <ul class="dropdown-menu">
                               <li><a href="/pages/feedlot/feedlot.jsp">Cargar Traslado</a></li>
                               <li><a href="/pages/feedlot/trasladoDestete.jsp">Traslado de destete</a></li>
-                              <li><a href="#">Manejo de destete</a></li>
+                              <li><a href="/pages/feedlot/manejoDestete.jsp">Manejo de destete</a></li>
                               <li><a href="/pages/feedlot/FeedlotSeparacion.jsp">Separación Feedlot</a></li>
                               <li><a href="#">Pesaje Feedlot</a></li>
                             </ul>
