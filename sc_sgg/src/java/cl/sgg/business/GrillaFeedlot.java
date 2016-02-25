@@ -1,8 +1,9 @@
-//v1.0.2
+//v1.0.3
 package cl.sgg.business;
 
 public class GrillaFeedlot 
 {
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     private int idTransporte;
     private String tipoTraslado;
     private String fechaTraslado;
@@ -11,7 +12,9 @@ public class GrillaFeedlot
     private String fundoOrigen;
     private String fundoDestino;
     private String status;
+    //</editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="GET & SET">
     public int getIdTransporte() {
         return idTransporte;
     }
@@ -75,7 +78,9 @@ public class GrillaFeedlot
     public void setStatus(String status) {
         this.status = status;
     }
+    //</editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="Constructores">
     public GrillaFeedlot()
     {
         this.idTransporte = 0;
@@ -98,10 +103,13 @@ public class GrillaFeedlot
         this.fundoDestino = fundoDestino;
         this.status = status;
     }
+    //</editor-fold>
 
     @Override
     public String toString() 
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         return "GrillaFeedlot{" + "idTransporte=" + idTransporte + ", tipoTraslado=" + tipoTraslado + ", fechaTraslado=" + fechaTraslado + ", FMA=" + FMA + ", guiaDespacho=" + guiaDespacho + ", fundoOrigen=" + fundoOrigen + ", fundoDestino=" + fundoDestino + ", status=" + status + '}';
     }
+    // </editor-fold>
 }

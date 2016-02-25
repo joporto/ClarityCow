@@ -1,6 +1,7 @@
-//v1.1.0
+//v1.1.1
 package cl.sgg.business;
 
+// <editor-fold defaultstate="collapsed" desc="Imports">
 import cl.sgg.dal.Conexion;
 import cl.sgg.dao.*;
 import cl.sgg.edm.*;
@@ -10,16 +11,19 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+//</editor-fold>
 
 public class FeedlotSeparacion 
 {
+    //// <editor-fold defaultstate="collapsed" desc="Atributos">
     private Establecimiento rup;
     private List<GrillaSeparacion> listSeparacion;
     private List<String> listCorral;
     private List<String> listGrupoPeso;
+    //</editor-fold>
     
-     public List<String> getListCorral() {
+    // <editor-fold defaultstate="collapsed" desc="GET & SET">
+    public List<String> getListCorral() {
         return listCorral;
     }
 
@@ -50,7 +54,9 @@ public class FeedlotSeparacion
     public void setListSeparacion(List<GrillaSeparacion> listSeparacion) {
         this.listSeparacion = listSeparacion;
     }
+    //</editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="Constructores">
     //Constructor por defecto
     public FeedlotSeparacion()
     {
@@ -59,12 +65,14 @@ public class FeedlotSeparacion
         this.listGrupoPeso = new ArrayList<String>();
         this.listSeparacion = new ArrayList<GrillaSeparacion>();
     }
+    //</editor-fold>
     
     // Método público que realiza la busqueda de RUP ingresado (búsqueda exacta)
     // ENTRADA: Opcional, Se ingresa valor de codigo RUP a consultar, si no va = ""
     // ENTRADA: Opcional, Se ingresa valor de nombre RUP a consultar, si no va = ""
     // SALIDA: carga en el atributo de la clase "Establecimiento rup" con el resultado
     public Respuesta BuscarRUP(int rup, String nomRup) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -106,11 +114,13 @@ public class FeedlotSeparacion
             throw e;
         }
     }
+    //</editor-fold>
 
     // Método público que carga la grilla de corrales-grupos peso
     // ENTRADA: Sin entrada
     // SALIDA: carga en el atributo de la clase "List<GrillaSeparacion> listSeparacion" con el resultado
     public Respuesta BuscarGrilla() throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -140,12 +150,19 @@ public class FeedlotSeparacion
         {
             throw e;
         }
+        finally
+        {
+            if(!Conexion.get().isClosed())
+                Conexion.get().close();
+        }
     }
+    //</editor-fold>
     
     // Método público carga listado de Corrales según RUP buscado
     // ENTRADA: Sin entrada
     // SALIDA: carga en el atributo de la clase "List<String> listCorral" con el resultado
     public Respuesta CargaCbCorral() throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -170,12 +187,19 @@ public class FeedlotSeparacion
         {
             throw e;
         }
+        finally
+        {
+            if(!Conexion.get().isClosed())
+                Conexion.get().close();
+        }
     }
+    //</editor-fold>
     
     // Método público carga listado de GrupoPeso según Corral buscado
     // ENTRADA: Sin entrada
     // SALIDA: carga en el atributo de la clase "List<String> listGrupoPeso" con el resultado
     public Respuesta CargaCbGrupoPeso(String Corral_DS) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -201,13 +225,20 @@ public class FeedlotSeparacion
         {
             throw e;
         }
+        finally
+        {
+            if(!Conexion.get().isClosed())
+                Conexion.get().close();
+        }
     }
+    //</editor-fold>
     
     // Método público guarda nuevo registro ingresado en la grilla
     // ENTRADA: descripción del corral a ingresar
     // ENTRADA: descripción del Grupo Peso a ingresar
     // SALIDA: guarda registro en tabla GrupopesoCorral
     public Respuesta AgregarGrillaSeparacion(String corral_DS, String grupoPeso_DS) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -267,6 +298,7 @@ public class FeedlotSeparacion
            throw e; 
         }
     }
+    //</editor-fold>
     
     // Método público guarda actualización de registro de grilla separación
     // ENTRADA: id del listado grilla separación
@@ -274,6 +306,7 @@ public class FeedlotSeparacion
     // ENTRADA: descripción del Grupo Peso a ingresar
     // SALIDA: guarda registro actualizado en tabla GrupopesoCorral
     public Respuesta ModificarGrillaSeparacion(String id, String corral_DS, String grupoPeso_DS) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -308,12 +341,14 @@ public class FeedlotSeparacion
            throw e; 
         }
     }
+    //</editor-fold>
     
     // Método público elimina  registro de grilla separación
     // ENTRADA: descripción del corral a ingresar
     // ENTRADA: descripción del Grupo Peso a ingresar
     // SALIDA: elimina registro en tabla GrupopesoCorral
     public Respuesta BorrarGrillaSeparacion(String corral_DS, String grupoPeso_DS) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -340,4 +375,5 @@ public class FeedlotSeparacion
            throw e; 
         }
     }
+    //</editor-fold>
 }

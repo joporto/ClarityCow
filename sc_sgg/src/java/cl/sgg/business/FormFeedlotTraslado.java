@@ -1,11 +1,14 @@
-//v1.0.3
+//v1.0.4
 package cl.sgg.business;
 
+// <editor-fold defaultstate="collapsed" desc="Imports">
 import java.util.Date;
 import java.util.List;
+//</editor-fold>
 
 public class FormFeedlotTraslado 
 {
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     private int rupOrigen;
     private int rupDestino;
     private String nomRupOrigen;
@@ -23,7 +26,9 @@ public class FormFeedlotTraslado
     private String FMA;
     private String guiaDespacho;
     private List<GrillaFeedlotTraslado> gft;
+    //</editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="GET & SET">
     public int getRupOrigen() {
         return rupOrigen;
     }
@@ -159,7 +164,9 @@ public class FormFeedlotTraslado
     public void setGft(List<GrillaFeedlotTraslado> gft) {
         this.gft = gft;
     }
+    //</editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Constructores">
     public FormFeedlotTraslado() 
     {
         this.rupOrigen = 0;
@@ -179,4 +186,5 @@ public class FormFeedlotTraslado
         this.FMA = "";
         this.guiaDespacho = "";
     }
+    //</editor-fold>
 }

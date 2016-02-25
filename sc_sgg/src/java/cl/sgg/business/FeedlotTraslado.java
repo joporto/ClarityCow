@@ -1,7 +1,7 @@
-//v1.3.3
+//v1.3.6
 package cl.sgg.business;
 
-// <editor-fold defaultstate="collapsed" desc="Packages">
+// <editor-fold defaultstate="collapsed" desc="Imports">
 import cl.sgg.dal.Conexion;
 import cl.sgg.dao.*;
 import cl.sgg.edm.*;
@@ -106,7 +106,7 @@ public class FeedlotTraslado
                     + "join TRANSPORTISTA tt on tt.TRANSPORTISTA_ID = t.TRANSPORTISTA_ID "
                     + "join ESTABLECIMIENTO e2 on e2.RUP_ID= t.TRANSPORTE_RUP_ORIGEN "
                     + "join ESTABLECIMIENTO e3 on e3.RUP_ID= t.TRANSPORTE_RUP_DESTINO "
-                    + "where et.EVENTOTIPO_ID = 17 and t.TRANSPORTE_ID = " +this.idTransporte;
+                    + "where et.EVENTOTIPO_ID = 13 and t.TRANSPORTE_ID = " +this.idTransporte;
        
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) 
@@ -366,9 +366,9 @@ public class FeedlotTraslado
             Establecimiento e = new Establecimiento();
             if (rupOrigen != 0)
             {
-                e = edao.getEstablecimientoByRup(tipoRUP);
+                e = edao.getEstablecimientoByRup(rupOrigen);
             }
-            else if (rupOrigen != 0)
+            else if (nomRupOrigen != "")
             {
                 e = edao.getEstablecimientoByNombre(nomRupOrigen);
             }
@@ -473,7 +473,7 @@ public class FeedlotTraslado
             {
                 BusquedaDIIO buscaDiio = new BusquedaDIIO();
                 Animal animal = buscaDiio.BuscarDIIO(DIIO);
-                if(animal.getAnimalId() != 0)
+                if(animal != null)
                 {
                     if(animal.getAnimalRupActual()== fft.getRupOrigen())
                     {
@@ -494,7 +494,7 @@ public class FeedlotTraslado
                 else
                 {
                     r.setStatus(false);
-                    r.setMensaje("DIIO no encontrado");
+                    r.setMensaje("DIIO no válido");
                 }
             }
             else if (tipoCarga == 2) //a confirmar
@@ -512,7 +512,7 @@ public class FeedlotTraslado
                 {
                     BusquedaDIIO buscaDiio = new BusquedaDIIO();
                     Animal animal = buscaDiio.BuscarDIIO(DIIO);
-                    if(animal.getAnimalId() != 0)
+                    if(animal != null)
                     {
                         if(animal.getAnimalRupActual() == fft.getRupOrigen())
                         {
@@ -523,17 +523,20 @@ public class FeedlotTraslado
                             listFeedlotTraslado.add(gft);
                             r.setStatus(true);
                             r.setMensaje("DIIO agregado a grilla");
+                            return r;
                         }
                         else
                         {
                             r.setMensaje("DIIO no pertenece a RUP");
                             r.setStatus(false);
+                            return r;
                         }
                     }
                     else
                     {
                         r.setStatus(false);
-                        r.setMensaje("DIIO no encontrado");
+                        r.setMensaje("DIIO no válido");
+                        return r;
                     }
                 }
                 r.setStatus(true);
@@ -705,6 +708,8 @@ public class FeedlotTraslado
         try 
         {
             Respuesta r = new Respuesta();
+            r.setMensaje("Sin datos a cargar");
+            r.setStatus(false);
             for (GrillaFeedlotTraslado arg : listFeedlotTraslado)
             {
                 Date d = new Date();
@@ -759,7 +764,6 @@ public class FeedlotTraslado
                             {
                                 r.setStatus(true);
                                 r.setMensaje("Registro actualizado Animal, y creado de: evento, eventoRup");
-                                return r;
                             }
                             else
                             {
@@ -769,7 +773,6 @@ public class FeedlotTraslado
                                 edao.delete(ev); //borra registro evento
                                 r.setStatus(false);
                                 r.setMensaje("Error en el guardado Animal");
-                                return r;
                             } 
                         }
                         else
@@ -778,29 +781,26 @@ public class FeedlotTraslado
                             edao.delete(ev);
                             r.setStatus(false);
                             r.setMensaje("Error en el guardado EventoRup");
-                            return r;
                         }
                     }
                     else
                     {
                         r.setStatus(true);
                         r.setMensaje("Registro evento creado");
-                        return r;
                     }
                 }
                 else
                 {
                     r.setStatus(false);
                     r.setMensaje("Error en el guardado evento");
-                    return r;
                 }   
             }
+            return r;
         } 
         catch (Exception e) 
         {
             throw e;
         }
-        return null;
     }
     //</editor-fold>
 }
