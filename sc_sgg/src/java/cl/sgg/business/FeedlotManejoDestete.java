@@ -1,6 +1,7 @@
-//v1.1.1
+//v1.2.1
 package cl.sgg.business;
 
+// <editor-fold defaultstate="collapsed" desc="Imports">
 import cl.sgg.dal.Conexion;
 import cl.sgg.dao.*;
 import cl.sgg.edm.*;
@@ -20,20 +21,24 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
+//</editor-fold>
 
 public class FeedlotManejoDestete 
 {
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     private List<Animal> listAnimal;
     private List<GrillaInsumo> listGrillaInsumo;
     private List<InsumoTipo> listInsumoTipo;
     private List<Insumo> listInsumo;
+    //</editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="GET & SET">
     public List<Insumo> getListInsumo() {
         return listInsumo;
     }
 
-    public void setListInsumo(List<Insumo> listInsumo) {
+    public void setListInsumo(List<Insumo> listInsumo) 
+    {
         this.listInsumo = listInsumo;
     }
     
@@ -60,7 +65,9 @@ public class FeedlotManejoDestete
     public void setListGrillaInsumo(List<GrillaInsumo> listGrillaInsumo) {
         this.listGrillaInsumo = listGrillaInsumo;
     }
+    //</editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="Constructores">
     // Constructor público por defecto
     public FeedlotManejoDestete ()
     {
@@ -69,11 +76,13 @@ public class FeedlotManejoDestete
         this.listInsumoTipo = new ArrayList<InsumoTipo>();
         this.listInsumo = new ArrayList<Insumo>();
     }
+    //</editor-fold>
     
     // Método público que invoca la carga de DIIO a manejar
     // ENTRADA: Se ingresa valor de DIIO a trasladar
     // SALIDA: carga en el atributo de la clase "List<Animal> listAnimal" con el resultado
     public Respuesta CargarDIIOAManejar(int DIIO) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -98,11 +107,13 @@ public class FeedlotManejoDestete
             throw e;
         }
     }
+    //</editor-fold>
     
     // Método público que obtiene los datos de Excel y lo traslada a lista de DIIO
     // ENTRADA: FileInputStream objeto que contiene excel con datos a rescatar
     // SALIDA: Carga DIIOS en atributo de clase "listAnimal"
     public Respuesta CargarDIIOExcel(FileInputStream file) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         String cellText;
         try 
@@ -190,11 +201,13 @@ public class FeedlotManejoDestete
             throw e;
         }
     }
+    //</editor-fold>
     
     // Método público carga lista de tipo Insumo en atributo de la clase
     // ENTRADA: Sin entrada
     // SALIDA: carga en el atributo de la clase "List<InsumoTipo> listInsumoTipo" con el resultado
     public Respuesta CargarTipoInsumo() throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         Respuesta r = new Respuesta();
         try 
@@ -231,11 +244,13 @@ public class FeedlotManejoDestete
             throw e;
         }
     }
+    //</editor-fold>
     
     // Método público carga lista de Insumo en atributo de la clase
     // ENTRADA: ID tipo de insumo para filtrar este listado
     // SALIDA: carga en el atributo de la clase "List<Insumo> listInsumo" con el resultado
     public Respuesta CargarInsumo(int INSUMOTIPO_ID) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         Respuesta r = new Respuesta();
         try 
@@ -277,27 +292,42 @@ public class FeedlotManejoDestete
             throw e;
         }
     }
+    //</editor-fold>
     
     // Método público guarda registro en grilla Insumo
     // ENTRADA: tipo insumo texto
     // ENTRADA: Id Insumo
     // SALIDA: carga en el atributo de la clase "List<Insumo> listInsumo" con el resultado
     public Respuesta GuardarInsumoGrilla(String tipoInsumo, int idInsumo) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
             Respuesta r = new Respuesta();
-            Insumo i = new Insumo();
             InsumoDAO idao = new InsumoDAO();
-            i = idao.getInsumoById(idInsumo);
+            Insumo i = idao.getInsumoById(idInsumo);
             if(i != null)
             {
                 GrillaInsumo gi = new GrillaInsumo();
                 gi.setInsumo(i);
                 gi.setTipoInsumo(tipoInsumo);
-                this.listGrillaInsumo.add(gi);
-                r.setMensaje("dato cargado a grilla");
-                r.setStatus(true);
+                int contador = 0;
+                for(GrillaInsumo arg: this.listGrillaInsumo)
+                {
+                    if(arg.getTipoInsumo().equals(tipoInsumo) && arg.getInsumo().getInsumoId() == idInsumo)
+                    {
+                        r.setMensaje("dato ya existe en grilla");
+                        r.setStatus(false);
+                        contador++;
+                        break;
+                    }
+                }
+                if(contador == 0)
+                {
+                    this.listGrillaInsumo.add(gi);
+                    r.setMensaje("dato cargado a grilla");
+                    r.setStatus(true);
+                }
             }
             else
             {
@@ -311,11 +341,57 @@ public class FeedlotManejoDestete
             throw e;
         }
     }
+    //</editor-fold>
+    
+    // Método público elimina registro en grilla Insumo
+    // ENTRADA: tipo insumo texto
+    // ENTRADA: Id Insumo
+    // SALIDA: elimina en el atributo de la clase "List<Insumo> listInsumo" el un registro
+    public Respuesta DeleteInsumoGrilla(String tipoInsumo, int idInsumo) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
+    {
+        try 
+        {
+            Respuesta r = new Respuesta();
+            int contador = 0;
+            int idABorrar = 0;
+            for(GrillaInsumo arg: this.listGrillaInsumo)
+            {
+                contador++;
+                if(arg.getTipoInsumo().equals(tipoInsumo) && arg.getInsumo().getInsumoId() == idInsumo)
+                {
+                    idABorrar = contador;
+                    break;
+                }
+            }
+            
+            if(idABorrar != 0)
+            {
+                if(this.listGrillaInsumo.remove(idABorrar+1).getInsumo().getInsumoId() != 0)
+                {
+                    r.setMensaje("Registro borrado");
+                    r.setStatus(true);
+                }
+                else
+                {
+                    r.setMensaje("No es posible borrar mensaje");
+                    r.setStatus(true);
+                }
+            }
+            return r;
+        } 
+        catch (Exception e) 
+        {
+            throw e;
+        }
+    }
+    //</editor-fold>  
     
     // Método público guarda registro del formulario
     // ENTRADA: fecha de Manejo
     // SALIDA: guarda registros de evento y eventoInsumo en la base de datos
     public Respuesta GuardarForm(Date fechaManejo) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -374,4 +450,5 @@ public class FeedlotManejoDestete
             throw e;
         }
     }
+    //</editor-fold>
 }

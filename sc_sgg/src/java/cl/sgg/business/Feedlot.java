@@ -1,17 +1,22 @@
-//v1.0.1
+//v1.0.2
 package cl.sgg.business;
 
+// <editor-fold defaultstate="collapsed" desc="Imports">
 import java.util.List;
 import java.sql.Statement;
 import cl.sgg.dal.*;
 import cl.sgg.utils.Respuesta;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+// </editor-fold>
 
 public class Feedlot
 {
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     private List<GrillaFeedlot> listGrilla;
+    // </editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="GET & SET">
     public List<GrillaFeedlot> getListGrilla() {
         return listGrilla;
     }
@@ -19,17 +24,21 @@ public class Feedlot
     public void setListGrilla(List<GrillaFeedlot> listGrilla) {
         this.listGrilla = listGrilla;
     }
+    //</editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="Constructores">
     // Constructor publico por defecto
     public Feedlot ()
     {
         this.listGrilla = new ArrayList<GrillaFeedlot>();
     }
+    //</editor-fold>
     
     // Método público que carga grilla de pendientes por confirmar
     // ENTRADA: Sin entrada
     // SALIDA: carga en el atributo de la clase "List<GrillaFeedlot> listGrilla" el resultado
     public Respuesta CargarGrilla() throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         Respuesta r = new Respuesta();
         try 
@@ -73,5 +82,11 @@ public class Feedlot
         {
             throw e;
         }
+        finally
+        {
+            if(!Conexion.get().isClosed())
+                Conexion.get().close();
+        }
     }
+    //</editor-fold>
 }

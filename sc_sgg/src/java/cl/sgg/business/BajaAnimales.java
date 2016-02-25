@@ -1,15 +1,18 @@
-//v1.0.4
+//v1.0.5
 package cl.sgg.business;
 
+// <editor-fold defaultstate="collapsed" desc="Imports">
 import java.util.Date;
 import java.util.List;
 import cl.sgg.utils.*;
 import cl.sgg.edm.*;
 import cl.sgg.dao.*;
 import java.util.ArrayList;
+// </editor-fold>
 
 public class BajaAnimales
 {
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     private int DIIO;
     private Date fechaBaja;
     private Date fechaRegistro;
@@ -19,7 +22,9 @@ public class BajaAnimales
     private List<String> listaCb;
     private int idAnimal;
     private Animal animal;
-
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="GET & SET">
     public Animal getAnimal() {
         return animal;
     }
@@ -90,17 +95,19 @@ public class BajaAnimales
 
     public void setIdAnimal(int idAnimal) {
         this.idAnimal = idAnimal;
-    }
+    }// </editor-fold>
  
+    // <editor-fold defaultstate="collapsed" desc="Constructores">
     // Constructor publico por defecto
     public BajaAnimales()
     {
-    }
+    }// </editor-fold>
     
     // Método público que carga lista desplegable de motivo aparente 
     // ENTRADA: Se ingresan valores de motivo ("Muerto", "Robo")
     // SALIDA: carga en el atributo de la clase "List<String> listaCb" el resultado
     public  Respuesta CargarCbMotivoAparente(String motivo) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -139,13 +146,14 @@ public class BajaAnimales
         {
             throw e;
         }
-    }
+    }// </editor-fold>
     
     // Método público que busca DIIO ingresado (búsqueda exacta)
     // ENTRADA: Se ingresa valor de DIIO a consultar
     // SALIDA: carga en el atributo de la clase "int DIIO" el DIIO confirmado como correcto
     // SALIDA: carga en el atributo de la calse "Animal animal" todos los datos asociados al DIIO encontrado
     public Respuesta BuscarDIIO(int DIIO) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -155,10 +163,21 @@ public class BajaAnimales
             animal = buscaDiio.BuscarDIIO(DIIO);
             if(animal != null)
             {
-                this.DIIO = DIIO;
-                CambioEstado("Muerto");
-                r.setMensaje("DIIO Encontrado");
-                r.setStatus(true);
+                if(animal.getAnimalEstadoActual() == 1 ||
+                        animal.getAnimalEstadoActual() == 2 ||
+                        animal.getAnimalEstadoActual() == 3 || 
+                        animal.getAnimalEstadoActual() == 4)
+                {
+                    this.DIIO = DIIO;
+                    CambioEstado("Muerto");
+                    r.setMensaje("DIIO Encontrado");
+                    r.setStatus(true);
+                }
+                else
+                {
+                    r.setMensaje("DIIO nó valido por estado");
+                    r.setStatus(false);
+                }  
             }
             else
             {
@@ -171,7 +190,7 @@ public class BajaAnimales
         {
             throw e;
         }
-    }
+    }// </editor-fold>
     
     // Método público que guarda los cambios ingresado en el formulario
     // ENTRADA: Se ingresa fecha de baja animal
@@ -180,6 +199,7 @@ public class BajaAnimales
     // SALIDA: Se agrega registro de "evento" a base de datos
     // SALIDA: Se actualiza estado en "animal" en base de datos
     public Respuesta GuardarBajaAnimales(Date fechaBaja, String motivo, String motivoAparente) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {  
@@ -236,11 +256,13 @@ public class BajaAnimales
             throw e;
         }
     }
+    // </editor-fold>
     
     // Método público que actualiza el cambio estado animal a mostrar en pantalla
     // ENTRADA: Se ingresa motivo ("Muerto", "Robo")
     // SALIDA: carga en el atributo de la clase "String cambioEstado" el cambio de estado una vez se guarde el registro
     public Respuesta CambioEstado(String motivo) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -270,4 +292,5 @@ public class BajaAnimales
             throw e;
         }
     }
+    // </editor-fold>
 }

@@ -75,10 +75,9 @@ public class testQueryItem {
             fl.CargarGrilla();
             */
             
-            GrupopesoCorralDAO d= new GrupopesoCorralDAO();
-            d.getGrupopesoCorralByIdCorralAndIdGrupoPeso(1, 1);
-            System.out.println(d.getGrupopesoCorralByIdCorralAndIdGrupoPeso(1, 1).getCorralgrupopesoId());
-                    
+            FeedlotManejoDestete f = new FeedlotManejoDestete();
+            f.GuardarInsumoGrilla("VACUNAS Y ANTIGENOS", 1);
+            f.GuardarInsumoGrilla("VACUNAS Y ANTIGENOS", 1);       
             
            
  

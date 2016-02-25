@@ -1,4 +1,4 @@
-//v1.0.0
+//v1.0.1
 package cl.sgg.dao;
 
 import cl.sgg.dal.NewHibernateUtil;
@@ -83,7 +83,7 @@ public class TransportistaDAO {
         } 
     }
     
-    public cl.sgg.edm.Transportista getTransportistaByRut(String rut) throws Exception
+    public cl.sgg.edm.Transportista getTransportistaByRut(int rut) throws Exception
     {
          Session session = NewHibernateUtil.getSessionFactory().openSession();
         try {

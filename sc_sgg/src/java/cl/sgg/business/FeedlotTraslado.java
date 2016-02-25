@@ -1,6 +1,7 @@
-//v1.3.1
+//v1.3.3
 package cl.sgg.business;
 
+// <editor-fold defaultstate="collapsed" desc="Packages">
 import cl.sgg.dal.Conexion;
 import cl.sgg.dao.*;
 import cl.sgg.edm.*;
@@ -18,14 +19,17 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
+// </editor-fold>
 
 public class FeedlotTraslado 
 {
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     private int idTransporte;
     private FormFeedlotTraslado fft;
     private List<GrillaFeedlotTraslado> listFeedlotTraslado;
+    //</editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="GET & SET">
     public int getIdTransporte() {
         return idTransporte;
     }
@@ -49,25 +53,31 @@ public class FeedlotTraslado
     public void setListFeedlotTraslado(List<GrillaFeedlotTraslado> listFeedlotTraslado) {
         this.listFeedlotTraslado = listFeedlotTraslado;
     }
+    //</editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="Constructores">
     // Constructor público por defecto
     public FeedlotTraslado()
     {
         this.idTransporte = 0;
-        listFeedlotTraslado = new ArrayList<GrillaFeedlotTraslado>();
+        this.fft = new FormFeedlotTraslado();
+        this.listFeedlotTraslado = new ArrayList<GrillaFeedlotTraslado>();
     }
     
    // Constructor público sobrecargado que agrega valor de idTransporte a atributo clase "int idTransporte"
     public FeedlotTraslado(int idTransporte)
     { 
         this.idTransporte = idTransporte;
-        listFeedlotTraslado = new ArrayList<GrillaFeedlotTraslado>();
+        this.fft = new FormFeedlotTraslado();
+        this.listFeedlotTraslado = new ArrayList<GrillaFeedlotTraslado>();
     }
+    // </editor-fold>
     
     // Método público que carga valores de formulario al cargar pendiente por confirmar de Feedlot
     // ENTRADA: Sin entradas (Usar antes Constructor sobrecargado ya que requiere valor de idTransporte)
     // SALIDA: carga en el atributo de la clase "FormFeedlotTraslado fft" el resultado
     public Respuesta CargarForm() throws Exception //idTransporte recuperado de listado en main Feedlot
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -78,7 +88,7 @@ public class FeedlotTraslado
                 r.setMensaje("sin idTransporte");
                 return r;
             }
-            
+
             Statement stmt = Conexion.get().createStatement();
             String query = "select et.EVENTOTIPO_DS, t.TRANSPORTE_FECHA,t.TRANSPORTE_FMA, t.TRANSPORTE_GUIA_DESPACHO, "
                     + "e2.RUP_NOMBRE as RUP_ORIGEN_NOM, e2.RUP_ID as RUP_ORIGEN_ID, "
@@ -124,16 +134,23 @@ public class FeedlotTraslado
             r.setStatus(false);
             return r;
         } 
-        catch (Exception e) 
+        catch (Exception e)
         {
             throw e;
         }
+        finally
+        {
+            if(!Conexion.get().isClosed())
+                Conexion.get().close();
+        }
     }
+    //</editor-fold>
     
     // Método público que carga valores de grilla DIIOS y status
     // ENTRADA: Sin entradas (Usar antes Constructor sobrecargado ya que requiere valor de idTransporte)
     // SALIDA: carga en el atributo de la clase "List<GrillaFeedlotTraslado> listFeedlotTraslado" el resultado
     public Respuesta CargarGrilla() throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -160,33 +177,49 @@ public class FeedlotTraslado
                 
                 BusquedaDIIO buscaDiio = new BusquedaDIIO();
                 Animal animal = buscaDiio.BuscarDIIO(rs.getInt("ANIMAL_DIIO_ACTUAL"));
-                gft.setAnimal(animal);
-                gft.setPeso(rs.getFloat("ANIMAL_PESO_ACTUAL"));
-                if(rs.getInt("EVENTO_VALOR")== 0)
+                if(animal.getAnimalEstadoActual() == 1 || animal.getAnimalEstadoActual() == 2 
+                        || animal.getAnimalEstadoActual() == 3 || animal.getAnimalEstadoActual() == 4)
                 {
-                    gft.setStatus("Por confirmar");
+                    gft.setAnimal(animal);
+                    gft.setPeso(rs.getFloat("ANIMAL_PESO_ACTUAL"));
+                    if(rs.getInt("EVENTO_VALOR")== 0)
+                    {
+                        gft.setStatus("Por confirmar");
+                    }
+                    else if (rs.getInt("EVENTO_VALOR")== 1)
+                    {
+                        gft.setStatus("Confirmado");
+                    }
+                    this.listFeedlotTraslado.add(gft);
+                    r.setMensaje("Datos cargados de grilla");
+                    r.setStatus(true);
                 }
-                else if (rs.getInt("EVENTO_VALOR")== 1)
+                else
                 {
-                    gft.setStatus("Confirmado");
+                    r.setMensaje("DIIO no válido");
+                    r.setStatus(false);
                 }
-                this.listFeedlotTraslado.add(gft);
             }
-            r.setMensaje("Datos cargados de grilla");
-            r.setStatus(true);
             return r;
         } 
         catch (Exception e) 
         {
             throw e;
         }
+        finally
+        {
+            if(!Conexion.get().isClosed())
+                Conexion.get().close();
+        }
     }
+    // </editor-fold>
     
     // Método público que busca Transportista ingresado (búsqueda exacta)
     // ENTRADA: Opcional, Se ingresa valor de rut transportista a consultar sin digito verificador ni puntos, si no va = ""
     // ENTRADA: Opcional, Se ingresa valor de nombre transportista a consultar, si no va = ""
     // SALIDA: carga en el atributo de la clase "FormFeedlotTraslado fft" con el resultado
     public Respuesta BuscarTransportista(String rutTransportista, String nomTransportista) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -195,7 +228,7 @@ public class FeedlotTraslado
             Transportista t = new Transportista();
             if (!"".equals(rutTransportista))
             {
-                t = tdao.getTransportistaByRut(rutTransportista);
+                t = tdao.getTransportistaByRut(Integer.parseInt(rutTransportista));
             }
             else if (!"".equals(nomTransportista))
             {
@@ -230,11 +263,13 @@ public class FeedlotTraslado
             throw e;
         }
     }
+    //</editor-fold>
 
     // Método público que busca vehículo ingresado (búsqueda exacta)
     // ENTRADA: Se ingresa valor de patente a consultar
     // SALIDA: carga en el atributo de la clase "FormFeedlotTraslado fft" con el resultado
-    public Respuesta BuscarVehiculo(String patente)
+    public Respuesta BuscarVehiculo(String patente) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -274,12 +309,14 @@ public class FeedlotTraslado
             throw e;
         }
     }
+    //</editor-fold>
     
     // Método público que invoca la busqueda de RUP Origen ingresado (búsqueda exacta)
     // ENTRADA: Opcional, Se ingresa valor de codigo RUP a consultar, si no va = ""
     // ENTRADA: Opcional, Se ingresa valor de nombre RUP a consultar, si no va = ""
     // SALIDA: carga en el atributo de la clase "FormFeedlotTraslado fft" con el resultado
     public Respuesta BuscarRUPOrigen(int rupOrigen, String nomRupOrigen) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -292,12 +329,14 @@ public class FeedlotTraslado
             throw e;
         }
     }
+    //</editor-fold>
     
     // Método público que invoca la busqueda de RUP Destino ingresado (búsqueda exacta)
     // ENTRADA: Opcional, Se ingresa valor de codigo RUP a consultar, si no va = ""
     // ENTRADA: Opcional, Se ingresa valor de nombre RUP a consultar, si no va = ""
     // SALIDA: carga en el atributo de la clase "FormFeedlotTraslado fft" con el resultado
     public Respuesta BuscarRUPDestino(int rupOrigen, String nomRupOrigen) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -310,6 +349,7 @@ public class FeedlotTraslado
             throw e;
         }
     }
+    //</editor-fold>
     
     // Método privado que realiza la busqueda de RUP ingresado (búsqueda exacta)
     // ENTRADA: Opcional, Se ingresa valor de codigo RUP a consultar, si no va = ""
@@ -317,17 +357,18 @@ public class FeedlotTraslado
     // ENTRADA: Se ingresa valor tipoRUP (1= Origen, 2= Destino)
     // SALIDA: carga en el atributo de la clase "FormFeedlotTraslado fft" con el resultado
     private Respuesta BuscarRUP(int rupOrigen, String nomRupOrigen, int tipoRUP) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
             Respuesta r = new Respuesta();
             EstablecimientoDAO edao = new EstablecimientoDAO();
             Establecimiento e = new Establecimiento();
-            if (!"".equals(rupOrigen))
+            if (rupOrigen != 0)
             {
                 e = edao.getEstablecimientoByRup(tipoRUP);
             }
-            else if (!"".equals(nomRupOrigen))
+            else if (rupOrigen != 0)
             {
                 e = edao.getEstablecimientoByNombre(nomRupOrigen);
             }
@@ -373,12 +414,14 @@ public class FeedlotTraslado
             throw e;
         }
     }
+    //</editor-fold>
     
     // Método público que invoca la carga de DIIO ingresado a trasladar
     // ENTRADA: Se ingresa valor de DIIO a trasladar
     // ENTRADA: Se ingresa valor de peso a trasladar
     // SALIDA: carga en el atributo de la clase "List<GrillaFeedlotTraslado> listFeedlotTraslado" con el resultado
     public Respuesta CargarDIIOATrasladar(int DIIO, float peso) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -391,12 +434,14 @@ public class FeedlotTraslado
             throw e;
         }
     }
+    //</editor-fold>
     
     // Método público que invoca la carga de DIIO ingresado a confirmar
     // ENTRADA: Se ingresa valor de DIIO a confirmar
     // ENTRADA: Se ingresa valor de peso a confirmar
     // SALIDA: carga en el atributo de la clase "List<GrillaFeedlotTraslado> listFeedlotTraslado" con el resultado
     public Respuesta CargarDIIOAConfirmar(int DIIO, float peso) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -409,6 +454,7 @@ public class FeedlotTraslado
             throw e;
         }
     }
+    //</editor-fold>
     
     // Método privado que carga el DIIO ingresado
     // ENTRADA: Se ingresa valor de DIIO
@@ -416,6 +462,7 @@ public class FeedlotTraslado
     // ENTRADA: Se ingresa valor de peso
     // SALIDA: carga en el atributo de la clase "List<GrillaFeedlotTraslado> listFeedlotTraslado" con el resultado
     private Respuesta CargarDIIO(int DIIO, int tipoCarga, float peso) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -499,11 +546,13 @@ public class FeedlotTraslado
             throw e;
         }
     }
+    //</editor-fold>
     
     // Método público que realiza la llamada a cargar Excel según de traslados
     // ENTRADA: FileInputStream objeto que contiene excel con datos a rescatar
     // SALIDA: respuesta respecto a la carga realizada
     public Respuesta CargarExcelATrasladar(FileInputStream file) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -516,11 +565,13 @@ public class FeedlotTraslado
             throw e;
         }
     }
+    //</editor-fold>
     
     // Método público que realiza la llamada a cargar Excel según de confirmación
     // ENTRADA: FileInputStream objeto que contiene excel con datos a rescatar
     // SALIDA: respuesta respecto a la carga realizada
     public Respuesta CargarExcelAConfirmar(FileInputStream file) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -533,12 +584,14 @@ public class FeedlotTraslado
             throw e;
         }
     }
+    //</editor-fold>
     
     // Método privado que obtiene los datos de Excel y lo traslada a CargarDIIOAConfirmar o CargarDIIOATrasladar
     // ENTRADA: FileInputStream objeto que contiene excel con datos a rescatar
     // ENTRADA: tipoCarga, indica si es (1= a trasladar o 2= a confirmar)
     // SALIDA: Llama a CargarDIIOAConfirmar o CargarDIIOATrasladar
     private Respuesta CargarExcel(FileInputStream file, int tipoCarga) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         String cellText;
         try 
@@ -641,11 +694,13 @@ public class FeedlotTraslado
             throw e;
         }
     }
+    //</editor-fold>
 
     // Método público que guarda los eventos de los DIIOS cargados en la grilla
     // ENTRADA: sin entrada
     // SALIDA: se agregan registros en base de datos
     public Respuesta GuardarFeedlotTraslado() throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -747,4 +802,5 @@ public class FeedlotTraslado
         }
         return null;
     }
+    //</editor-fold>
 }
