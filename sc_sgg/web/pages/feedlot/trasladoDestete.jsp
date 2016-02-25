@@ -63,7 +63,8 @@
 
                         <!-- Inicio Contenido -->          
 
-                        <%                        String rupOrigen = "";
+                        <%                        
+                            String rupOrigen = "";
                             String rupDestino = "";
                             String nomRupOrigen = "";
                             String nomRupDestino = "";
@@ -79,42 +80,40 @@
                             String guiaDespacho = "";
 
                             cl.sgg.business.FeedlotTraslado ft = new FeedlotTraslado();
+                            if (request.getSession().getAttribute("ft") != null) {
+                                ft = (cl.sgg.business.FeedlotTraslado) request.getSession().getAttribute("ft");
+                            }
 
                             int idTrasporte = 0;
 
                             if (request.getParameter("idTransporte") != null) {
-                                if (request.getSession().getAttribute("ft") != null) {
-                                    ft = (cl.sgg.business.FeedlotTraslado) request.getSession().getAttribute("ft");
-                                } else {
-                                    idTrasporte = Integer.parseInt(request.getParameter("idTransporte"));
-                                    ft = new FeedlotTraslado(idTrasporte);
-                                }
+
+                                idTrasporte = Integer.parseInt(request.getParameter("idTransporte"));
+                                ft = new FeedlotTraslado(idTrasporte);
+                                
+                                ft.CargarForm();
+
                                 request.getSession().setAttribute("idTrasporte", idTrasporte);
                                 request.getSession().setAttribute("ft", ft);
                             }
 
-                            if (ft.CargarForm().isStatus()) {
-                                rupOrigen = "" + ft.getFft().getRupOrigen();
-                                rupDestino = "" + ft.getFft().getRupDestino();
-                                nomRupOrigen = ft.getFft().getNomRupOrigen();
-                                nomRupDestino = ft.getFft().getNomRupDestino();
-                                comuna = ft.getFft().getComuna();
-                                direccion = ft.getFft().getDireccion();
-                                //idTransportista = ""+ft.getFft().getIdTransportista();
-                                nomTransportista = ft.getFft().getNomTransportista();
-                                rutTransportista = ft.getFft().getRutTransportista();
-                                //idVehiculo = ""+ft.getFft().getIdVehiculo();
-                                patenteVehiculo = ft.getFft().getPatenteVehiculo();
-                                patenteAcoplado = ft.getFft().getPatenteAcoplado();
-                                fechaRegistro = "" + ft.getFft().getFechaRegistro();
-                                fechaTraslado = "" + ft.getFft().getFechaTraslado();
-                                FMA = ft.getFft().getFMA();
-                                guiaDespacho = ft.getFft().getGuiaDespacho();
+                            rupOrigen = "" + ft.getFft().getRupOrigen();
+                            rupDestino = "" + ft.getFft().getRupDestino();
+                            nomRupOrigen = ft.getFft().getNomRupOrigen();
+                            nomRupDestino = ft.getFft().getNomRupDestino();
+                            comuna = ft.getFft().getComuna();
+                            direccion = ft.getFft().getDireccion();
+                            //idTransportista = ""+ft.getFft().getIdTransportista();
+                            nomTransportista = ft.getFft().getNomTransportista();
+                            rutTransportista = ft.getFft().getRutTransportista();
+                            //idVehiculo = ""+ft.getFft().getIdVehiculo();
+                            patenteVehiculo = ft.getFft().getPatenteVehiculo();
+                            patenteAcoplado = ft.getFft().getPatenteAcoplado();
+                            fechaRegistro = "" + ft.getFft().getFechaRegistro();
+                            fechaTraslado = "" + ft.getFft().getFechaTraslado();
+                            FMA = ft.getFft().getFMA();
+                            guiaDespacho = ft.getFft().getGuiaDespacho();
                                 //gft = ft.getFft().getGft();
-
-                            } else {
-                                //Evento No encontrado
-                            }
 
 
                         %>
@@ -125,7 +124,7 @@
 
                         <a href="#filtros" class="btn btn-info" data-toggle="collapse">Mostrar/Ocultar filtros</a>
                         <div id="filtros" class="collapse">
-                            
+
                             <p>
                                 Utilice cada filtro de forma individual.
                             </p>
@@ -146,7 +145,7 @@
 
                                         <div class="portlet-content">
 
-                                            <form role="form" class="form">
+                                            <form role="form" class="form" action="trasladoDestete" method="post">
 
                                                 <table class="table table-condensed">
                                                     <tr>
@@ -160,7 +159,7 @@
                                                     <tr>
                                                         <td></td>
                                                         <td>
-                                                            <button type="submit" class="btn glyphicon glyphicon-search" value="btnBuscarTransportista"> Buscar</button>
+                                                            <button type="submit" name="btnFiltro" class="btn glyphicon glyphicon-search" value="transportista"> Buscar</button>
                                                         </td>
                                                     </tr>
                                                 </table> 
@@ -185,7 +184,7 @@
 
                                         <div class="portlet-content">
 
-                                            <form role="form" class="form">
+                                            <form role="form" class="form" action="trasladoDestete" method="post">
 
                                                 <table class="table table-condensed">
                                                     <tr>
@@ -199,7 +198,7 @@
                                                     <tr>
                                                         <td></td>
                                                         <td>
-                                                            <button type="submit" class="btn glyphicon glyphicon-search" value="btnBusquedaRupOrigen"> Buscar</button>
+                                                            <button type="submit" name="btnFiltro" class="btn glyphicon glyphicon-search" value="rupOrigen"> Buscar</button>
 
                                                         </td>
                                                     </tr>
@@ -229,7 +228,7 @@
 
                                         <div class="portlet-content">
 
-                                            <form role="form" class="form">
+                                            <form role="form" class="form" action="trasladoDestete" method="post">
 
                                                 <table class="table table-condensed">
                                                     <tr>
@@ -241,7 +240,7 @@
 
                                                     <tr>
                                                         <td></td>
-                                                        <td><button type="submit" class="btn glyphicon glyphicon-search" value="btnBuscarVehiculo"> Buscar</button></td>
+                                                        <td><button type="submit" name="btnFiltro" class="btn glyphicon glyphicon-search" value="vehiculo"> Buscar</button></td>
                                                     </tr>
                                                 </table> 
                                             </form>
@@ -272,7 +271,7 @@
 
                                         <div class="portlet-content">
 
-                                            <form role="form" class="form">
+                                            <form role="form" class="form" action="trasladoDestete" method="post">
 
                                                 <table class="table table-condensed">
                                                     <tr>
@@ -285,7 +284,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td></td>
-                                                        <td><button type="submit" class="btn glyphicon glyphicon-search" value="buscarTrasportista"> Buscar</button></td>
+                                                        <td><button type="submit" name="btnFiltro" class="btn glyphicon glyphicon-search" value="rupDestino"> Buscar</button></td>
                                                     </tr>
                                                 </table> 
                                             </form>
