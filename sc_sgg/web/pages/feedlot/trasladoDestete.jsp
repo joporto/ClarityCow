@@ -63,8 +63,7 @@
 
                         <!-- Inicio Contenido -->          
 
-                        <%                        
-                            String rupOrigen = "";
+                        <%                            String rupOrigen = "";
                             String rupDestino = "";
                             String nomRupOrigen = "";
                             String nomRupDestino = "";
@@ -88,13 +87,23 @@
 
                             if (request.getParameter("idTransporte") != null) {
 
-                                idTrasporte = Integer.parseInt(request.getParameter("idTransporte"));
-                                ft = new FeedlotTraslado(idTrasporte);
-                                
-                                ft.CargarForm();
+                                try 
+                                {
+                                    idTrasporte = Integer.parseInt(request.getParameter("idTransporte"));
+                                    
+                                    ft = new FeedlotTraslado(idTrasporte);
 
-                                request.getSession().setAttribute("idTrasporte", idTrasporte);
-                                request.getSession().setAttribute("ft", ft);
+                                    ft.CargarForm();
+
+                                    request.getSession().setAttribute("idTrasporte", idTrasporte);
+                                    request.getSession().setAttribute("ft", ft);
+
+                                } catch (Exception e) 
+                                {
+                                    //out.print(e.getMessage());
+
+                                }
+
                             }
 
                             rupOrigen = "" + ft.getFft().getRupOrigen();
