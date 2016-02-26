@@ -8,6 +8,7 @@ package test;
 import cl.sgg.business.*;
 import cl.sgg.dao.*;
 import cl.sgg.edm.*;
+import cl.sgg.utils.BusquedaDIIO;
 import java.util.Date;
 /**
  *
@@ -75,9 +76,9 @@ public class testQueryItem {
             fl.CargarGrilla();
             */
             
-            FeedlotManejoDestete f = new FeedlotManejoDestete();
-            f.GuardarInsumoGrilla("VACUNAS Y ANTIGENOS", 1);
-            f.GuardarInsumoGrilla("VACUNAS Y ANTIGENOS", 1);       
+            cl.sgg.utils.BusquedaDIIO b = new BusquedaDIIO();
+            b.BuscarDIIO(321312);
+                 
             
            
  

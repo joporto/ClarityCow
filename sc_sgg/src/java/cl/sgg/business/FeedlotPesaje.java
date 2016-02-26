@@ -1,6 +1,7 @@
-//v1.0.0
+//v1.0.1
 package cl.sgg.business;
 
+// <editor-fold defaultstate="collapsed" desc="Imports">
 import cl.sgg.dao.*;
 import cl.sgg.edm.*;
 import cl.sgg.utils.BusquedaDIIO;
@@ -17,14 +18,17 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
+//</editor-fold>
 
 public class FeedlotPesaje 
 {
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     private List<String> listTipoPesaje;
     private Establecimiento rup;
     private List<Animal> listGrilla;
+    //</editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="GET & SET">
     public List<String> getListTipoPesaje() {
         return listTipoPesaje;
     }
@@ -48,7 +52,9 @@ public class FeedlotPesaje
     public void setListGrilla(List<Animal> listGrilla) {
         this.listGrilla = listGrilla;
     }
+    //</editor-fold>
     
+    // <editor-fold defaultstate="collapsed" desc="Constructores">
     //Constructor por defecto
     public FeedlotPesaje()
     {
@@ -56,11 +62,13 @@ public class FeedlotPesaje
         this.listTipoPesaje = new ArrayList<String>();
         this.rup = new Establecimiento();
     }
+    //</editor-fold>
     
     // Método público que carga lista de Tipo Pesaje con valores "Pesaje Destete" y "Pesaje Feedlot"
     // ENTRADA: Sin entrada
     // SALIDA: carga en el atributo de la clase "List<String> listTipoPesaje" con el resultado
     public Respuesta CargaCbTipoPesaje() throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         this.listTipoPesaje.add("Pesaje Destete");
         this.listTipoPesaje.add("Pesaje Feedlot");
@@ -69,12 +77,14 @@ public class FeedlotPesaje
         r.setStatus(true);
         return r;
     }
+    //</editor-fold>
     
     // Método público que invoca la carga de DIIO a pesar
     // ENTRADA: Se ingresa valor de DIIO a pesar
     // ENTRADA: Se ingresa peso animal
     // SALIDA: carga en el atributo de la clase "List<Animal> listGrilla" con el resultado
     public Respuesta CargarDIIOAPesar(int DIIO, float peso) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -120,11 +130,13 @@ public class FeedlotPesaje
             throw e;
         }
     }
+    //</editor-fold>
     
     // Método público que obtiene los datos de Excel y lo traslada a lista de DIIO
     // ENTRADA: FileInputStream objeto que contiene excel con datos a rescatar
     // SALIDA: Carga DIIOS en atributo de clase "listaGrilla"
     public Respuesta CargarDIIOExcel(FileInputStream file) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         String cellText;
         try 
@@ -224,12 +236,14 @@ public class FeedlotPesaje
             throw e;
         }
     }
+    //</editor-fold>
     
     // Método público guarda registro del formulario
     // ENTRADA: fecha de Manejo
     // ENTRADA: Tipo de pesaje ("Pesaje Destete" o "Pesaje Feedlot")
     // SALIDA: guarda registros de evento y eventoInsumo en la base de datos
     public Respuesta GuardarForm(Date fechaPesaje, String tipoPesaje) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
@@ -278,4 +292,5 @@ public class FeedlotPesaje
             throw e;
         }
     }
+    //</editor-fold>
 }

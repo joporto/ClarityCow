@@ -1,4 +1,4 @@
-//v1.2.1
+//v1.3.0
 package cl.sgg.business;
 
 // <editor-fold defaultstate="collapsed" desc="Imports">
@@ -243,6 +243,11 @@ public class FeedlotManejoDestete
         {
             throw e;
         }
+        finally
+        {
+            if(!Conexion.get().isClosed())
+                Conexion.get().close();
+        }
     }
     //</editor-fold>
     
@@ -290,6 +295,11 @@ public class FeedlotManejoDestete
         catch (Exception e) 
         {
             throw e;
+        }
+        finally
+        {
+            if(!Conexion.get().isClosed())
+                Conexion.get().close();
         }
     }
     //</editor-fold>
@@ -375,7 +385,7 @@ public class FeedlotManejoDestete
                 else
                 {
                     r.setMensaje("No es posible borrar mensaje");
-                    r.setStatus(true);
+                    r.setStatus(false);
                 }
             }
             return r;
@@ -386,6 +396,50 @@ public class FeedlotManejoDestete
         }
     }
     //</editor-fold>  
+    
+    // Método público elimina registro en grilla DIIO
+    // ENTRADA: Id DIIO
+    // SALIDA: elimina en el atributo de la clase "List<Animal> listAnimal" el un registro
+    public Respuesta DeleteDIIOGrilla(int DIIO) throws Exception
+    // <editor-fold defaultstate="collapsed" desc="Código">
+    {
+        try 
+        {
+            Respuesta r = new Respuesta();
+            int contador = 0;
+            int idABorrar = 0;
+            for(Animal arg: this.listAnimal)
+            {
+                contador++;
+                if(arg.getAnimalDiioActual()== DIIO)
+                {
+                    idABorrar = contador;
+                    break;
+                }
+            }
+            
+            if(idABorrar != 0)
+            {
+                if(this.listAnimal.remove(idABorrar+1).getAnimalDiioActual() != 0)
+                {
+                    r.setMensaje("Registro borrado");
+                    r.setStatus(true);
+                }
+                else
+                {
+                    r.setMensaje("No es posible borrar mensaje");
+                    r.setStatus(false);
+                }
+            }
+            return r;
+        } 
+        catch (Exception e) 
+        {
+            throw e;
+        }
+    }
+    //</editor-fold>  
+    
     
     // Método público guarda registro del formulario
     // ENTRADA: fecha de Manejo

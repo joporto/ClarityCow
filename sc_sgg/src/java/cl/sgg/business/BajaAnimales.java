@@ -1,4 +1,4 @@
-//v1.0.5
+//v1.0.6
 package cl.sgg.business;
 
 // <editor-fold defaultstate="collapsed" desc="Imports">
@@ -163,26 +163,15 @@ public class BajaAnimales
             animal = buscaDiio.BuscarDIIO(DIIO);
             if(animal != null)
             {
-                if(animal.getAnimalEstadoActual() == 1 ||
-                        animal.getAnimalEstadoActual() == 2 ||
-                        animal.getAnimalEstadoActual() == 3 || 
-                        animal.getAnimalEstadoActual() == 4)
-                {
                     this.DIIO = DIIO;
                     CambioEstado("Muerto");
                     r.setMensaje("DIIO Encontrado");
-                    r.setStatus(true);
-                }
-                else
-                {
-                    r.setMensaje("DIIO nó valido por estado");
-                    r.setStatus(false);
-                }  
+                    r.setStatus(true); 
             }
             else
             {
                 r.setStatus(false);
-                r.setMensaje("DIIO no encontrado");
+                r.setMensaje("DIIO no válido");
             }
             return r;
         } 

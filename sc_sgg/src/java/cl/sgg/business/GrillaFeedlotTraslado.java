@@ -1,14 +1,19 @@
-//v1.0.1
+//v1.0.2
 package cl.sgg.business;
 
+// <editor-fold defaultstate="collapsed" desc="Imports">
 import cl.sgg.edm.Animal;
+//</editor-fold>
 
 public class GrillaFeedlotTraslado 
 {
+    // <editor-fold defaultstate="collapsed" desc="Atributos">
     private Animal animal;
     private float peso;
     private String status;
+    //</editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="GET & SET">
     public Animal getAnimal() {
         return animal;
     }
@@ -32,11 +37,14 @@ public class GrillaFeedlotTraslado
     public void setPeso(float peso) {
         this.peso = peso;
     }
+    //</editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Constructores">
     public GrillaFeedlotTraslado() 
     {
         this.animal = new Animal();
         this.peso = 0;
         this.status = "";
     }
+    //</editor-fold>
 }

@@ -21,7 +21,13 @@ public class BusquedaDIIO
         {
             AnimalDAO adao = new AnimalDAO();
             Animal animal = adao.getAnimalByDiioActual(DIIO);
-            return animal;
+            if(animal != null)
+            {
+                if(animal.getAnimalEstadoActual()==1 || animal.getAnimalEstadoActual()==2 ||
+                        animal.getAnimalEstadoActual()==3 || animal.getAnimalEstadoActual()==4)
+                    return animal;
+            }
+            return null;
         } 
         catch (Exception e) 
         {
