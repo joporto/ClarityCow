@@ -36,46 +36,35 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
-            
-            if(request.getParameter("Usuario") != null && request.getParameter("password") != null)
-            {
-            
-                String usr=request.getParameter("Usuario");
-                String psw=request.getParameter("password"); 
-            
+
+            if (request.getParameter("Usuario") != null && request.getParameter("password") != null) {
+
+                String usr = request.getParameter("Usuario");
+                String psw = request.getParameter("password");
+
                 cl.sgg.dao.UsuariosDAO usrDao = new UsuariosDAO();
-                
+
                 //Implementar la tabla de roles
                 cl.sgg.utils.UserRol usrRol = new cl.sgg.utils.UserRol(1, "admin");
-                try 
-                {
-                    if(usrDao.getUser(usr, psw) != null)
-                    {
-                        cl.sgg.utils.UserSession usrSession = 
-                                new cl.sgg.utils.UserSession(usrDao.getUser(usr, psw),usrRol);
+                try {
+                    if (usrDao.getUser(usr, psw) != null) {
+                        cl.sgg.utils.UserSession usrSession
+                                = new cl.sgg.utils.UserSession(usrDao.getUser(usr, psw), usrRol);
                         request.getSession().setAttribute("userSession", usrSession);
                         response.sendRedirect("index.jsp");
+                    } else {
+                        throw new Exception("Usuario o Password incorrecto");
                     }
-                    else
-                    {
-                        throw new Exception("Usuario o Password incorrectos");
-                    }
-                } 
-                catch (Exception e) 
-                {
-                    request.setAttribute("mensaje", "Usuario o Password incorrectos");
-                    request.getRequestDispatcher("login.jsp").forward(request, response); 
+                } catch (Exception e) {
+                    request.setAttribute("mensaje", e.getMessage());
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
+            } else {
+                request.setAttribute("mensaje", "Usuario o Password incorrecto");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
             }
-            else
-            {
-                request.setAttribute("mensaje", "Usuario o Password incorrectos");
-                request.getRequestDispatcher("login.jsp").forward(request, response); 
-            }
-                
-                
-           }
+
+        }
 
     }
 

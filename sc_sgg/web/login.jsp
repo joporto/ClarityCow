@@ -13,7 +13,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
         <!-- Versión compilada y comprimida del CSS de Bootstrap -->
         <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -120,7 +119,27 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-md-4 col-md-offset-4">
-                    <h1 class="text-center login-title">Sign in SGG - SmartClarity</h1>
+                    <h1 class="text-center login-title">Iniciar sesión - ClarityCow</h1>
+
+                    <%
+                        if (request.getParameter("mensaje") != null) {
+                            String msj = request.getParameter("mensaje");
+                            out.print("<div class='alert alert-warning'><strong>Mensaje: </strong>" + msj + "</div>");
+                        }
+                        if (request.getAttribute("mensaje") != null) {
+                            String msj = request.getAttribute("mensaje").toString();
+                            out.print("<div class='alert alert-warning'><strong>Mensaje: </strong>" + msj + "</div>");
+                        }
+                        if (request.getSession().getAttribute("mensaje") != null) {
+                            String msj = request.getSession().getAttribute("mensaje").toString();
+                            out.print("<div class='alert alert-warning'><strong>Mensaje: </strong>" + msj + "</div>");
+                        }
+                        
+                        
+                    %>
+
+
+
                     <div class="account-wall">
                         <img class="profile-img" src="/img/logo_sc.png"
                              alt="">
@@ -128,15 +147,13 @@
                             <input type="text" class="form-control" placeholder="Usuario" required autofocus name="Usuario">
                             <input type="password" class="form-control" placeholder="Password" required name="password">
                             <button class="btn btn-lg btn-primary btn-block" type="submit">
-                                Sign in</button>
+                                Iniciar Sesión</button>
                             <label class="checkbox pull-left">
                                 <input type="checkbox" value="remember-me">
-                                Remember me
+                                Recordar contraseña
                             </label>
-                            <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
                         </form>
                     </div>
-                    <a href="#" class="text-center new-account">Create an account </a>
                 </div>
             </div>
         </div>
