@@ -1,4 +1,4 @@
-//v1.1.1
+//v1.1.2
 package cl.sgg.business;
 
 // <editor-fold defaultstate="collapsed" desc="Imports">
@@ -87,7 +87,7 @@ public class FeedlotSeparacion
             {
                 e = edao.getEstablecimientoByNombre(nomRup);
             }
-            if (e.getRupId() != 0) //encontró RUP?
+            if (e != null && e.getRupId() != 0) //encontró RUP?
             {
                 if (e.getRupStatus() == 0) //RUP desactivado
                 {
@@ -357,16 +357,24 @@ public class FeedlotSeparacion
            {
                 GrupopesoCorralDAO gpcdao = new GrupopesoCorralDAO();
                 GrupopesoCorral gpc = gpcdao.getGrupopesoCorralByIdCorralAndIdGrupoPeso(arg.getIdGrupoPeso(), arg.getIdCorral());
-                if (gpcdao.delete(gpc))
+                if (gpc != null)
                 {
-                    r.setMensaje("Registro borrado");
-                    r.setStatus(true);
+                    if (gpcdao.delete(gpc))
+                    {
+                        r.setMensaje("Registro borrado");
+                        r.setStatus(true);
+                    }
+                    else
+                    {
+                        r.setMensaje("Registro no borrado");
+                        r.setStatus(false);
+                    }  
                 }
                 else
                 {
                     r.setMensaje("Registro no borrado");
                     r.setStatus(false);
-                }    
+                }     
            }
            return r; 
         } 

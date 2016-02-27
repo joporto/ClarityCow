@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>SGG Smart Clarity</title>
+        <title>ClarityCow</title>
 
         <meta charset="utf-8">
         <meta name="description" content="">

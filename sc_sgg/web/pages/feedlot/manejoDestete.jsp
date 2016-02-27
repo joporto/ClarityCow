@@ -118,8 +118,12 @@
            margin-right: 8%!important;
        }
        .claseRadio{
-               float: left;
-               margin-right: 5px;
+                   display: inline-block;
+ 
+    clear: left;
+  
+    text-align: right;
+        padding-right: 52px;
        }
             
        .txtTexto{         
@@ -161,7 +165,9 @@
     
     .btn-primary{
         width: 73px;
-    height: 33px;
+    height: 28px;
+        box-sizing: border-box;
+    line-height: 15px;
     }
     
     .ulAgregar{
@@ -201,75 +207,112 @@
             min-height: 57px;
         
     }
+    
+    .texto{
+            display: inline-block;
+    float: left;
+    clear: left;
+    width: 263px;
+    text-align: right;
+        padding-right: 52px;
+        
+    }
+    
+      .texto1{
+            display: inline-block;
+    float: left;
+    clear: left;
+    width: 250px;
+    text-align: right;
+        padding-right: 35px;
+        
+    }
+    
+    .input {
+  display: inline-block;
+  float: left;
+}
+
+.text-derecha{    
+    text-align:right;
+}
+
+@media (min-width: 992px)
+{
+.mainbar {
+    height: 80px!important;
+}
+}
     </style>          
     </head>
     <body>
 <%
-                if(request.getSession().getAttribute("userSession") == null)
-                response.sendRedirect("/login.jsp");
-                  
+if(request.getSession().getAttribute("userSession") == null)
+response.sendRedirect("/login.jsp");                
 %> 
     
 <!-- Menu Header -->
 <%@include file="/header.jsp" %>
 <!-- Menu Principal -->
 <%@include file="/nav.jsp" %>
-
  <div class="container" >
                  <div class="panel panel-default">
-
             <div class="container jumbotron"> 
-                <label>Registro de Manejo</label>                
+                <label class="">Registro de Manejo</label>                
                    <form action="manejoDestete"  method="POST"> 
                        <ul class="ulBaja">
-                            <li><label class="textLabel">Fecha Registro</label> <input disabled  id="fechaRegistro" name="fechaRegistro" class="form-control txtTexto bajatxt2 " type="text"   placeholder="yyyy-mm-dd"></li>                    
-                            <li><label class="textLabel">Fecha Baja</label><input   id="fechaBaja" name="fechaBaja" class="txtTexto bajatxt3 form-control" type="text"  placeholder="yyyy-mm-dd"> </li> 
-                            <li> <INPUT checked class="claseRadio" TYPE="radio" id="radio1" NAME="radios"  value="" ><label class="textLabel">   Dio a Manejar</label><input type="text"  class="txtTexto bajatxt1" id="txtDio" name="txtDio"  >  <input type="submit" id="botonForm" class="btn btn-primary"  name="botonForm" value="Agregar"/></li>
-                            <li> <INPUT  disabled class="claseRadio"  TYPE="radio" id="radio2" NAME="radios"  value="" ><label class="textLabel">   Grupo de DIIO a manejar</label><input disabled type="text"  class="txtTexto bajatxt4" id="txtDio" name="txtDio"  value=""    ><input disabled type="submit" id="botonForm" name="botonForm" value="Importar Excel"/></li>
-
+                            <li><label class="texto">Fecha Registro</label> <input disabled  id="fechaRegistro" name="fechaRegistro" class="text-derecha" type="text"   placeholder="yyyy-mm-dd"></li>                    
+                            <li><label class="texto">Fecha Baja</label><input   id="fechaBaja" name="fechaBaja" class="text-derecha" type="text"  placeholder="yyyy-mm-dd"> </li> 
+                            <li> <label class="texto1">Dio a Manejar</label><INPUT checked class="claseRadio" TYPE="radio" id="radio1" NAME="radios"  value="" ><input type="text"  class="text-derecha" id="txtDio" name="txtDio"  >  <input type="submit" id="botonForm" class="btn btn-primary"  name="botonForm" value="Agregar"/></li>
+                            <li> <label class="texto1">Grupo de DIIO a manejar</label><INPUT  disabled class="claseRadio"  TYPE="radio" id="radio2" NAME="radios"  value="" ><input disabled type="text"  class="text-derecha" id="txtDio" name="txtDio"  value=""    ><input disabled type="submit" class="btn-info" id="botonForm" name="botonForm" value="Importar Excel"/></li>
                 </ul>
-            </form>  
-             
-            <table id="tablaManejo" style="background: #fff" class="table table-bordered tablaManejo">                
-                   <tr>
-        <th>DIO</th>
-        <th></th>          
-         </tr> 
-                <%           
+          
+                 <%
+                if(request.getAttribute("mensaje") != null){ %>                             
+                <%=request.getAttribute("mensaje")%>  <%} %>
+                 <%           
                   if(request.getAttribute("listaAnimales") != null){
+                %>
+                <div class="table-responsive">
+            <table id="tablaManejo" style="background: #fff" class="table table-striped table-bordered table-condensed">     
+                <thead>
+                   <tr>
+               <th>DIO</th>
+                <th></th>          
+         </tr> 
+         </thead>
+                   <%
                     List<Animal> data = (List<Animal>)request.getAttribute("listaAnimales"); 
                      for (int i = 0; i < data.size(); i++) {
                    %>
                    <tr> 
                     <td><%=data.get(i).getAnimalDiioActual()%></td>
-                    <td><a href="<% data.remove(i).getAnimalDiioActual(); %>" class="btn btn-danger bntEliminar" role="button">Eliminar</a><%} }%></td>
+                    <td><input name="valorDio" type="hidden" value="<% data.remove(i).getAnimalDiioActual(); %>"><input type="submit" name="botonForm" value="EliminarDIIO"  class="btn btn-danger"><%} }%></td>
                    </tr>
           </table>  
-        </div>
+               
+        </div> 
                    
+                 </form>     
                    
         <div  id="regInsumos" >
-       
          <label>Registro de Insumos</label> 
          <input type="submit" value="Agregar" id="bntAgregar" onclick="habilitar();" class="btn btn-primary">
          <input type="button" style="display: none;"  id="btnCerrar" value="Cerrar" onclick="desabilitar();" class="btn btn-danger">
             <%
           cl.sgg.business.FeedlotManejoDestete manejo = new cl.sgg.business.FeedlotManejoDestete();
           List<InsumoTipo> listInsumoTipo;
-          List<Insumo> listInsumo = new  ArrayList<Insumo>();
-          
-        
-          
+          List<Insumo> listInsumo = new  ArrayList<Insumo>(); 
          if(manejo.CargarTipoInsumo().isStatus()){ 
          listInsumoTipo = manejo.getListInsumoTipo(); %>
             <form action="manejoDestete" name="formAgregar" id="tipoInsumo" style="background: #fff" method="POST"> 
           <div id="divAgregar" class="divAgregar" style="display: none;">
               <ul class="ulAgregar">
                   <li class="liAgregar">  <p class="textoModal">Tipo de Insumo</p> <select onchange="motivoAparente('LlenarCombo');"  name="selMotivo" id="selMotivo" class="form-control">
-                                                 <option  value="--Seleccione Tipo--">--Seleccione Tipo--</option>
+                                                 <option  value="0">--Seleccione Tipo--</option>
                                                <% 
                                                           for (int i = 0; i < listInsumoTipo.size(); i++) {     %>                    
-                                                    <option  id="valor" value="<%=listInsumoTipo.get(i).getInsumotipoId() %>"><%=listInsumoTipo.get(i).getInsumotipoDs() %></option>
+                                                    <option  id="valor" value="<%=listInsumoTipo.get(i).getInsumotipoId()%>"><%=listInsumoTipo.get(i).getInsumotipoDs() %></option>
                                                <%            }    }   %>
                       </select>  <input value="" id="Motivo" name="Motivo" type="hidden"></li>
                      
@@ -284,23 +327,22 @@
                                                     <option  id="valor" value="<%=listInsumo.get(i).getInsumoId() %>"><%=listInsumo.get(i).getInsumoNombre() %></option>
                                                <%            } }catch (Exception e) {throw e;  }   %></select></li>
          <li class="liAgregar"><input type="submit" id="idFormAgregar" name="botonForm" class="btn btn-info" value="Cargar"></li>
-         
          <li class="liAgregar"><input id="valorSelect" value="" name="valorSelect" type="hidden"><input type="submit" id="agregarInsumo" name="botonForm" class="btn btn-info" value="Agregar Insumo"></li>
               </ul> 
           </div>
            </form>
+            </div>  
          <%
               try{
                    if(request.getAttribute("listaRegistroInsumos") != null){                     
                     List<GrillaInsumo> grillaInsumo = (List<GrillaInsumo>)request.getAttribute("listaRegistroInsumos");                                                                            
-                     %>                                                        
-          <div class="tablaRegistro">            
+                     %>           
+       <div class="tablaRegistro">            
          <table class="table table-bordered">
              <th>Tipo Insumo</th>
              <th>Cod SAP</th>
-             <th>Nombre</th>
-             <th>Unidad de medida</th>
-             <th>Cantidad</th>
+             <th>Insumo</th>
+             <th>Unidad de medida</th>            
              <th></th>             
              
                    <%
@@ -310,9 +352,8 @@
                    <td ><%=grillaInsumo.get(i).getTipoInsumo() %>   </td>
                    <td ><%=grillaInsumo.get(i).getInsumo().getInsumoCodigoSap()%>   </td>
                    <td ><%=grillaInsumo.get(i).getInsumo().getInsumoNombre() %>   </td>
-                   <td ><%=grillaInsumo.get(i).getInsumo().getInsumoUnidadMedida() %>   </td>
-                   <td ><%=grillaInsumo.get(i).getInsumo().getInsumoCantidad() %>   </td>
-                   <td ></td>
+                   <td ><%=grillaInsumo.get(i).getInsumo().getInsumoUnidadMedida() %>   </td>                  
+                   <td ><input type="button" value="Eliminar" class="btn btn-danger"></td>
                    </tr>
                     <% }
                             }
@@ -321,40 +362,50 @@
 
          </table>   
           </div>
-    </div> 
+   
         </div>            
              </div>
-         <script>
+                            </div>
+         <script>   
              
-             document.getElementById("valorSelect").value = document.getElementById("TipoInsumo");
-         
+             if (sessionStorage.getItem("is_reloaded")) 
+             {
+                  document.getElementById("selMotivo").value = document.cookie;      
+             }
+             
+    
+             sessionStorage.setItem("is_reloaded", true);
+                   
+                   function eliminardiio(){                   
+                       
+                   }
+                   
+                   
+                   
+                   
                             function motivoAparente(motivo)
                                                     {
-                                                        if (motivo == "LlenarCombo") {
-                                                            var valueSelect = document.getElementById('selMotivo').value;
-                                                           /* alert(valueSelect);*/
-                                                            document.getElementById('Motivo').value = 'combo';
-                                                            document.getElementById('idFormAgregar').onclick = true;
-                                                            /*  document.getElementById('radio1').checked = true;*/
-                                                            /*
-                                                           document.forms["formAgregar"].submit();*/
+                                                if (motivo == "LlenarCombo") {
+                                                document.cookie="name=estadocombo;"+document.getElementById("selMotivo").value+";";
+                                                alert="entro";
+                                                var valueSelect = document.getElementById('selMotivo').value;                                                          
+                                                document.getElementById('Motivo').value = 'combo';
+                                                document.getElementById('idFormAgregar').onclick = true;                                                            
                                                         }
                                                     }
-             
-             
              
                            function habilitar(){
                            document.getElementById("divAgregar").style ="display:initial;background:#fff;";
                            document.getElementById("btnCerrar").style ="display: initial ;" ;  
                            document.getElementById("bntAgregar").style ="display: none ;" ;
-                           document.getElementById("regInsumos").style="height:200px" ;
+                           document.getElementById("regInsumos").style="height:auto" ;
                                            }
                     
                           function desabilitar(){
                            document.getElementById("divAgregar").style ="display: none ;";
                            document.getElementById("btnCerrar").style ="display: none ;";
                            document.getElementById("bntAgregar").style ="display: initial ;" ;
-                           document.getElementById("regInsumos").style="height:51px" ;
+                           document.getElementById("regInsumos").style="height:auto" ;
                                                  }
 
                         $.fn.datepicker.dates['es'] = {

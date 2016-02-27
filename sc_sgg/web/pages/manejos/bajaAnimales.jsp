@@ -3,13 +3,6 @@
 <%@page import="cl.sgg.controller.bajaAnimales"%>
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<!--
-    Document   : Prueba
-    Created on : 14-feb-2016, 23:25:06
-    Author     : Murciegalo
--->
-
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -20,33 +13,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-
-
         <meta charset="utf-8">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-
+        <!-- CSS -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,400,600,700">
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Oswald:400,300,700">
         <link rel="stylesheet" href="/css/font-awesome.min.css">
         <link rel="stylesheet" href="/js/libs/css/ui-lightness/jquery-ui-1.9.2.custom.min.css">
         <link rel="stylesheet" href="/css/bootstrap.min.css">
-
         <!-- Plugin CSS -->
         <link rel="stylesheet" href="/js/plugins/morris/morris.css">
         <link rel="stylesheet" href="/js/plugins/icheck/skins/minimal/blue.css">
         <link rel="stylesheet" href="/js/plugins/select2/select2.css">
         <link rel="stylesheet" href="/js/plugins/fullcalendar/fullcalendar.css">
-
         <!-- App CSS -->
         <link rel="stylesheet" href="/css/target-admin.css">
         <link rel="stylesheet" href="/css/custom.css">
-
-
         <link href="/css/datepicker.css" rel="stylesheet" type="text/css"/>
         <script src="/js/bootstrap-datepicker.js" type="text/javascript"></script>
-        <script src="/js/bootstrapValidator.min.js" type="text/javascript"></script>
-         
+        <script src="/js/bootstrapValidator.min.js" type="text/javascript"></script>        
         <style>
 
 
@@ -115,25 +101,14 @@
             }
 
         %> 
-
         <!-- Menu Header -->
         <%@include file="/header.jsp" %>
         <!-- Menu Principal -->
         <%@include file="/nav.jsp" %>
-
         <div class="container">
-
             <div class="content">
-
                 <div class="content-container">
-
-                    <div class="row jumbotron">
-
-
-
-
-
-
+         
                         <script type="text/javascript">
                             function validateForm() {
                                 var x = document.forms["bajaAnimales"]["txtBuscar"].value;
@@ -153,9 +128,11 @@
 
 
                         </script>
-
-
-
+                        <div class="content-header">
+                            
+                            <h2 class="content-header-title">Baja de Animales</h2>
+                            <ol class="breadcrumb"></ol>
+                        </div>
                         <form  id="bajaAnimales" class="form-horizontal" name="bajaAnimales" action="bajaAnimales" onsubmit="return validateForm()" method="post">
                             <p>Baja de animales, ingrese un DIIO valido y luego ingrese la causa de baja</p>  
 
@@ -166,7 +143,6 @@
                                     <input type="hidden" value="<%=request.getAttribute("dioActual")%>" name="escondido" id="escondido">
                                     <input type="hidden" value="Buscar" name="valorBoton" id="valorBoton">
                                     <input type="hidden" value="Muerto" name="Motivo" id="Motivo">
-
                                 </div>
                                 <label class="control-label col-sm-2">
                                     <% if (request.getAttribute("message") != ("") && request.getAttribute("message") != null) {
@@ -175,13 +151,13 @@
 
                                     <% }%></label>
                                 <div class="col-sm-2">
-                                    <input type="submit" id="botonForm" class="btn btn-default form-control" name="botonForm" value="Buscar"/> </br></br>
+                                    <input type="submit" id="botonForm" class="btn btn-primary pull-rightl" name="botonForm" value="Buscar"/> </br></br>
 
                                 </div>
                             </div>
                         </form>
-                    </div>
-                    <div class="row">
+                    
+                    
 
                         <%
                             /* BajaAnimales anim = new BajaAnimales();*/
@@ -277,7 +253,7 @@
                             </form>
                         </div>
 
-                    </div>
+          
 
 
                     <script>

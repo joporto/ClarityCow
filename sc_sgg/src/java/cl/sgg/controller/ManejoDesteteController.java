@@ -39,12 +39,13 @@ import java.io.*;
  */
 public class ManejoDesteteController extends HttpServlet  {
     
-    private List<Animal> list = new ArrayList<Animal>();
+   
     private List<GrillaInsumo> listGrilla = new ArrayList<GrillaInsumo>();
     private List<Insumo> listInsumo = new ArrayList<Insumo>();
     FeedlotManejoDestete man = new FeedlotManejoDestete();
     Respuesta resp = new Respuesta();
-    String valorBtn = new String();
+    List<Animal> list = null;
+   
     
     /*
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -55,7 +56,7 @@ throws ServletException, java.io.IOException {
     
     @Override
     protected void doPost(HttpServletRequest req,HttpServletResponse res)throws ServletException,IOException{
-        
+        String valorBtn = "";
         int dio = 0;    
             if(req.getParameter("botonForm")!= null || "".equals(req.getParameter("botonForm")))
             {
@@ -66,22 +67,30 @@ throws ServletException, java.io.IOException {
               valorBtn= req.getParameter("valorBoton");            
             }
         
+            
+            
+            
       if("Agregar".equals(valorBtn)){
-           System.out.print("Agregarx");
+         System.out.print("Agregarx");
          dio = Integer.parseInt(req.getParameter("txtDio"));
+       
+         String mensaje = null;
         if(req.getParameter("txtDio")!= null){
-        try {
-            man.CargarDIIOAManejar(dio);
+        try {          
             if(man.CargarDIIOAManejar(dio).isStatus())
             {
-                list = man.getListAnimal();
+                list= man.getListAnimal();
+                req.setAttribute("listaAnimales", list);
               /*     for (int i = 0; i < list.size(); i++) {
                             System.out.print(list.get(i).getAnimalDiioActual()  );
-                            
-                                              }*/
+                }*/             
             }
-            
-        
+            else{
+                mensaje = "DIIO no encontrado";
+                req.setAttribute("mensaje", mensaje);   
+                req.setAttribute("listaAnimales", list);   
+            }
+
         } catch (Exception ex) {
             Logger.getLogger(ManejoDesteteController.class.getName()).log(Level.SEVERE, null, ex);
         }}
@@ -89,47 +98,60 @@ throws ServletException, java.io.IOException {
       
        if("Cargar".equals(valorBtn)){
            int insumo =Integer.parseInt(req.getParameter("selMotivo")) ;   
-           System.out.print("Insumo ======>"+insumo);
-           System.out.print("Entro Cargar");
+            System.out.print("Entro Cargar");
             try {
                   if(man.CargarInsumo(insumo).isStatus())
-             listInsumo = man.getListInsumo();              
+                listInsumo = man.getListInsumo();              
                 System.out.print("Lleno Lista");
             } catch (Exception ex) {
                 Logger.getLogger(ManejoDesteteController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-         
-           
+            } 
        }
        
         if("LlenarCombo".equals(valorBtn)){
             System.out.print("Entro Llenar");      
             String valorSelect= req.getParameter("txtDio");
             try {
-            man.GuardarInsumoGrilla("PREMEZCLAS", 1);
+          
         } catch (Exception ex) {
             Logger.getLogger(ManejoDesteteController.class.getName()).log(Level.SEVERE, null, ex);
         }
        }
-        listGrilla = man.getListGrillaInsumo();
-       
-    
-        
+
+    System.out.print("Valor Boton" +valorBtn);
         if("Agregar Insumo".equals(valorBtn)){
-           String tipoInsumo =req.getParameter("valorSelect") ;   
-           int  insumo = Integer.parseInt(req.getParameter("selMotivo")) ;
-            
+           String tipoInsumo =req.getParameter("valorSelect") ;  
+           System.out.print("Entro de nuevo");
+           int  insumo = Integer.parseInt(req.getParameter("selMotivo")) ;            
                     try {
-            man.GuardarInsumoGrilla(tipoInsumo,insumo);
+           if( man.GuardarInsumoGrilla(tipoInsumo,insumo).isStatus())
             listGrilla = man.getListGrillaInsumo();
+            req.setAttribute("listaRegistroInsumos", listGrilla);
         } catch (Exception ex) {
             Logger.getLogger(ManejoDesteteController.class.getName()).log(Level.SEVERE, null, ex);
         }
+      req.removeAttribute("botonForm");
+      valorBtn = "";
         }
-    req.setAttribute("listaInsumos", listInsumo);      
-    req.setAttribute("listaRegistroInsumos", listGrilla);
-    req.setAttribute("listaAnimales", list);
         
+            if("EliminarDIIO".equals(valorBtn)){
+                
+                if(req.getParameter("selMotivo") != null)
+                {
+                  int dioeliminar  = Integer.parseInt(req.getParameter("selMotivo"))  ;
+               /* man.DeleteDIIOGrilla(dioeliminar)*/
+                }
+            
+            }
+            
+       
+        
+        
+    req.setAttribute("listaInsumos", listInsumo);      
+   
+    
+    req.removeAttribute("botonForm");
+    valorBtn = "";
     req.getRequestDispatcher("/pages/feedlot/manejoDestete.jsp").forward(req, res); 
 }
     

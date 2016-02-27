@@ -1,4 +1,4 @@
-<!-- V1.0.0 -->
+<!-- V1.0.1 -->
 <!-- Navigation -->
 <div class="mainbar">
  
@@ -11,27 +11,27 @@
     
     <div class="mainbar-collapse collapse">
        <ul class="nav navbar-nav mainbar-nav">
-                    <li>
+                    <!--<li>
                         <a href="#">Histórico Animal</a>
-                    </li>
+                    </li>-->
                     <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">Manejos 
                      <span class="caret"></span>
                     </a>
                             <ul class="dropdown-menu">
-                              <li><a href="#">Parto</a></li>
+                              <!--<li><a href="#">Parto</a></li>
                               <li><a href="#">Inseminación</a></li>
                               <li><a href="#">Palpación</a></li>
                               <li><a href="#">Manejo de enfermedades</a></li>
-                              <li><a href="#">Medición de pelvis</a></li>
+                              <li><a href="#">Medición de pelvis</a></li>-->
                               <li><a href="/pages/manejos/bajaAnimales.jsp">Baja de animales</a></li>
-                              <li><a href="#">Cargar DIIO</a></li>
+                             <!-- <li><a href="#">Cargar DIIO</a></li>
                               <li><a href="#">Cambio DIIO</a></li>
                               <li><a href="#">Compra Animal</a></li>
-                              <li><a href="#">Verificación Animal</a></li>
+                              <li><a href="#">Verificación Animal</a></li>-->
                             </ul>
                     </li>
-                    <li class="dropdown">
+                    <!--<li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">Traslados 
                     <span class="caret"></span>
                     </a>
@@ -39,11 +39,11 @@
                               <li><a href="#">Traslado</a></li>
                               <li><a href="#">Cambios de corral</a></li>
                             </ul>
-                    </li>
+                    </li>-->
                     
-                    <li>
+                    <!--<li>
                         <a href="#">Pesaje</a>
-                    </li>
+                    </li>-->
                     <li class="dropdown">
                     <a href="/pages/feedlot/feedlot.jsp" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true">Feedlot 
                      <span class="caret"></span>
@@ -56,7 +56,7 @@
                               <li><a href="#">Pesaje Feedlot</a></li>
                             </ul>
                     </li>
-                    <li>
+                    <!--<li>
                         <a href="#">Ventas</a>
                     </li>
                     <li class="dropdown">
@@ -75,7 +75,7 @@
                     </li>
                     <li>
                         <a href="#">Reportes</a>
-                    </li>
+                    </li>-->
       </ul>
 
     </div> <!-- /.navbar-collapse -->   
