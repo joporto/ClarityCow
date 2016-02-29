@@ -45,7 +45,7 @@
                 }
 
             } catch (Exception e) {
-                
+
                 request.getSession().setAttribute("mensaje", e.getMessage());
             }
 
@@ -68,8 +68,7 @@
                         </ol>
                     </div>
 
-                    <%                        
-                        String rupOrigen = "";
+                    <%                        String rupOrigen = "";
                         String rupDestino = "";
                         String nomRupOrigen = "";
                         String nomRupDestino = "";
@@ -87,16 +86,13 @@
                         cl.sgg.business.FeedlotTraslado ft = new FeedlotTraslado();
                         if (request.getSession().getAttribute("ft") != null) {
                             ft = (cl.sgg.business.FeedlotTraslado) request.getSession().getAttribute("ft");
-                        }
-
-                        int idTrasporte = 0;
-                        if (request.getParameter("idTransporte") != null) {
-
-                            try {
+                        } else if (request.getParameter("idTransporte") != null) 
+                        {
+                            int idTrasporte = 0;
+                            try 
+                            {
                                 idTrasporte = Integer.parseInt(request.getParameter("idTransporte"));
-
                                 ft = new FeedlotTraslado(idTrasporte);
-
                                 ft.CargarForm();
 
                                 request.getSession().setAttribute("idTrasporte", idTrasporte);
@@ -184,7 +180,7 @@
                                         </form>
                                     </div>
                                 </div> 
-                                                
+
                                 <div class="portlet">
                                     <div class="portlet-header">
                                         <h3>
@@ -295,7 +291,7 @@
                                 <input disabled type="text" name="txtCodRupOrigen" class="form-control" placeholder="Código Rup Origen" value="<%= rupOrigen%>">
                             </div>
                         </div>
-                            
+
                         <div class="form-group">
                             <label class="control-label col-sm-2">RUP Destino</label>
                             <div class="col-sm-4">
@@ -306,7 +302,7 @@
                                 <input disabled type="text" name="txtCodRupDestino" class="form-control" placeholder="Código Rup Destino" value="<%= rupDestino%>">
                             </div>
                         </div>
-                            
+
                         <div class="form-group">
                             <label class="control-label col-sm-2">Transportista</label>
                             <div class="col-sm-4">
@@ -317,7 +313,7 @@
                                 <input disabled type="text" name="txtRutTransportista" class="form-control" placeholder="Rut Transportista" value="<%= rutTransportista%>">
                             </div>
                         </div>
-                            
+
                         <div class="form-group">
                             <label class="control-label col-sm-2" >Patente Vehículo</label>
                             <div class="col-sm-4"> 
@@ -370,35 +366,37 @@
                             <div class="col-sm-4"> 
                                 <div class="radio">
                                     <label class="text-primary small">
-                                        <input type="radio"  checked="true" name="optradio" value="Confirmar">Confirmar</label>
+                                        <input type="radio"  checked="true" name="optradio" value="Confirmar">Confirmado</label>
                                 </div>
                                 <div class="radio">
                                     <label class="text-primary small">
-                                        <input type="radio" name="optradio" value="Trasladar">Trasladar</label>
+                                        <input type="radio" name="optradio" value="Trasladar">Por Confirmar</label>
                                 </div>
                             </div>
-                            
-                             <%
-                                    String txtDiio = "";
-                                    String txtPeso="";
-                                    
-                                   if(request.getAttribute("txtDiio") != null) 
-                                       txtDiio = request.getAttribute("txtDiio").toString();
-                                        
-                                    if(request.getAttribute("txtPeso") != null) 
-                                        txtPeso = request.getAttribute("txtPeso").toString();
-                                    
-                             %>
+
+                            <%
+                                String txtDiio = "";
+                                String txtPeso = "";
+
+                                if (request.getAttribute("txtDiio") != null) {
+                                    txtDiio = request.getAttribute("txtDiio").toString();
+                                }
+
+                                if (request.getAttribute("txtPeso") != null) {
+                                    txtPeso = request.getAttribute("txtPeso").toString();
+                                }
+
+                            %>
                             <label class="control-label col-sm-2" >Cargar DIIO</label>
                             <div class="col-sm-4"> 
-                                <input type="text" class="form-control" placeholder="Diio" name="txtDiio" value="<%= txtDiio %>">
+                                <input type="text" class="form-control" placeholder="Diio" name="txtDiio" value="<%= txtDiio%>">
                             </div>
                         </div>  
 
                         <div class="form-group">
                             <label class="control-label col-sm-2">Peso</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" placeholder="peso" name="txtPeso" value="<%= txtPeso %>">
+                                <input type="text" class="form-control" placeholder="peso" name="txtPeso" value="<%= txtPeso%>">
                             </div>
                             <div class="col-sm-4"> 
                                 <button type="submit" name="btnGuardar" class="btn btn-default" value="guardarDiio">Agregar/Actualizar</button>
@@ -442,8 +440,8 @@
                                         <td><%= arg.getAnimal().getAnimalDiioActual()%></td>
                                         <td><%= arg.getPeso()%></td>
                                         <td><%= arg.getStatus()%></td>
-                                        <td><a href="trasladoDestete?editarDiio=<%= arg.getAnimal().getAnimalDiioActual() %>">Editar</a></td>
-                                        <td><a href="trasladoDestete?borrarDiio=<%= arg.getAnimal().getAnimalDiioActual() %>">Borrar</a></td>
+                                        <td><a href="trasladoDestete?editarDiio=<%= arg.getAnimal().getAnimalDiioActual()%>">Editar</a></td>
+                                        <td><a href="trasladoDestete?borrarDiio=<%= arg.getAnimal().getAnimalDiioActual()%>">Borrar</a></td>
                                     </tr>
                                     <%
                                             }

@@ -1,6 +1,7 @@
 package cl.sgg.controller;
 
 import cl.sgg.business.FeedlotTraslado;
+import cl.sgg.business.GrillaFeedlotTraslado;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -40,53 +41,78 @@ public class trasladoDestete extends HttpServlet {
             if (request.getParameter("btnGuardar") != null) {
                 String accionBtn = request.getParameter("btnGuardar");
 
-                if (accionBtn.equals("guardarDiio")) {
-                    String radioBtn = request.getParameter("optradio");
-
-                    if (radioBtn.equals("Confirmar")) {
+                switch (accionBtn) 
+                {
+                    case "guardarDiio":
+                        String radioBtn = request.getParameter("optradio");
                         try {
                             int diio = Integer.parseInt(request.getParameter("txtDiio"));
                             float peso = Float.parseFloat(request.getParameter("txtPeso"));
-                            ft.CargarDIIOAConfirmar(diio, peso);
-                            request.getSession().setAttribute("ft", ft);
-                            request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
-                        } catch (Exception e) {
+
+                            boolean edit = false;
+                            
+                            for (int i = 0; i < ft.getListFeedlotTraslado().size(); i++) 
+                            {
+                                if (ft.getListFeedlotTraslado().get(i).getAnimal().getAnimalDiioActual() == diio) {
+                                    ft.getListFeedlotTraslado().get(i).setPeso(peso);
+                                    ft.getListFeedlotTraslado().get(i).setStatus(radioBtn);
+                                    edit = true;
+                                }
+                                
+                            }
+                            
+                           
+                            if (!edit) {
+                                if (ft.CargarDIIO(diio).isStatus()) {
+                                    cl.sgg.business.GrillaFeedlotTraslado gft = new GrillaFeedlotTraslado();
+
+                                    gft.setAnimal(ft.getAnimal());
+                                    gft.setPeso(peso);
+                                    gft.setStatus(radioBtn);
+
+                                    ft.getListFeedlotTraslado().add(gft);
+                                    request.getSession().setAttribute("ft", ft);
+                                    request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
+                                } 
+                                else 
+                                {
+                                    request.getSession().setAttribute("mensaje", ft.CargarDIIO(diio).getMensaje());
+                                    request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
+                                }
+                            }
+                            else
+                            {
+                                
+                                request.getSession().setAttribute("ft", ft);
+                                request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
+                            }
+
+                        } 
+                        catch (Exception e) 
+                        {
                             request.getSession().setAttribute("mensaje", e.getMessage());
                             request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
                         }
-                    } else if (radioBtn.equals("Trasladar")) {
+                        break;
+                    case "guardarExcel":
+                        out.print("Guardar Excel");
+                        break;
+                    case "guardarFormulario":
                         try {
-                            int diio = Integer.parseInt(request.getParameter("txtDiio"));
-                            float peso = Float.parseFloat(request.getParameter("txtPeso"));
-                            ft.CargarDIIOATrasladar(diio, peso);
-                            request.getSession().setAttribute("ft", ft);
-                            request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
+                            request.getSession().setAttribute("mensaje", ft.GuardarFeedlotTraslado().getMensaje());
+                            request.getRequestDispatcher("/pages/feedlot/feedlot.jsp").forward(request, response);
                         } catch (Exception e) {
+                            out.println("No se detecta acción");
                             request.getSession().setAttribute("mensaje", e.getMessage());
-                            request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
+                            request.getRequestDispatcher("/pages/feedlot/feedlot.jsp").forward(request, response);
+
                         }
-
-                    }
-
-                } else if (accionBtn.equals("guardarExcel")) {
-                    out.print("Guardar Excel");
-
-                } else if (accionBtn.equals("guardarFormulario")) {
-
-                    try {
-                        request.getSession().setAttribute("mensaje", ft.GuardarFeedlotTraslado().getMensaje());
-                        request.getRequestDispatcher("/pages/feedlot/feedlot.jsp").forward(request, response);
-                    } catch (Exception e) {
-                        out.println("No se detecta acción");
-                        request.getSession().setAttribute("mensaje", e.getMessage());
-                        request.getRequestDispatcher("/pages/feedlot/feedlot.jsp").forward(request, response);
-
-                    }
-
-                } else {
-                    //enviar página de error
-                    request.getSession().setAttribute("mensaje", "error con feedlot");
-                    request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
+                        break;
+                    default:
+                        //enviar página de error
+                        request.getSession().setAttribute("mensaje", "error con feedlot");
+                        request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
+                        break;
                 }
             }
 
