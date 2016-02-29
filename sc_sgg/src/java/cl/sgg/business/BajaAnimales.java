@@ -223,7 +223,7 @@ public class BajaAnimales
                 if(adao.update(animal))
                 {
                     r.setStatus(true);
-                    r.setMensaje("Registro animal actualizado y evento creado");
+                    r.setMensaje("DIIO "+animal.getAnimalDiioActual()+" dado de baja no productiva");
                 }
                 else
                 {

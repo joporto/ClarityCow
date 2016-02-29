@@ -43,18 +43,4 @@
         <servlet-name>trasladoDestete</servlet-name>
         <url-pattern>/pages/feedlot/trasladoDestete</url-pattern>
     </servlet-mapping>
-  
-  
-  
-    <servlet>
-        <description></description>
-        <display-name>guardarBaja</display-name>
-        <servlet-name>guardarBaja</servlet-name>
-        <servlet-class>cl.sgg.controller.guardarBaja</servlet-class>
-        <load-on-startup>2</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>guardarBaja</servlet-name>
-        <url-pattern>/pages/manejos/guardarBaja</url-pattern>
-    </servlet-mapping>
 </web-app>

@@ -34,8 +34,6 @@
         <script src="/js/bootstrap-datepicker.js" type="text/javascript"></script>
         <script src="/js/bootstrapValidator.min.js" type="text/javascript"></script>        
         <style>
-
-
             .form_animales{
                 padding-top: 5%;
             }
@@ -96,10 +94,10 @@
     </head>
     <body>
         <%
-            if (request.getSession().getAttribute("userSession") == null) {
+            if (request.getSession().getAttribute("userSession") == null)
+            {
                 response.sendRedirect("/login.jsp");
             }
-
         %> 
         <!-- Menu Header -->
         <%@include file="/header.jsp" %>
@@ -108,181 +106,150 @@
         <div class="container">
             <div class="content">
                 <div class="content-container">
-         
-                        <script type="text/javascript">
-                            function validateForm() {
-                                var x = document.forms["bajaAnimales"]["txtBuscar"].value;
-                                if (x == null || x == "") {
-                                    alert("Ingrese un DIO");
-                                    return false;
-                                }
-                                if (Math.floor(x) == x) {
-                                    return true;
-                                } else {
-                                    alert("Valor ingresado debe ser Númerico");
-                                    return false;
-                                }
+                    <script type="text/javascript">
+                        function validateForm()
+                        {
+                            var x = document.forms["bajaAnimales"]["txtBuscar"].value;
+                            if (x == null || x == "")
+                            {
+                                alert("Ingrese un DIO");
+                                return false;
                             }
-
-
-
-
-                        </script>
-                        <div class="content-header">
-                            
-                            <h2 class="content-header-title">Baja de Animales</h2>
-                            <ol class="breadcrumb"></ol>
-                        </div>
+                            if (Math.floor(x) == x)
+                            {
+                                return true;
+                            } else
+                            {
+                                alert("Valor ingresado debe ser Númerico");
+                                return false;
+                            }
+                        }
+                    </script>
+                    <!-- Titulo -->
+                    <div class="content-header">
+                        <h2 class="content-header-title">Baja de Animales</h2>
+                        <ol class="breadcrumb">
+                            <li class="active"><a href="/index.jsp">Inicio</a></li>
+                            <li class="active">Manejo</li>
+                            <li class="active">Baja de Animales</li>
+                        </ol>
+                    </div>
+                    <!-- Formulario buscar DIIO -->
+                    <div class="contenido">
                         <form  id="bajaAnimales" class="form-horizontal" name="bajaAnimales" action="bajaAnimales" onsubmit="return validateForm()" method="post">
-                            <p>Baja de animales, ingrese un DIIO valido y luego ingrese la causa de baja</p>  
-
                             <div class="form-group">
-                                <label class="control-label col-sm-2">Ingresar DIIO</label>
-                                <div class="col-sm-2">
-                                    <input type="text" maxlength="15" placeholder="Solo Números" id="txtBuscar"   class="text-input txtTexto form-control"  name="txtBuscar" title="Solo Numeros"  required >
+                                <label class="control-label col-sm-2">DIIO:</label>
+                                <div class="col-sm-4"> 
+                                    <input type="text" maxlength="15" placeholder="Ingresar DIIO" id="txtBuscar"   class="form-control "  name="txtBuscar" title="Ingresar DIIO"  required >
                                     <input type="hidden" value="<%=request.getAttribute("dioActual")%>" name="escondido" id="escondido">
                                     <input type="hidden" value="Buscar" name="valorBoton" id="valorBoton">
-                                    <input type="hidden" value="Muerto" name="Motivo" id="Motivo">
-                                </div>
-                                <label class="control-label col-sm-2">
-                                    <% if (request.getAttribute("message") != ("") && request.getAttribute("message") != null) {
-                                    %>                       
-                                    <%=request.getAttribute("message")%> 
-
-                                    <% }%></label>
-                                <div class="col-sm-2">
-                                    <input type="submit" id="botonForm" class="btn btn-primary pull-rightl" name="botonForm" value="Buscar"/> </br></br>
-
+                                    <input type="hidden" value="Muerto" name="Motivo" id="Motivo"> 
+                                    <input type="submit" id="botonForm" class="btn btn-primary pull-rightl" name="botonForm" value="Buscar"/>
                                 </div>
                             </div>
                         </form>
-                    
-                    
+                    </div>
+                    <!-- Mensajes - Notificaciones -->
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4 col-md-offset-4">
+                            <%
+                                if (request.getAttribute("MensajeRespuesta") != ("") && request.getAttribute("MensajeRespuesta") != null)
+                                {
+                                    if (request.getAttribute("StatusRespuesta").toString() == "true")
+                                    {
+                                        out.print("<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Operación exitosa!</strong> " + request.getAttribute("MensajeRespuesta").toString() + " </strong></div>");
+                                    } else
+                                    {
+                                        out.print("<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><strong>Atención!</strong> " + request.getAttribute("MensajeRespuesta").toString() + " </strong></div>");
+                                    }
+                                }
+                            %>
+                        </div>
+                    </div>
+                    <!-- Formulario principal -->   
+                    <%
+                        if (request.getAttribute("MensajeRespuesta") != ("") && request.getAttribute("MensajeRespuesta") != null)
+                        {
+                            if (request.getAttribute("StatusRespuesta").toString() == "true")
+                            {
+                    %>
+                    <div class="contenido" style="display:none;">
+                        <form  id="guardarBaja" class="form form-horizontal" name="guardarBaja" action="bajaAnimales" method="post">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">DIIO Animal:</label>
+                                <div class="col-sm-4">
+                                    <input type="text"  class="form-control" id="txtDio" name="txtDio"  value="<%=request.getAttribute("diioActual")%>"   disabled > 
+                                </div>
+                            </div>
+                            <div class="form-group">
 
-                        <%
-                            /* BajaAnimales anim = new BajaAnimales();*/
-
-                            if (request.getAttribute("message") != ("") && request.getAttribute("message") != null) {
-                                if (request.getAttribute("message") == "DIIO Encontrado") {
-
-
-                        %>
-
-
-
-                        <div class="contenido" style="display:none;">
-                            <form  id="guardarBaja" class="form form-horizontal" name="guardarBaja" action="bajaAnimales" method="post">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2">DIIO ANIMAL</label>
-
-                                    <div class="col-sm-4">
-                                        <input type="text"  class="form-control" id="txtDio" name="txtDio"  value="<%=request.getAttribute("dioActual")%>"   disabled > 
+                                <label class="control-label col-sm-2">Fecha de Registro:</label>
+                                <div class="col-sm-4">
+                                    <input disabled id="fechaRegistro" name="fechaRegistro" class="form-control" type="text" placeholder="dd-mm-aaaa">
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Fecha de Baja:</label>
+                                <div class="col-sm-4">
+                                    <input  required id="fechaBaja" name="fechaBaja" class="form-control" type="text" placeholder="dd-mm-aaaa">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2">Cambio de estado Animal:</label>
+                                <div class="col-sm-4">
+                                    <div class="radio">
+                                        <label><input type="radio" id="radio1" NAME="radios" onchange="motivoAparente('Muerto');" value="Muerto">Muerto</label>
+                                    </div>
+                                    <div class="radio">
+                                        <label><input type="radio" id="radio2" NAME="radios" onchange="motivoAparente('Robado');" value="Robado">Robado</label>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                            </div>
+                            <div class="form-group">
 
-                                    <label class="control-label col-sm-2">Fecha Registro</label>
-                                    <div class="col-sm-4">
-                                        <input disabled id="fechaRegistro" name="fechaRegistro" class="form-control" type="text" placeholder="yyyy-mm-dd">
-
-                                    </div>
-                                </div> 
-                                <div class="form-group">
-
-                                    <label class="control-label col-sm-2">Fecha Baja</label>
-                                    <div class="col-sm-4">
-
-                                        <input  required id="fechaBaja" name="fechaBaja" class="form-control" type="text" placeholder="yyyy-mm-dd">
-                                    </div>
-                                </div> 
-                                <div class="form-group">
-
-                                    <label class="control-label col-sm-2">Cambio estado Animal</label>
-                                    <div class="col-sm-1">
-                                        
-
-                                        <INPUT TYPE="radio" id="radio1" NAME="radios" class="form-control" onchange="motivoAparente('Muerto');" value="Muerto" >
-                                        Muerto
-                                        
-                                        <INPUT TYPE="radio" id="radio2"  NAME="radios" class="form-control" onchange="motivoAparente('Robado');"  value="Robado"   >
-                                        Robo 
-
-                                       
-
-                                    </div>
-                                </div> 
-                                <div class="form-group">
-
-                                    <label class="control-label col-sm-2">Motivo Aparente</label>
-                                    <div class="col-sm-4">
-
-                                        <select name="selMotivo" id="selMotivo" class="form-control">
-
-                                            <%
-                                                List<String> data = (List<String>) request.getAttribute("lista");
-                                                for (int i = 0; i < data.size(); i++) {
-                                            %>                    
-                                            <option value="<%=data.get(i)%>"><%=data.get(i)%></option>
-                                            <%
-                                                }
-                                            %>
-                                        </select>  
-                                    </div>
-                                </div> 
-                                <div class="form-group">
-
-                                    <label class="control-label col-sm-2"></label>
-                                    <div class="col-sm-4">
-
-                                        <input type="submit" name="botonForm" class="btn btn-default" value="Guardar"/>
-                                    </div>
-                                </div> 
-
-
-
-
-
-
-
-
-
-
-
-
-                                
-                            </form>
-                        </div>
-
-          
-
+                                <label class="control-label col-sm-2">Motivo aparente:</label>
+                                <div class="col-sm-4">
+                                    <select name="selMotivo" id="selMotivo" class="form-control">
+                                        <%
+                                            List<String> data = (List<String>) request.getAttribute("lista");
+                                            for (int i = 0; i < data.size(); i++)
+                                            {
+                                        %>                    
+                                        <option value="<%=data.get(i)%>"><%=data.get(i)%></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>  
+                                </div>
+                            </div> 
+                            <!-- Guardar Formulario -->          
+                            <div class="form-group">
+                                <label class="control-label col-sm-2"></label>
+                                <div class="col-sm-4">
+                                    <input type="submit" name="botonForm" class="btn btn-primary pull-rightl" value="Guardar"/>
+                                </div>
+                            </div> 
+                        </form>
+                    </div>
 
                     <script>
-
-
-
-
                         function motivoAparente(motivo)
                         {
-
-
-
                             if (motivo == "Muerto") {
                                 document.getElementById('Motivo').value = "Muerto";
-                                /*  document.getElementById('radio1').checked = true;*/
                                 document.forms["bajaAnimales"].submit();
                             }
                             if (motivo == "Robado") {
                                 document.getElementById('Motivo').value = "Robado";
                                 document.forms["bajaAnimales"].submit();
-
                             }
                         }
 
-                        var ano = new Date().getUTCFullYear();
+                        var anio = new Date().getUTCFullYear();
                         var dia = new Date().getDate();
                         var mes = new Date().getMonth();
                         var mesactual = mes + 1;
-                        var fecha = ano + "-" + mesactual + "-" + dia;
+                        var fecha = dia + "-" + mesactual + "-" + anio;
 
                         document.getElementById('fechaRegistro').value = fecha;
                         $.fn.datepicker.dates['es'] = {
@@ -300,7 +267,6 @@
                             endDate: '+0d',
                             format: "yyyy-mm-dd"
 
-
                         });
                         $('#fechaBaja').datepicker({
                             language: "es",
@@ -310,12 +276,7 @@
                             format: "yyyy-mm-dd"
 
                         });
-
-
-
-
                     </script>
-
 
                     <style>
                         .contenido{
@@ -325,34 +286,37 @@
                     </style>
                     <%
                             }
-                            /* out.println(request.getAttribute("message")); */
-                            /*  out.println(request.getAttribute("dioActual"));*/
-                            /*   out.println(request.getAttribute("fechaBaja"));*/
 
-                        } else {
+                        } else
+                        {
 
                         }
 
                         /* System.out.print(request.getAttribute("valorCheck"));*/
-                        if (request.getAttribute("valorCheck") != null) {
-                            if ("true".equals(request.getAttribute("valorCheck").toString())) {
+                        if (request.getAttribute("valorCheck") != null)
+                        {
+                            if ("true".equals(request.getAttribute("valorCheck").toString()))
+                            {
                                 /* System.out.print("Entro True");*/
                     %>
                     <script>
                         document.getElementById('radio1').checked = true;
                     </script>
-                    <%   } else { %><script>
+                    <%   } else
+                    { %><script>
                         document.getElementById('radio2').checked = true;
                     </script>
                     <%}
                         }
-
-                        if (request.getAttribute("resultadoGuardar") != null) {
-                            if ("true".equals(request.getAttribute("resultadoGuardar").toString())) {
+                        if (request.getAttribute("resultadoGuardar") != null)
+                        {
+                            if ("true".equals(request.getAttribute("resultadoGuardar").toString()))
+                            {
 
                     %>       
                     <p>Registro Guardado</p>
-                    <%                       } else {
+                    <%                       } else
+                    {
 
                     %>                      
                     <p>Registro  NO Guardado</p>       

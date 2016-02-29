@@ -1,4 +1,4 @@
-//v1.3.6
+//v1.3.7
 package cl.sgg.business;
 
 // <editor-fold defaultstate="collapsed" desc="Imports">
@@ -24,12 +24,23 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class FeedlotTraslado 
 {
     // <editor-fold defaultstate="collapsed" desc="Atributos">
+    private Animal animal;
     private int idTransporte;
     private FormFeedlotTraslado fft;
     private List<GrillaFeedlotTraslado> listFeedlotTraslado;
     //</editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="GET & SET">
+    public Animal getAnimal()
+    {
+        return animal;
+    }
+
+    public void setAnimal(Animal animal)
+    {
+        this.animal = animal;
+    }
+    
     public int getIdTransporte() {
         return idTransporte;
     }
@@ -59,6 +70,7 @@ public class FeedlotTraslado
     // Constructor público por defecto
     public FeedlotTraslado()
     {
+        this.animal = new Animal();
         this.idTransporte = 0;
         this.fft = new FormFeedlotTraslado();
         this.listFeedlotTraslado = new ArrayList<GrillaFeedlotTraslado>();
@@ -416,131 +428,35 @@ public class FeedlotTraslado
     }
     //</editor-fold>
     
-    // Método público que invoca la carga de DIIO ingresado a trasladar
-    // ENTRADA: Se ingresa valor de DIIO a trasladar
-    // ENTRADA: Se ingresa valor de peso a trasladar
-    // SALIDA: carga en el atributo de la clase "List<GrillaFeedlotTraslado> listFeedlotTraslado" con el resultado
-    public Respuesta CargarDIIOATrasladar(int DIIO, float peso) throws Exception
-    // <editor-fold defaultstate="collapsed" desc="Código">
-    {
-        try 
-        {
-            Respuesta r;
-            r = CargarDIIO(DIIO, 1, peso); //a trasladar
-            return r;
-        } 
-        catch (Exception e) 
-        {
-            throw e;
-        }
-    }
-    //</editor-fold>
-    
-    // Método público que invoca la carga de DIIO ingresado a confirmar
-    // ENTRADA: Se ingresa valor de DIIO a confirmar
-    // ENTRADA: Se ingresa valor de peso a confirmar
-    // SALIDA: carga en el atributo de la clase "List<GrillaFeedlotTraslado> listFeedlotTraslado" con el resultado
-    public Respuesta CargarDIIOAConfirmar(int DIIO, float peso) throws Exception
-    // <editor-fold defaultstate="collapsed" desc="Código">
-    {
-        try 
-        {
-            Respuesta r;
-            r = CargarDIIO(DIIO, 2, peso); //a confirmar
-            return r;
-        } 
-        catch (Exception e) 
-        {
-            throw e;
-        }
-    }
-    //</editor-fold>
-    
-    // Método privado que carga el DIIO ingresado
+    // Método public que carga el DIIO ingresado
     // ENTRADA: Se ingresa valor de DIIO
-    // ENTRADA: Se ingresa valor tipoCarga (1= a trasladar, 2= a confirmar)
-    // ENTRADA: Se ingresa valor de peso
     // SALIDA: carga en el atributo de la clase "List<GrillaFeedlotTraslado> listFeedlotTraslado" con el resultado
-    private Respuesta CargarDIIO(int DIIO, int tipoCarga, float peso) throws Exception
+    public Respuesta CargarDIIO(int DIIO) throws Exception
     // <editor-fold defaultstate="collapsed" desc="Código">
     {
         try 
         {
-            Respuesta r = new Respuesta();
-            r.setStatus(false);
-            r.setMensaje("Error, tipo de carga no válido");
-            if (tipoCarga == 1) //a trasladar
+            Respuesta r = new Respuesta();        
+            BusquedaDIIO buscaDiio = new BusquedaDIIO();
+            Animal animal = buscaDiio.BuscarDIIO(DIIO);
+            if(animal != null)
             {
-                BusquedaDIIO buscaDiio = new BusquedaDIIO();
-                Animal animal = buscaDiio.BuscarDIIO(DIIO);
-                if(animal != null)
+                if(animal.getAnimalRupActual() == fft.getRupOrigen())
                 {
-                    if(animal.getAnimalRupActual()== fft.getRupOrigen())
-                    {
-                        GrillaFeedlotTraslado gft = new GrillaFeedlotTraslado();
-                        gft.setAnimal(animal);
-                        gft.setStatus("Por confirmar");
-                        gft.setPeso(peso);
-                        listFeedlotTraslado.add(gft);
-                        r.setStatus(true);
-                        r.setMensaje("DIIO agregado a grilla");
-                    }
-                    else
-                    {
-                        r.setMensaje("DIIO no pertenece a RUP");
-                        r.setStatus(false);
-                    }
+                    this.animal = animal;
+                    r.setStatus(true);
+                    r.setMensaje("DIIO cargado");
                 }
                 else
                 {
+                    r.setMensaje("DIIO no pertenece a RUP");
                     r.setStatus(false);
-                    r.setMensaje("DIIO no válido");
                 }
             }
-            else if (tipoCarga == 2) //a confirmar
-            {              
-                int contador = 0;
-                for (GrillaFeedlotTraslado arg : listFeedlotTraslado)
-                {
-                    if(arg.getAnimal().getAnimalDiioActual() == DIIO)
-                    {
-                        arg.setStatus("Confirmado");
-                        contador++;
-                    }
-                }
-                if(contador==0)
-                {
-                    BusquedaDIIO buscaDiio = new BusquedaDIIO();
-                    Animal animal = buscaDiio.BuscarDIIO(DIIO);
-                    if(animal != null)
-                    {
-                        if(animal.getAnimalRupActual() == fft.getRupOrigen())
-                        {
-                            GrillaFeedlotTraslado gft = new GrillaFeedlotTraslado();
-                            gft.setAnimal(animal);
-                            gft.setStatus("Confirmado");
-                            gft.setPeso(peso);
-                            listFeedlotTraslado.add(gft);
-                            r.setStatus(true);
-                            r.setMensaje("DIIO agregado a grilla");
-                            return r;
-                        }
-                        else
-                        {
-                            r.setMensaje("DIIO no pertenece a RUP");
-                            r.setStatus(false);
-                            return r;
-                        }
-                    }
-                    else
-                    {
-                        r.setStatus(false);
-                        r.setMensaje("DIIO no válido");
-                        return r;
-                    }
-                }
-                r.setStatus(true);
-                r.setMensaje("DIIO confirmado");
+            else
+            {
+                r.setStatus(false);
+                r.setMensaje("DIIO no válido");
             }
             return r;
         } 
@@ -678,10 +594,12 @@ public class FeedlotTraslado
                     {
                         peso = Float.parseFloat(cellText);
                     } 
+                    /* CARGA A  LISTA GRILLAFEEDLOT TRASLADO
                     if(tipoCarga == 2)
                         return CargarDIIOAConfirmar(DIIO, peso);
                     else
                         return CargarDIIOATrasladar(DIIO, peso);
+                    */
                 }
             }
             r.setMensaje("Formato de Excel no válido");
