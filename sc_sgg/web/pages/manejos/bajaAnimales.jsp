@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Baja de animales</title>
         <%@ page import="java.util.Date" %>   
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">

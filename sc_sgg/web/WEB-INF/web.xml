@@ -16,9 +16,7 @@
     <error-page>
         <location>/error.jsp</location>
     </error-page>
-    
-    
-    
+      
     <servlet>
         <description></description>
         <display-name>bajaAnimales</display-name>
@@ -43,4 +41,17 @@
         <servlet-name>trasladoDestete</servlet-name>
         <url-pattern>/pages/feedlot/trasladoDestete</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <description></description>
+        <display-name>FeedlotSeparacion</display-name>
+        <servlet-name>FeedlotSeparacion</servlet-name>
+        <servlet-class>cl.sgg.controller.FeedlotSeparacion</servlet-class>
+        <load-on-startup>4</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FeedlotSeparacion</servlet-name>
+        <url-pattern>/pages/feedlot/FeedlotSeparacion</url-pattern>
+    </servlet-mapping>
+    
 </web-app>
