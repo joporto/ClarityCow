@@ -1,8 +1,6 @@
-
 package cl.sgg.controller;
 
 import cl.sgg.business.FeedlotTraslado;
-import cl.sgg.business.FormFeedlotTraslado;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -46,7 +44,6 @@ public class trasladoDestete extends HttpServlet {
                     String radioBtn = request.getParameter("optradio");
 
                     if (radioBtn.equals("Confirmar")) {
-
                         try {
                             int diio = Integer.parseInt(request.getParameter("txtDiio"));
                             float peso = Float.parseFloat(request.getParameter("txtPeso"));
@@ -91,8 +88,7 @@ public class trasladoDestete extends HttpServlet {
                     request.getSession().setAttribute("mensaje", "error con feedlot");
                     request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
                 }
-
-            } 
+            }
 
             if (request.getParameter("btnFiltro") != null) {
 
@@ -171,9 +167,46 @@ public class trasladoDestete extends HttpServlet {
 
                 }
 
-            } else {
-                request.getSession().setAttribute("mensaje", "error por falta de datos");
-                request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
+            }
+
+            if (request.getParameter("editarDiio") != null) {
+                String diio = request.getParameter("editarDiio");
+                try {
+                    for (cl.sgg.business.GrillaFeedlotTraslado arg : ft.getListFeedlotTraslado()) {
+                        if (arg.getAnimal().getAnimalDiioActual().toString().equals(diio)) {
+
+                            request.setAttribute("txtDiio", diio);
+                            request.setAttribute("txtPeso", arg.getPeso());
+                            request.setAttribute("txtEstado", arg.getStatus());
+                        }
+                    }
+                    request.getSession().setAttribute("ft", ft);
+                    request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
+
+                } catch (Exception e) {
+                    request.getSession().setAttribute("mensaje", e.getMessage());
+                    request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
+
+                }
+            }
+
+            if (request.getParameter("borrarDiio") != null) {
+                String diio = request.getParameter("borrarDiio");
+                try {
+                    for (cl.sgg.business.GrillaFeedlotTraslado arg : ft.getListFeedlotTraslado()) {
+                        if (arg.getAnimal().getAnimalDiioActual().toString().equals(diio)) {
+                            ft.getListFeedlotTraslado().remove(arg);
+                        }
+                    }
+                    request.getSession().setAttribute("ft", ft);
+                    request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
+
+                } catch (Exception e) {
+                    request.getSession().setAttribute("mensaje", e.getMessage());
+                    request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
+
+                }
+
             }
 
         }
