@@ -88,22 +88,138 @@
                     <!-- Formulario RUP -->
                     <div class="contenido">
                         <form  id="bajaAnimales" class="form-horizontal" name="FeedlotSeparacion" action="FeedlotSeparacion" onsubmit="return validateForm()" method="post">
-                            <div class="form-group">
+                            <div class="row">
                                 <label class="control-label col-sm-2">Código RUP:</label>
                                 <div class="col-sm-4"> 
-                                    <input type="text" maxlength="15" placeholder="Ingresar DIIO" id="txtBuscar"   class="form-control "  name="txtBuscar" title="Ingresar DIIO"  required >
-                                    
+                                    <input type="text" maxlength="11" placeholder="Ingresar Cod RUP" id="txtCodRupBuscar"   class="form-control "  name="txtCodRupBuscar" title="Ingresar Cod RUP" >
+
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-2">Código RUP:</label>
+                            <div class="row">
+                                <label class="control-label col-sm-2">Nombre RUP:</label>
+                                <div class="col-sm-4">
+                                    <input type="text" placeholder=".col-sm-4" class="form-control">
+                                </div>
                                 <div class="col-sm-4"> 
-                                    <input type="text" maxlength="15" placeholder="Ingresar DIIO" id="txtBuscar"   class="form-control "  name="txtBuscar" title="Ingresar DIIO"  required >
+                                    <input type="text" maxlength="50" placeholder="Ingresar Nombre RUP" id="txtNomRupBuscar"   class="form-control "  name="txtNomRupBuscar" title="Ingresar Nombre RUP" >
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label class="control-label col-sm-2"></label>
+                                <div class="col-sm-4"> 
                                     <input type="submit" id="botonForm" class="btn btn-primary pull-rightl" name="botonForm" value="Buscar"/>
                                 </div>
                             </div>
                         </form>
                     </div>
+
+                    
+                    
+                    
+                    
+                   
+
+                       
+
+                        <div class="portlet-content">
+
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label class="col-sm-2">Full Width Input</label>
+
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" placeholder="Full Width">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2">Large Width Input</label>
+
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" placeholder="Large Width">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2">Medium Width Input</label>
+
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" placeholder="Medium Width">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2">Small Width Input</label>
+
+                                    <div class="col-md-2">
+                                        <input type="text" class="form-control" placeholder="Small Width">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2">Multiple Inputs</label> 
+
+                                    <div class="col-md-10">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control">
+                                                <p class="help-block">Left aligned helper.</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control">
+                                                <p class="help-block text-center">Center aligned helper.</p>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control">
+                                                <p class="help-block text-right">Right aligned helper.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2">Checkbox (inline)</label>
+
+                                    <div class="col-md-10">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox"> Option 1
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox"> Option 2
+                                        </label>
+
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox"> Option 3
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2">Radio (inline)</label>
+
+                                    <div class="col-md-10">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="radioset1"> Option 1
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="radioset1"> Option 2
+                                        </label>
+
+                                        <label class="radio-inline">
+                                            <input type="radio" name="radioset1"> Option 3
+                                        </label>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div> <!-- /.portlet-content -->
+
+                    
+
+
+
+
                 </div>
             </div>
         </div>
