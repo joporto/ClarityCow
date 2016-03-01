@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> 
+<html class="no-js"> <!--<![endif]-->
     <head>
-        <title>Feedlot</title>
-        
-       
+        <title>Feedlot - Cargar Traslado</title>
+
         <meta charset="utf-8">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
@@ -14,15 +16,9 @@
         <link rel="stylesheet" href="/css/font-awesome.min.css">
         <link rel="stylesheet" href="/js/libs/css/ui-lightness/jquery-ui-1.9.2.custom.min.css">
         <link rel="stylesheet" href="/css/bootstrap.min.css">
-        
-        
-        https://cdn.datatables.net/1.10.11/css/dataTables.bootstrap.min.css
-        
+
         <!-- Plugin CSS -->
-        <link rel="stylesheet" href="/js/plugins/morris/morris.css">
         <link rel="stylesheet" href="/js/plugins/icheck/skins/minimal/blue.css">
-        <link rel="stylesheet" href="/js/plugins/select2/select2.css">
-        <link rel="stylesheet" href="/js/plugins/fullcalendar/fullcalendar.css">
 
         <!-- App CSS -->
         <link rel="stylesheet" href="/css/target-admin.css">
@@ -34,6 +30,9 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
+
+
+
     </head>
 
     <body>
@@ -64,23 +63,44 @@
                             <li>Home</li>
                             <li><a href="#">Feedlot</a></li>
                             <li class="active"><a href="#">Cargar Traslado</a></li>
-                            
+
                         </ol>
 
                     </div>
+                    <%                             if (request.getParameter("mensaje") != null) {
+                            String msj = request.getParameter("mensaje");
+                            out.print("<div class='alert alert-warning'><strong>Mensaje: </strong>" + msj + "</div>");
 
+                        }
+                        if (request.getAttribute("mensaje") != null) {
+                            String msj = request.getAttribute("mensaje").toString();
+                            out.print("<div class='alert alert-warning'><strong>Mensaje: </strong>" + msj + "</div>");
+                            request.setAttribute("mensaje", null);
+                        }
+                        if (request.getSession().getAttribute("mensaje") != null) {
+                            String msj = request.getSession().getAttribute("mensaje").toString();
+                            out.print("<div class='alert alert-warning'><strong>Mensaje: </strong>" + msj + "</div>");
+                            request.getSession().setAttribute("mensaje", null);
+                        }
+                    %>
 
-                    <table class="table table-hover table-responsive">
+                    <table class="table table-striped table-bordered table-hover table-highlight" 
+                           data-provide="datatable" 
+                           data-display-rows="10"
+                           data-info="true"
+                           data-search="true"
+                           data-length-change="true"
+                           data-paginate="true">
                         <thead>
                             <tr>
-                                <th>Tipo traslado</th>
-                                <th>Fecha traslado</th>
-                                <th>FMA</th>
-                                <th>GuÃ­a de despacho</th>
-                                <th>Fundo Origen</th>
-                                <th>Fundo Destino</th>
-                                <th>Estado</th>
-                                <th>AcciÃ³n</th>
+                                <th data-sortable="true" class="text-center"><span class="small">Tipo traslado</span></th>
+                                <th data-sortable="true" class="text-center" style="width: 150px"><span class="small">Fecha traslado</span></th>
+                                <th data-sortable="true" class="text-center"><span class="small">FMA</span></th>
+                                <th data-sortable="true" class="text-center" style="width: 150px"><span class="small">Guía despacho</span></th>
+                                <th data-sortable="true" class="text-center"><span class="small">Fundo origen</span></th>
+                                <th data-sortable="true" class="text-center"><span class="small">Fundo destino</span></th>
+                                <th data-sortable="true" class="text-center"><span class="small">Estado</span></th>
+                                <th class="text-center"><span class="small">Acción</span></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -126,21 +146,12 @@
         <![endif]-->
 
         <!-- Plugin JS -->
-        <script src="/js/plugins/icheck/jquery.icheck.js"></script>
-        <script src="/js/plugins/select2/select2.js"></script>
-        <script src="/js/libs/raphael-2.1.2.min.js"></script>
-        <script src="/js/plugins/morris/morris.min.js"></script>
-        <script src="/js/plugins/sparkline/jquery.sparkline.min.js"></script>
-        <script src="/js/plugins/nicescroll/jquery.nicescroll.min.js"></script>
-        <script src="/js/plugins/fullcalendar/fullcalendar.min.js"></script>
+        <script src="/js/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="/js/plugins/datatables/DT_bootstrap.js"></script>
+        <script src="/js/plugins/tableCheckable/jquery.tableCheckable.js"></script>
+        <script src="/js/plugins/icheck/jquery.icheck.min.js"></script>
 
         <!-- App JS -->
         <script src="/js/target-admin.js"></script>
-
-        <!-- Plugin JS -->
-        <script src="/js/demos/dashboard.js"></script>
-        <script src="/js/demos/calendar.js"></script>
-        <script src="/js/demos/charts/morris/area.js"></script>
-        <script src="/js/demos/charts/morris/donut.js"></script>
     </body>
 </html>
