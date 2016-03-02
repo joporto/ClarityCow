@@ -2,6 +2,7 @@ package cl.sgg.controller;
 
 import cl.sgg.business.FeedlotTraslado;
 import cl.sgg.business.GrillaFeedlotTraslado;
+import cl.sgg.utils.Respuesta;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -41,8 +42,7 @@ public class trasladoDestete extends HttpServlet {
             if (request.getParameter("btnGuardar") != null) {
                 String accionBtn = request.getParameter("btnGuardar");
 
-                switch (accionBtn) 
-                {
+                switch (accionBtn) {
                     case "guardarDiio":
                         String radioBtn = request.getParameter("optradio");
                         try {
@@ -50,18 +50,16 @@ public class trasladoDestete extends HttpServlet {
                             float peso = Float.parseFloat(request.getParameter("txtPeso"));
 
                             boolean edit = false;
-                            
-                            for (int i = 0; i < ft.getListFeedlotTraslado().size(); i++) 
-                            {
+
+                            for (int i = 0; i < ft.getListFeedlotTraslado().size(); i++) {
                                 if (ft.getListFeedlotTraslado().get(i).getAnimal().getAnimalDiioActual() == diio) {
                                     ft.getListFeedlotTraslado().get(i).setPeso(peso);
                                     ft.getListFeedlotTraslado().get(i).setStatus(radioBtn);
                                     edit = true;
                                 }
-                                
+
                             }
-                            
-                           
+
                             if (!edit) {
                                 if (ft.CargarDIIO(diio).isStatus()) {
                                     cl.sgg.business.GrillaFeedlotTraslado gft = new GrillaFeedlotTraslado();
@@ -73,23 +71,17 @@ public class trasladoDestete extends HttpServlet {
                                     ft.getListFeedlotTraslado().add(gft);
                                     request.getSession().setAttribute("ft", ft);
                                     request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
-                                } 
-                                else 
-                                {
+                                } else {
                                     request.getSession().setAttribute("mensaje", ft.CargarDIIO(diio).getMensaje());
                                     request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
                                 }
-                            }
-                            else
-                            {
-                                
+                            } else {
+
                                 request.getSession().setAttribute("ft", ft);
                                 request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
                             }
 
-                        } 
-                        catch (Exception e) 
-                        {
+                        } catch (Exception e) {
                             request.getSession().setAttribute("mensaje", e.getMessage());
                             request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
                         }
@@ -98,13 +90,20 @@ public class trasladoDestete extends HttpServlet {
                         out.print("Guardar Excel");
                         break;
                     case "guardarFormulario":
+
+                        Respuesta r = new Respuesta();
                         try {
-                            request.getSession().setAttribute("mensaje", ft.GuardarFeedlotTraslado().getMensaje());
-                            request.getRequestDispatcher("/pages/feedlot/feedlot.jsp").forward(request, response);
+
+                            r = ft.GuardarFeedlotTraslado();
+
+                            if (r.isStatus()) {
+                                
+                                request.setAttribute("respuesta", r);
+                                request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
+                            }
                         } catch (Exception e) {
-                            out.println("No se detecta acción");
-                            request.getSession().setAttribute("mensaje", e.getMessage());
-                            request.getRequestDispatcher("/pages/feedlot/feedlot.jsp").forward(request, response);
+                            request.setAttribute("respuesta", r);
+                            request.getRequestDispatcher("/pages/feedlot/trasladoDestete.jsp").forward(request, response);
 
                         }
                         break;
